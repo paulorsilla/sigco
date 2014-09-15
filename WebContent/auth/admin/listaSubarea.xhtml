@@ -1,0 +1,141 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/comuns/template.xhtml">
+	<ui:define name="pageTitle">Cadastro de Subáreas</ui:define>
+
+	<ui:define name="content">
+		<p:spacer height="10px" />
+		<h:form>
+			<h:panelGrid columns="1" cellpadding="5">
+				<p:commandButton value="Adicionar Subárea" type="button"
+					onclick="PF('dlgNewSubarea').show(); " />
+			</h:panelGrid>
+		</h:form>
+
+		<p:spacer height="10px" />
+		<!-- Tabela com lista de subareas cadastrados no sistema -->
+		<h:form id="subarea">
+			<p:growl id="msgs" showDetail="true" />
+
+			<p:dataTable id="listaSubarea" var="subarea"
+				widgetVar="tabelaSubarea" editable="true" paginator="true"
+				paginatorPosition="bottom" rowsPerPageTemplate="10,15,20" rows="10"
+				resizableColumns="true" value="#{subareaBean.listaSubarea}"
+				style="margin-bottom: 10px" rowKey="#{subarea.descricao}"
+				emptyMessage="Nada encontrado!!"
+				filteredValue="#{subareaBean.filtroSubarea}">
+
+				<f:facet name="header">Subáreas Cadastradas</f:facet>
+				<f:facet name="header">
+					<p:outputPanel style="align: right">
+						<h:outputText value="Buscar: " />
+						<p:inputText id="globalFilter"
+							onkeyup="PF('tabelaSubarea').filter()" style="width: 150px"
+							placeholder="pesquisar" />
+					</p:outputPanel>
+				</f:facet>
+
+				<p:ajax event="rowEdit" listener="#{subareaBean.onRowEdit}"
+					update=":subarea:msgs" />
+				<p:ajax event="rowEditCancel" listener="#{subareaBean.onRowCancel}"
+					update=":subarea:msgs" />
+
+				<p:column filterBy="#{subarea.descricao}"
+					filterStyle="display: none; hidden: true;" headerText="Subárea"
+					sortBy="#{subarea.descricao}">
+					<p:cellEditor>
+						<f:facet name="input">
+							<p:inputText value="#{subarea.descricao}" />
+						</f:facet>
+						<f:facet name="output">
+							<p:outputLabel value="#{subarea.descricao}" />
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+
+				<p:column filterBy="#{subarea.area.descricao}"
+					filterStyle="display: none;" headerText="Área"
+					sortBy="#{subarea.area}">
+					<p:cellEditor>
+						<f:facet name="input">
+							<p:selectOneMenu value="#{subarea.area}"
+								converter="entityConverter" style="width: 38%">
+								<f:selectItems value="#{subareaBean.listaArea()}" var="area"
+									itemLabel="#{area.descricao}" id="area" />
+							</p:selectOneMenu>
+						</f:facet>
+						<f:facet name="output">
+							<p:outputLabel value="#{subarea.area}" />
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+
+				<p:column headerText="Alterar"
+					style="width:42px; text-align: center">
+					<p:rowEditor />
+				</p:column>
+				<p:column headerText="Excluir"
+					style="width: 40px; text-align: center">
+					<p:commandButton oncomplete="PF('dlgRemove').show()"
+						icon="ui-icon-trash" title="Excluir">
+						<f:setPropertyActionListener target="#{subareaBean.subarea}"
+							value="#{subarea}" />
+					</p:commandButton>
+				</p:column>
+			</p:dataTable>
+		</h:form>
+
+		<p:confirmDialog id="dlgRemove" header="Excluir Subárea"
+			widgetVar="dlgRemove" appendTo="@(body)"
+			message="Deseja realmente excluir a subárea selecionada ?"
+			severity="alert">
+			<h:form>
+
+				<p:commandButton value="Sim" action="#{subareaBean.excluir}"
+					onclick="@dlgRemove.hide()" update="@form :subarea" />
+
+				<p:commandButton value="Cancelar" onclick="@dlgRemove"
+					update="@form :subarea" />
+
+			</h:form>
+		</p:confirmDialog>
+
+		<!-- Janela para inserção de nova subarea -->
+		<p:dialog id="dlgNewSubarea" header="Adicionando Subárea"
+			widgetVar="dlgNewSubarea" modal="true" resizable="false"
+			appendTo="@(body)" draggable="false" styleClass="semBorda">
+			<h:form>
+				<p:panelGrid columns="2">
+					<p:outputLabel for="subarea" value="Subárea: " />
+					<p:inputText id="subarea" required="true"
+						value="#{subareaBean.subarea.descricao}" />
+
+					<p:outputLabel for="area" value="Área: " />
+					<p:selectOneMenu label="area" value="#{subareaBean.subarea.area}"
+						converter="entityConverter" required="true" id="area">
+						<f:selectItem itemLabel="--Selecione--" noSelectionOption="true" />
+						<f:selectItems value="#{subareaBean.listaArea()}" var="area"
+							itemLabel="#{area.descricao}" />
+					</p:selectOneMenu>
+
+					<p:commandButton
+						action="#{subareaBean.salvar(subareaBean.subarea)}" value="Salvar"
+						icon="ui-icon-check" oncomplete="PF('dlgNewSubarea').show()"
+						update="@form :subarea" />
+					<p:commandButton value="Salvar e Fechar" icon="ui-icon-close"
+						onclick="@dlgNewSubarea"
+						action="#{subareaBean.salvar(subareaBean.subarea)}"
+						update="@form :subarea @this" />
+				</p:panelGrid>
+			</h:form>
+
+		</p:dialog>
+
+	</ui:define>
+</ui:composition>
+
+</html>

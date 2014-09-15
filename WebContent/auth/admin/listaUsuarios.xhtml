@@ -1,0 +1,173 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/comuns/template.xhtml">
+	<ui:define name="pageTitle">Cadastro de Usuários</ui:define>
+
+	<ui:define name="content">
+		<p:spacer height="10px" />
+		<h:form>
+			<p:panelGrid columns="1" cellpadding="5">
+				<p:commandButton id="newUser" value="Novo Usuário" type="button"
+					onclick="PF('dlgNewUser').show(); " />
+			</p:panelGrid>
+		</h:form>
+
+		<p:spacer height="10px" />
+		<!-- Tabela com lista de Usuários cadastrados no sistema -->
+		<h:form id="cadastro">
+			<p:growl id="msgs" showDetail="true" />
+
+			<p:dataTable id="listaUsuarios" var="usuario"
+				widgetVar="tabelaUsuarios" editable="true" paginator="true"
+				paginatorPosition="bottom" rowsPerPageTemplate="10,15,20" rows="10"
+				resizableColumns="true" value="#{usuarioBean.listaUsuarios}"
+				style="margin-bottom: 10px" rowKey="#{usuario.login}"
+				emptyMessage="Nada encontrado!!"
+				filteredValue="#{usuarioBean.filtroUsuarios}">
+
+				<f:facet name="header">Usuários Cadastrados</f:facet>
+				<f:facet name="header">
+					<p:outputPanel style="align: right">
+						<h:outputText value="Buscar: " />
+						<p:inputText id="globalFilter"
+							onkeyup="PF('tabelaUsuarios').filter()" style="width: 150px"
+							placeholder="pesquisar" />
+					</p:outputPanel>
+				</f:facet>
+
+				<p:ajax event="rowEdit" listener="#{usuarioBean.onRowEdit}"
+					update=":cadastro:msgs" />
+				<p:ajax event="rowEditCancel" listener="#{usuarioBean.onRowCancel}"
+					update=":cadastro:msgs" />
+
+				<!-- 				<p:ajax event="delete" listener="#{usuarioBean.onRowDelete}" -->
+				<!-- 					update=":cadastro:msgs" /> -->
+
+				<p:column filterBy="#{usuario.login}" filterStyle="display: none;"
+					headerText="Login" sortBy="#{usuario.login}">
+					<p:outputLabel value="#{usuario.login}" />
+				</p:column>
+
+				<p:column filterBy="#{usuario.nomeCompleto}"
+					filterStyle="display: none;" headerText="Nome Completo"
+					sortBy="#{usuario.nomeCompleto}">
+					<p:cellEditor>
+						<f:facet name="input">
+							<p:inputText id="nomeCompleto" value="#{usuario.nomeCompleto}" />
+						</f:facet>
+						<f:facet name="output">
+							<p:outputLabel value="#{usuario.nomeCompleto}" />
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+
+				<p:column filterBy="#{usuario.autorizacao.nome}"
+					filterStyle="display: none;" headerText="Autorização"
+					sortBy="#{usuario.autorizacao.nome}">
+					<p:cellEditor>
+						<f:facet name="input">
+							<p:selectOneMenu value="#{usuario.autorizacao}"
+								converter="entityConverter" style="width: 38%">
+								<f:selectItems value="#{autorizacaoBean.listaAutorizacoes()}"
+									var="autorizacao" itemLabel="#{autorizacao.nome}"
+									id="autorizacao" />
+							</p:selectOneMenu>
+						</f:facet>
+						<f:facet name="output">
+							<p:outputLabel value="#{usuario.autorizacao}" />
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+
+				<p:column filterBy="#{usuario.enable}" filterStyle="display: none;"
+					headerText="Ativo" sortBy="#{usuario.enable}">
+					<p:cellEditor>
+						<f:facet name="output">
+							<p:selectBooleanCheckbox value="#{usuario.enable}"
+								disabled="true" style="width: auto" />
+						</f:facet>
+						<f:facet name="input">
+							<p:selectBooleanCheckbox value="#{usuario.enable}"
+								style="float: center" />
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+
+				<p:column headerText="Alterar"
+					style="width:42px; text-align: center">
+					<p:rowEditor />
+				</p:column>
+				<p:column headerText="Excluir"
+					style="width: 40px; text-align: center">
+					<p:commandButton onclick="PF('dlgRemove').show()"
+						icon="ui-icon-trash" title="Excluir">
+						<f:setPropertyActionListener target="#{usuarioBean.usuario}"
+							value="#{usuario}" />
+					</p:commandButton>
+				</p:column>
+			</p:dataTable>
+		</h:form>
+
+		<p:confirmDialog id="dlgRemove" header="Excluir Usuário"
+			widgetVar="dlgRemove" appendTo="@(body)"
+			message="Deseja realmente excluir o usuário selecionado ?"
+			severity="alert">
+			<h:form>
+				<p:focus for="cancelar" />
+				<p:commandButton value="Sim"
+					action="#{usuarioBean.excluir(usuarioBean.usuario)}"
+					onclick="@dlgRemove.hide()" update="@this :cadastro" />
+
+				<p:commandButton id="cancelar" value="Cancelar" onclick="@dlgRemove"
+					update="@this :cadastro" />
+
+			</h:form>
+		</p:confirmDialog>
+
+		<!-- Janela para inserção de novo usuário -->
+
+		<p:dialog id="dlgNewUser" header="Adicionando Usuário"
+			widgetVar="dlgNewUser" modal="true" resizable="false"
+			appendTo="@(body)" draggable="false" styleClass="semBorda">
+			<h:form>
+				<p:panelGrid columns="2">
+					<p:outputLabel for="login" value="Login: " />
+					<p:inputText id="login" required="true"
+						value="#{usuarioBean.usuario.login}" />
+
+					<p:outputLabel for="nomeCompleto" value="Nome Completo: " />
+					<p:inputText id="nomeCompleto" required="true"
+						value="#{usuarioBean.usuario.nomeCompleto}" />
+
+					<p:outputLabel for="autorizacao" value="Autorização: " />
+					<p:selectOneMenu label="autorizacao"
+						value="#{usuarioBean.usuario.autorizacao}"
+						converter="entityConverter" required="true" id="autorizacao">
+						<f:selectItem itemLabel="--Selecione--" noSelectionOption="true" />
+						<f:selectItems value="#{autorizacaoBean.listaAutorizacoes()}"
+							var="autorizacao" itemLabel="#{autorizacao.nome}" />
+					</p:selectOneMenu>
+
+					<p:outputLabel value="Ativo: " />
+					<p:selectBooleanCheckbox value="#{usuarioBean.usuario.enable}" />
+				</p:panelGrid>
+
+				<p:commandButton action="#{usuarioBean.salvar(usuarioBean.usuario)}"
+					value="Salvar" icon="ui-icon-check"
+					oncomplete="PF('dlgNewUser').show()" update="@form @this :cadastro" />
+				<p:spacer width="5px" />
+				<p:commandButton value="Salvar e Fechar" icon="ui-icon-close"
+					onclick="@dlgNewUser"
+					action="#{usuarioBean.salvar(usuarioBean.usuario)}"
+					update="@form @this :cadastro" />
+			</h:form>
+
+		</p:dialog>
+
+	</ui:define>
+</ui:composition>
+</html>

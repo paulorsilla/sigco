@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<b:beans xmlns="http://www.springframework.org/schema/security"
+	xmlns:b="http://www.springframework.org/schema/beans" xmlns:security="http://www.springframework.org/schema/security"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:jee="http://www.springframework.org/schema/jee"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+    					http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+                        http://www.springframework.org/schema/security
+                        http://www.springframework.org/schema/security/spring-security-3.2.xsd
+                        http://www.springframework.org/schema/context
+                        http://www.springframework.org/schema/context/spring-context-3.2.xsd
+                        http://www.springframework.org/schema/tx
+                        http://www.springframework.org/schema/tx/spring-tx-3.2.xsd
+                        http://www.springframework.org/schema/jee
+                        http://www.springframework.org/schema/jee/spring-jee-3.2.xsd">
+
+	<b:bean id="entityManagerFactory"
+		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+		<b:property name="jtaDataSource" ref="SigcoWEBDS" />
+		<b:property name="jpaVendorAdapter" ref="jpaVendorAdapterH" />
+	</b:bean>
+
+	<jee:jndi-lookup id="SigcoWEBDS" jndi-name="java:jboss/datasources/SigcoWEB" />
+
+	<b:bean id="jpaVendorAdapterH"
+		class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
+		<b:property name="database" value="POSTGRESQL" />
+		<b:property name="showSql" value="true" />
+	</b:bean>
+
+	<b:bean id="transactionManager"
+		class="org.springframework.transaction.jta.JtaTransactionManager" />
+
+	<tx:annotation-driven transaction-manager="transactionManager" />
+
+	<b:bean
+		class="org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor" />
+
+	<!-- Configuração SpringSecurity -->
+
+	<security:http auto-config="true" use-expressions="true">
+		<security:intercept-url pattern="/index.jsf"
+			access="isAuthenticated()" />
+		<security:intercept-url pattern="/auth/admin/*.jsf"
+			access="hasRole('Administrador')" />
+		<security:intercept-url pattern="/auth/comum/*.jsf" />
+		<security:intercept-url pattern="/cadastro.jsf"
+			access="has_Role('Comum')" />
+
+		<security:form-login login-page="/login.jsf"
+			authentication-failure-url="/login.jsf?erro=true"
+			login-processing-url="/j_spring_security_check" />
+
+	</security:http>
+
+	<security:authentication-manager>
+		<security:authentication-provider
+			ref="ldapAuthProvider" />
+	</security:authentication-manager>
+
+	<!-- Contexto de conexao com o servidor -->
+
+	<b:bean id="contextSource"
+		class="org.springframework.security.ldap.DefaultSpringSecurityContextSource">
+		<b:constructor-arg
+			value="ldap://dourado.cnpso.embrapa.br:389/dc=cnpso,dc=embrapa,dc=br" />
+		<b:property name="userDn"
+			value="cn=Manager,ou=People,dc=cnpso,dc=embrapa,dc=br" />
+		<b:property name="password" value="esipumm@*2010" />
+	</b:bean>
+
+	<b:bean id="ldapAuthProvider"
+		class="org.springframework.security.ldap.authentication.LdapAuthenticationProvider">
+		<b:constructor-arg>
+			<b:bean
+				class="org.springframework.security.ldap.authentication.BindAuthenticator">
+				<b:constructor-arg ref="contextSource" />
+				<b:property name="userDnPatterns">
+					<b:list>
+						<b:value>uid={0},ou=People</b:value>
+					</b:list>
+				</b:property>
+			</b:bean>
+		</b:constructor-arg>
+		<b:constructor-arg>
+			<b:bean class="br.embrapa.cnpso.sigco.ldap.AuthoritiesPopulator">
+			</b:bean>
+		</b:constructor-arg>
+	</b:bean>
+</b:beans>
