@@ -85,17 +85,14 @@ public class AreaBean implements Serializable {
 	}
 
 	public void salvar(Area area) {
-//		try {
-//			this.em.persist(area);
-//			this.em.flush();
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		} finally {
-//			this.init();
-//		}
-		
-		System.out.println("->" + area.getDescricao());
-
+		try {
+			this.em.persist(area);
+			this.em.flush();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			this.init();
+		}
 	}
 
 	public void excluir(Area area) {
