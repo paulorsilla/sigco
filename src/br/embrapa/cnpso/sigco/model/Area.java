@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Collection;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -21,7 +22,11 @@ public class Area implements Serializable {
 	@GeneratedValue(strategy = GenerationType.AUTO, generator = "seqIDA")
 	private Long id;
 
+	@Column(length = 100)
 	private String descricao;
+
+	@Column(length = 10)
+	private String sigla;
 
 	@OneToMany(mappedBy = "area", cascade = CascadeType.ALL)
 	private Collection<Subarea> subarea;
@@ -42,6 +47,14 @@ public class Area implements Serializable {
 		this.descricao = descricao;
 	}
 
+	public String getSigla() {
+		return sigla;
+	}
+
+	public void setSigla(String sigla) {
+		this.sigla = sigla;
+	}
+
 	public Collection<Subarea> getSubarea() {
 		return subarea;
 	}
@@ -52,7 +65,9 @@ public class Area implements Serializable {
 		int result = 1;
 		result = prime * result
 				+ ((descricao == null) ? 0 : descricao.hashCode());
-		result = prime * result + (int) (id ^ (id >>> 32));
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		result = prime * result + ((sigla == null) ? 0 : sigla.hashCode());
+		result = prime * result + ((subarea == null) ? 0 : subarea.hashCode());
 		return result;
 	}
 
@@ -70,7 +85,20 @@ public class Area implements Serializable {
 				return false;
 		} else if (!descricao.equals(other.descricao))
 			return false;
-		if (id != other.id)
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		if (sigla == null) {
+			if (other.sigla != null)
+				return false;
+		} else if (!sigla.equals(other.sigla))
+			return false;
+		if (subarea == null) {
+			if (other.subarea != null)
+				return false;
+		} else if (!subarea.equals(other.subarea))
 			return false;
 		return true;
 	}

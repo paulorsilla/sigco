@@ -74,6 +74,23 @@
 					</p:cellEditor>
 				</p:column>
 
+				<p:column filterBy="#{subarea.area.sigla}"
+					filterStyle="display: none;" headerText="Sigla"
+					sortBy="#{subarea.area.sigla}">
+					<p:cellEditor>
+						<f:facet name="input">
+							<p:selectOneMenu value="#{subarea.area.sigla}"
+								converter="areaConverter" style="width: 38%">
+								<f:selectItems value="#{subareaBean.listaArea()}" var="area"
+									itemLabel="#{area.sigla}" id="sigla" />
+							</p:selectOneMenu>
+						</f:facet>
+						<f:facet name="output">
+							<p:outputLabel value="#{subarea.area.sigla}" />
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+
 				<p:column headerText="Alterar"
 					style="width:42px; text-align: center">
 					<p:rowEditor />
@@ -105,6 +122,7 @@
 		</p:confirmDialog>
 
 		<!-- Janela para inserção de nova subarea -->
+		
 		<p:dialog id="dlgNewSubarea" header="Adicionando Subárea"
 			widgetVar="dlgNewSubarea" modal="true" resizable="false"
 			appendTo="@(body)" draggable="false" styleClass="semBorda">
@@ -116,7 +134,7 @@
 
 					<p:outputLabel for="area" value="Área: " />
 					<p:selectOneMenu label="area" value="#{subareaBean.subarea.area}"
-						converter="entityConverter" required="true" id="area">
+						converter="areaConverter" required="true" id="area">
 						<f:selectItem itemLabel="--Selecione--" noSelectionOption="true" />
 						<f:selectItems value="#{subareaBean.listaArea()}" var="area"
 							itemLabel="#{area.descricao}" />

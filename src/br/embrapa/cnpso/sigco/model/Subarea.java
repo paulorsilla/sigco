@@ -2,6 +2,7 @@ package br.embrapa.cnpso.sigco.model;
 
 import java.io.Serializable;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -19,6 +20,7 @@ public class Subarea implements Serializable {
 	@GeneratedValue(strategy = GenerationType.AUTO, generator = "seqIDSA")
 	private Long id;
 
+	@Column(length = 10)
 	private String descricao;
 
 	@ManyToOne

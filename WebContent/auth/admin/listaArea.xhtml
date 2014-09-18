@@ -17,9 +17,9 @@
 		</h:form>
 
 		<p:spacer height="10px" />
-		
+
 		<!-- Tabela com lista de áreas cadastrados no sistema -->
-		
+
 		<h:form id="area">
 			<p:growl id="msgs" showDetail="true" />
 
@@ -57,9 +57,22 @@
 					</p:cellEditor>
 				</p:column>
 
+				<p:column filterBy="#{area.sigla}"
+					filterStyle="display: none; hidden: true;" headerText="Sigla"
+					sortBy="#{area.sigla}">
+					<p:cellEditor>
+						<f:facet name="input">
+							<p:inputText value="#{area.sigla}" />
+						</f:facet>
+						<f:facet name="output">
+							<p:outputLabel value="#{area.sigla}" />
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+
 				<p:column headerText="Alterar"
 					style="width:42px; text-align: center">
-					<p:rowEditor  />
+					<p:rowEditor />
 				</p:column>
 				<p:column headerText="Excluir"
 					style="width: 40px; text-align: center">
@@ -79,7 +92,8 @@
 			severity="alert">
 			<h:form>
 
-				<p:commandButton value="Sim" action="#{areaBean.excluir}"
+				<p:commandButton value="Sim"
+					action="#{areaBean.excluir(areaBean.area)}"
 					onclick="@dlgRemove.hide()" update="@form :area" />
 
 				<p:commandButton value="Cancelar" onclick="@dlgRemove"
@@ -89,7 +103,7 @@
 		</p:confirmDialog>
 
 		<!-- Janela para inserção de nova área -->
-		
+
 		<p:dialog id="dlgNewArea" header="Adicionando Área"
 			widgetVar="dlgNewArea" modal="true" resizable="false"
 			appendTo="@(body)" draggable="false" styleClass="semBorda">
@@ -98,6 +112,10 @@
 					<p:outputLabel for="area" value="Área: " />
 					<p:inputText id="area" required="true"
 						value="#{areaBean.area.descricao}" />
+
+					<p:outputLabel for="sigla" value="Sigla: " />
+					<p:inputText id="sigla" required="true"
+						value="#{areaBean.area.sigla}" />
 				</p:panelGrid>
 
 				<p:commandButton action="#{areaBean.salvar(areaBean.area)}"
