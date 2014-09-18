@@ -1,0 +1,121 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/comuns/template.xhtml">
+	<ui:define name="pageTitle">Cadastro de Áreas</ui:define>
+
+	<ui:define name="content">
+		<p:spacer height="10px" />
+		<h:form>
+			<h:panelGrid columns="1" cellpadding="5">
+				<p:commandButton value="Adicionar Atuacao" type="button"
+					onclick="PF('dlgNewAtuacao').show(); " />
+			</h:panelGrid>
+		</h:form>
+
+		<p:spacer height="10px" />
+
+		<!-- Tabela com lista de atuações cadastrados no sistema -->
+
+		<h:form id="atuacao">
+			<p:growl id="msgs" showDetail="true" />
+
+			<p:dataTable id="listaAtuacao" var="atuacao"
+				widgetVar="tabelaAtuacao" editable="true" paginator="true"
+				paginatorPosition="bottom" rowsPerPageTemplate="10,15,20" rows="10"
+				resizableColumns="true" value="#{atuacaoBean.listaAtuacao}"
+				style="margin-bottom: 10px" rowKey="#{atuacao.descricao}"
+				emptyMessage="Nada encontrado!!"
+				filteredValue="#{atuacaoBean.filtroAtuacao}">
+
+				<f:facet name="header">Atuações Cadastradas</f:facet>
+				<f:facet name="header">
+					<p:outputPanel style="align: right">
+						<h:outputText value="Buscar: " />
+						<p:inputText id="globalFilter"
+							onkeyup="PF('tabelaAtuacao').filter()" style="width: 150px"
+							placeholder="pesquisar" />
+					</p:outputPanel>
+				</f:facet>
+
+				<p:ajax event="rowEdit" listener="#{atuacaoBean.onRowEdit}"
+					update=":area:msgs" />
+				<p:ajax event="rowEditCancel" listener="#{atuacaoBean.onRowCancel}"
+					update=":area:msgs" />
+
+				<p:column filterBy="#{atuacao.descricao}"
+					filterStyle="display: none; hidden: true;" headerText="Atuacao"
+					sortBy="#{atuacao.descricao}">
+					<p:cellEditor>
+						<f:facet name="input">
+							<p:inputText value="#{atuacao.descricao}" />
+						</f:facet>
+						<f:facet name="output">
+							<p:outputLabel value="#{atuacao.descricao}" />
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+
+				<p:column headerText="Alterar"
+					style="width:42px; text-align: center">
+					<p:rowEditor />
+				</p:column>
+				<p:column headerText="Excluir"
+					style="width: 40px; text-align: center">
+					<p:commandButton oncomplete="PF('dlgRemove').show()"
+						icon="ui-icon-trash" title="Excluir">
+						<f:setPropertyActionListener target="#{atuacaoBean.atuacao}"
+							value="#{atuacao}" />
+					</p:commandButton>
+				</p:column>
+			</p:dataTable>
+		</h:form>
+
+		<p:confirmDialog id="dlgRemove" header="Excluir Atuacao"
+			widgetVar="dlgRemove" appendTo="@(body)"
+			message="Deseja realmente excluir a atuacao selecionada ?" 
+			severity="alert">
+			<h:form>
+
+				<p:commandButton value="Sim"
+					action="#{atuacaoBean.excluir(atuacaoBean.atuacao)}"
+					onclick="@dlgRemove.hide()" update="@form :atuacao" />
+
+				<p:commandButton value="Cancelar" onclick="@dlgRemove"
+					update="@form :atuacao" />
+
+			</h:form>
+		</p:confirmDialog>
+
+		<!-- Janela para inserção de nova área -->
+
+		<p:dialog id="dlgNewAtuacao" header="Adicionando Atuacao"
+			widgetVar="dlgNewAtuacao" modal="true" resizable="false"
+			appendTo="@(body)" draggable="false" styleClass="semBorda">
+			<h:form>
+				<p:panelGrid columns="2">
+					<p:outputLabel for="atuacao" value="Atuacao: " />
+					<p:inputText id="area" required="true"
+						value="#{atuacaoBean.atuacao.descricao}" />
+				</p:panelGrid>
+
+				<p:commandButton action="#{atuacaoBean.salvar(atuacaoBean.atuacao)}"
+					value="Salvar" icon="ui-icon-check"
+					oncomplete="PF('dlgNewAtuacao').show()"
+					update="@form :atuacao @this" />
+				<p:spacer width="5px" />
+				<p:commandButton value="Salvar e Fechar" icon="ui-icon-close"
+					onclick="@dlgNewAtuacao"
+					action="#{atuacaoBean.salvar(atuacaoBean.atuacao)}"
+					update="@form :atuacao @this" />
+			</h:form>
+
+		</p:dialog>
+
+	</ui:define>
+</ui:composition>
+
+</html>

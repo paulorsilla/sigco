@@ -1,0 +1,114 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/comuns/template.xhtml">
+	<ui:define name="pageTitle">Cadastro de Equipe Técnica</ui:define>
+
+	<ui:define name="content">
+		<p:spacer height="10px" />
+		<h:form>
+			<h:panelGrid columns="1" cellpadding="5">
+				<p:commandButton value="Adicionar Equipe Técnica" type="button"
+					onclick="PF('dlgNewET').show(); " />
+			</h:panelGrid>
+		</h:form>
+
+		<p:spacer height="10px" />
+
+		<!-- Tabela com lista de equipes técnicas cadastrados no sistema -->
+
+		<h:form id="et">
+			<p:growl id="msgs" showDetail="true" />
+
+			<p:dataTable id="listaET" var="et" widgetVar="tabelaET"
+				editable="true" paginator="true" paginatorPosition="bottom"
+				rowsPerPageTemplate="10,15,20" rows="10" resizableColumns="true"
+				value="#{etBean.listaET}" style="margin-bottom: 10px"
+				rowKey="#{et.descricao}" emptyMessage="Nada encontrado!!"
+				filteredValue="#{etBean.filtroET}">
+
+				<f:facet name="header">Equipes Técnicas Cadastradas</f:facet>
+				<f:facet name="header">
+					<p:outputPanel style="align: right">
+						<h:outputText value="Buscar: " />
+						<p:inputText id="globalFilter" onkeyup="PF('tabelaET').filter()"
+							style="width: 150px" placeholder="pesquisar" />
+					</p:outputPanel>
+				</f:facet>
+
+				<p:ajax event="rowEdit" listener="#{etBean.onRowEdit}"
+					update=":area:msgs" />
+				<p:ajax event="rowEditCancel" listener="#{etBean.onRowCancel}"
+					update=":area:msgs" />
+
+				<p:column filterBy="#{et.descricao}"
+					filterStyle="display: none; hidden: true;" headerText="Área"
+					sortBy="#{et.descricao}">
+					<p:cellEditor>
+						<f:facet name="input">
+							<p:inputText value="#{et.descricao}" />
+						</f:facet>
+						<f:facet name="output">
+							<p:outputLabel value="#{et.descricao}" />
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+
+				<p:column headerText="Alterar"
+					style="width:42px; text-align: center">
+					<p:rowEditor />
+				</p:column>
+				<p:column headerText="Excluir"
+					style="width: 40px; text-align: center">
+					<p:commandButton oncomplete="PF('dlgRemove').show()"
+						icon="ui-icon-trash" title="Excluir">
+						<f:setPropertyActionListener target="#{etBean.et}" value="#{et}" />
+					</p:commandButton>
+				</p:column>
+			</p:dataTable>
+		</h:form>
+
+		<p:confirmDialog id="dlgRemove" header="Excluir Equipe Técnica"
+			widgetVar="dlgRemove" appendTo="@(body)"
+			message="Deseja realmente excluir a equipe técnica selecionada ?"
+			severity="alert">
+			<h:form>
+
+				<p:commandButton value="Sim" action="#{etBean.excluir(etBean.et)}"
+					onclick="@dlgRemove.hide()" update="@form :et" />
+
+				<p:commandButton value="Cancelar" onclick="@dlgRemove"
+					update="@form :et" />
+
+			</h:form>
+		</p:confirmDialog>
+
+		<!-- Janela para inserção de nova equipe técnica -->
+
+		<p:dialog id="dlgNewET" header="Adicionando Equipe Técnica"
+			widgetVar="dlgNewET" modal="true" resizable="false"
+			appendTo="@(body)" draggable="false" styleClass="semBorda">
+			<h:form>
+				<p:panelGrid columns="2">
+					<p:outputLabel for="et" value="Equipe Técnica: " />
+					<p:inputText id="et" required="true" value="#{etBean.et.descricao}" />
+				</p:panelGrid>
+
+				<p:commandButton action="#{etBean.salvar(etBean.et)}" value="Salvar"
+					icon="ui-icon-check" oncomplete="PF('dlgNewET').show()"
+					update="@form :et @this" />
+				<p:spacer width="5px" />
+				<p:commandButton value="Salvar e Fechar" icon="ui-icon-close"
+					onclick="@dlgNewET" action="#{etBean.salvar(etBean.et)}"
+					update="@form :et @this" />
+			</h:form>
+
+		</p:dialog>
+
+	</ui:define>
+</ui:composition>
+
+</html>

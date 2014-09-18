@@ -1,0 +1,120 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/comuns/template.xhtml">
+	<ui:define name="pageTitle">Cadastro de Função</ui:define>
+
+	<ui:define name="content">
+		<p:spacer height="10px" />
+		<h:form>
+			<h:panelGrid columns="1" cellpadding="5">
+				<p:commandButton value="Adicionar Função" type="button"
+					onclick="PF('dlgNewFuncao').show(); " />
+			</h:panelGrid>
+		</h:form>
+
+		<p:spacer height="10px" />
+
+		<!-- Tabela com lista de funções cadastrados no sistema -->
+
+		<h:form id="funcao">
+			<p:growl id="msgs" showDetail="true" />
+
+			<p:dataTable id="listaFuncao" var="funcao" widgetVar="tabelaFuncao"
+				editable="true" paginator="true" paginatorPosition="bottom"
+				rowsPerPageTemplate="10,15,20" rows="10" resizableColumns="true"
+				value="#{funcaoBean.listaFuncao}" style="margin-bottom: 10px"
+				rowKey="#{funcao.descricao}" emptyMessage="Nada encontrado!!"
+				filteredValue="#{funcaoBean.filtroFuncao}">
+
+				<f:facet name="header">Funções Cadastradas</f:facet>
+				<f:facet name="header">
+					<p:outputPanel style="align: right">
+						<h:outputText value="Buscar: " />
+						<p:inputText id="globalFilter"
+							onkeyup="PF('tabelaFuncao').filter()" style="width: 150px"
+							placeholder="pesquisar" />
+					</p:outputPanel>
+				</f:facet>
+
+				<p:ajax event="rowEdit" listener="#{funcaoBean.onRowEdit}"
+					update=":area:msgs" />
+				<p:ajax event="rowEditCancel" listener="#{funcaoBean.onRowCancel}"
+					update=":area:msgs" />
+
+				<p:column filterBy="#{funcao.descricao}"
+					filterStyle="display: none; hidden: true;" headerText="Função"
+					sortBy="#{funcao.descricao}">
+					<p:cellEditor>
+						<f:facet name="input">
+							<p:inputText value="#{funcao.descricao}" />
+						</f:facet>
+						<f:facet name="output">
+							<p:outputLabel value="#{funcao.descricao}" />
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+
+				<p:column headerText="Alterar"
+					style="width:42px; text-align: center">
+					<p:rowEditor />
+				</p:column>
+				<p:column headerText="Excluir"
+					style="width: 40px; text-align: center">
+					<p:commandButton oncomplete="PF('dlgRemove').show()"
+						icon="ui-icon-trash" title="Excluir">
+						<f:setPropertyActionListener target="#{funcaoBean.area}"
+							value="#{funcao}" />
+					</p:commandButton>
+				</p:column>
+			</p:dataTable>
+		</h:form>
+
+		<p:confirmDialog id="dlgRemove" header="Excluir Função"
+			widgetVar="dlgRemove" appendTo="@(body)"
+			message="Deseja realmente excluir a função selecionada ?"
+			severity="alert">
+			<h:form>
+
+				<p:commandButton value="Sim"
+					action="#{funcaoBean.excluir(funcaoBean.funcao)}"
+					onclick="@dlgRemove.hide()" update="@form :funcao" />
+
+				<p:commandButton value="Cancelar" onclick="@dlgRemove"
+					update="@form :funcao" />
+
+			</h:form>
+		</p:confirmDialog>
+
+		<!-- Janela para inserção de nova Função -->
+
+		<p:dialog id="dlgNewFuncao" header="Adicionando Função"
+			widgetVar="dlgNewFuncao" modal="true" resizable="false"
+			appendTo="@(body)" draggable="false" styleClass="semBorda">
+			<h:form>
+				<p:panelGrid columns="2">
+					<p:outputLabel for="funcao" value="Função: " />
+					<p:inputText id="funcao" required="true"
+						value="#{funcaoBean.funcao.descricao}" />
+				</p:panelGrid>
+				<p:commandButton action="#{funcaoBean.salvar(funcaoBean.funcao)}"
+					value="Salvar" icon="ui-icon-check"
+					oncomplete="PF('dlgNewFuncao').show()" update="@form :funcao @this" />
+
+				<p:spacer width="5px" />
+
+				<p:commandButton value="Salvar e Fechar" icon="ui-icon-close"
+					onclick="@dlgNewFuncao"
+					action="#{funcaoBean.salvar(funcaoBean.funcao)}"
+					update="@form :funcao @this" />
+			</h:form>
+
+		</p:dialog>
+
+	</ui:define>
+</ui:composition>
+
+</html>
