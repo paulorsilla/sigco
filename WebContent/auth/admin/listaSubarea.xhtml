@@ -143,7 +143,7 @@
 					<p:commandButton
 						action="#{subareaBean.salvar(subareaBean.subarea)}" value="Salvar"
 						icon="ui-icon-check" oncomplete="PF('dlgNewSubarea').show()"
-						update="@form :subarea" />
+						update="@form :subarea @this" />
 					<p:commandButton value="Salvar e Fechar" icon="ui-icon-close"
 						onclick="@dlgNewSubarea"
 						action="#{subareaBean.salvar(subareaBean.subarea)}"

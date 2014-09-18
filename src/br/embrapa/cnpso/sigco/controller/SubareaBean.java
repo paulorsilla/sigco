@@ -109,8 +109,8 @@ public class SubareaBean implements Serializable {
 	public void excluir(Subarea subarea) {
 
 		try {
-			this.subarea = this.em.find(Subarea.class, subarea.getId());
-			this.em.remove(subarea);
+			Subarea suba = this.em.find(Subarea.class, subarea.getId());
+			this.em.remove(suba);
 			this.em.flush();
 		} catch (Exception e) {
 			e.printStackTrace();

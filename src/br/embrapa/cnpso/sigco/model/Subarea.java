@@ -20,7 +20,7 @@ public class Subarea implements Serializable {
 	@GeneratedValue(strategy = GenerationType.AUTO, generator = "seqIDSA")
 	private Long id;
 
-	@Column(length = 10)
+	@Column(length = 100)
 	private String descricao;
 
 	@ManyToOne
