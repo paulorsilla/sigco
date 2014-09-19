@@ -16,8 +16,7 @@ import javax.persistence.Query;
 
 import org.primefaces.event.RowEditEvent;
 
-import br.embrapa.cnpso.sigco.model.Area;
-import br.embrapa.cnpso.sigco.model.Subarea;
+import br.embrapa.cnpso.sigco.model.EquipeTecnica;
 
 @Named
 @Stateful
@@ -28,64 +27,48 @@ public class ETBean implements Serializable {
 	@PersistenceContext
 	private EntityManager em;
 
-	private Area area;
-	private Subarea subarea;
-	private Collection<Area> listaArea;
-	private List<Area> filtroArea;
+	private EquipeTecnica et;
+	private Collection<EquipeTecnica> listaET;
+	private List<EquipeTecnica> filtroET;
 
 	@PostConstruct
 	@SuppressWarnings("unchecked")
 	public void init() {
-		this.area = new Area();
+		this.et = new EquipeTecnica();
 
 		Query query = em.createQuery(
-				"SELECT ar FROM Area ar ORDER BY ar.descricao", Area.class);
-		this.listaArea = query.getResultList();
+				"SELECT et FROM EquipeTecnica et ORDER BY et.descricao",
+				EquipeTecnica.class);
+		this.listaET = query.getResultList();
 	}
 
-	public Area getArea() {
-		return area;
+	public EquipeTecnica getEt() {
+		return et;
 	}
 
-	public void setArea(Area area) {
-		this.area = area;
+	public void setEt(EquipeTecnica et) {
+		this.et = et;
 	}
 
-	public Subarea getSubarea() {
-		return subarea;
+	public Collection<EquipeTecnica> getListaET() {
+		return listaET;
 	}
 
-	public void setSubarea(Subarea subarea) {
-		this.subarea = subarea;
+	public void setListaET(Collection<EquipeTecnica> listaET) {
+		this.listaET = listaET;
 	}
 
-	public Collection<Area> getListaArea() {
-		return listaArea;
+	public List<EquipeTecnica> getFiltroET() {
+		return filtroET;
 	}
 
-	public void setListaArea(Collection<Area> listaArea) {
-		this.listaArea = listaArea;
+	public void setFiltroET(List<EquipeTecnica> filtroET) {
+		this.filtroET = filtroET;
 	}
 
-	public EntityManager getEm() {
-		return em;
-	}
-
-	public void setEm(EntityManager em) {
-		this.em = em;
-	}
-
-	public List<Area> getFiltroArea() {
-		return filtroArea;
-	}
-
-	public void setFiltroArea(List<Area> filtroArea) {
-		this.filtroArea = filtroArea;
-	}
-
-	public void salvar(Area area) {
+	public void salvar(EquipeTecnica et) {
 		try {
-			this.em.persist(area);
+			this.em.persist(et);
 			this.em.flush();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -94,11 +77,11 @@ public class ETBean implements Serializable {
 		}
 	}
 
-	public void excluir(Area area) {
+	public void excluir(EquipeTecnica et) {
 
 		try {
-			Area ar = this.em.find(Area.class, area.getId());
-			this.em.remove(ar);
+			EquipeTecnica equi = this.em.find(EquipeTecnica.class, et.getId());
+			this.em.remove(equi);
 			this.em.flush();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -109,13 +92,14 @@ public class ETBean implements Serializable {
 
 	public void onRowEdit(RowEditEvent event) {
 
-		this.area = (Area) event.getObject();
+		this.et = (EquipeTecnica) event.getObject();
 
-		FacesMessage msg = new FacesMessage("Área Editado", area.getDescricao());
+		FacesMessage msg = new FacesMessage("Equipe Técnica Editado",
+				et.getDescricao());
 		FacesContext.getCurrentInstance().addMessage(null, msg);
 
 		try {
-			em.merge(area.getId());
+			em.merge(et.getId());
 			em.flush();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -123,8 +107,8 @@ public class ETBean implements Serializable {
 	}
 
 	public void onRowCancel(RowEditEvent event) {
-		FacesMessage msg = new FacesMessage("Área Cancelado",
-				((Area) event.getObject()).getDescricao());
+		FacesMessage msg = new FacesMessage("Equipe Técnica Cancelado",
+				((EquipeTecnica) event.getObject()).getDescricao());
 		FacesContext.getCurrentInstance().addMessage(null, msg);
 	}
 

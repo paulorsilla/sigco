@@ -16,8 +16,7 @@ import javax.persistence.Query;
 
 import org.primefaces.event.RowEditEvent;
 
-import br.embrapa.cnpso.sigco.model.Area;
-import br.embrapa.cnpso.sigco.model.Subarea;
+import br.embrapa.cnpso.sigco.model.Funcao;
 
 @Named
 @Stateful
@@ -28,64 +27,48 @@ public class FuncaoBean implements Serializable {
 	@PersistenceContext
 	private EntityManager em;
 
-	private Area area;
-	private Subarea subarea;
-	private Collection<Area> listaArea;
-	private List<Area> filtroArea;
+	private Funcao funcao;
+	private Collection<Funcao> listaFuncao;
+	private List<Funcao> filtroFuncao;
 
 	@PostConstruct
 	@SuppressWarnings("unchecked")
 	public void init() {
-		this.area = new Area();
+		this.funcao = new Funcao();
 
 		Query query = em.createQuery(
-				"SELECT ar FROM Area ar ORDER BY ar.descricao", Area.class);
-		this.listaArea = query.getResultList();
+				"SELECT func FROM Funcao func ORDER BY func.descricao",
+				Funcao.class);
+		this.listaFuncao = query.getResultList();
 	}
 
-	public Area getArea() {
-		return area;
+	public Funcao getFuncao() {
+		return funcao;
 	}
 
-	public void setArea(Area area) {
-		this.area = area;
+	public void setFuncao(Funcao funcao) {
+		this.funcao = funcao;
 	}
 
-	public Subarea getSubarea() {
-		return subarea;
+	public Collection<Funcao> getListaFuncao() {
+		return listaFuncao;
 	}
 
-	public void setSubarea(Subarea subarea) {
-		this.subarea = subarea;
+	public void setListaFuncao(Collection<Funcao> listaFuncao) {
+		this.listaFuncao = listaFuncao;
 	}
 
-	public Collection<Area> getListaArea() {
-		return listaArea;
+	public List<Funcao> getFiltroFuncao() {
+		return filtroFuncao;
 	}
 
-	public void setListaArea(Collection<Area> listaArea) {
-		this.listaArea = listaArea;
+	public void setFiltroFuncao(List<Funcao> filtroFuncao) {
+		this.filtroFuncao = filtroFuncao;
 	}
 
-	public EntityManager getEm() {
-		return em;
-	}
-
-	public void setEm(EntityManager em) {
-		this.em = em;
-	}
-
-	public List<Area> getFiltroArea() {
-		return filtroArea;
-	}
-
-	public void setFiltroArea(List<Area> filtroArea) {
-		this.filtroArea = filtroArea;
-	}
-
-	public void salvar(Area area) {
+	public void salvar(Funcao funcao) {
 		try {
-			this.em.persist(area);
+			this.em.persist(funcao);
 			this.em.flush();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -94,11 +77,11 @@ public class FuncaoBean implements Serializable {
 		}
 	}
 
-	public void excluir(Area area) {
+	public void excluir(Funcao funcao) {
 
 		try {
-			Area ar = this.em.find(Area.class, area.getId());
-			this.em.remove(ar);
+			Funcao func = this.em.find(Funcao.class, funcao.getId());
+			this.em.remove(func);
 			this.em.flush();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -109,13 +92,14 @@ public class FuncaoBean implements Serializable {
 
 	public void onRowEdit(RowEditEvent event) {
 
-		this.area = (Area) event.getObject();
+		this.funcao = (Funcao) event.getObject();
 
-		FacesMessage msg = new FacesMessage("Área Editado", area.getDescricao());
+		FacesMessage msg = new FacesMessage("Função Editado",
+				funcao.getDescricao());
 		FacesContext.getCurrentInstance().addMessage(null, msg);
 
 		try {
-			em.merge(area.getId());
+			em.merge(funcao.getId());
 			em.flush();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -123,8 +107,8 @@ public class FuncaoBean implements Serializable {
 	}
 
 	public void onRowCancel(RowEditEvent event) {
-		FacesMessage msg = new FacesMessage("Área Cancelado",
-				((Area) event.getObject()).getDescricao());
+		FacesMessage msg = new FacesMessage("Função Cancelado",
+				((Funcao) event.getObject()).getDescricao());
 		FacesContext.getCurrentInstance().addMessage(null, msg);
 	}
 

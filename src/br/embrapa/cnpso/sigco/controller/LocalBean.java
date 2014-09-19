@@ -16,8 +16,7 @@ import javax.persistence.Query;
 
 import org.primefaces.event.RowEditEvent;
 
-import br.embrapa.cnpso.sigco.model.Area;
-import br.embrapa.cnpso.sigco.model.Subarea;
+import br.embrapa.cnpso.sigco.model.Localizacao;
 
 @Named
 @Stateful
@@ -29,64 +28,48 @@ public class LocalBean implements Serializable {
 	@PersistenceContext
 	private EntityManager em;
 
-	private Area area;
-	private Subarea subarea;
-	private Collection<Area> listaArea;
-	private List<Area> filtroArea;
+	private Localizacao local;
+	private Collection<Localizacao> listaLocal;
+	private List<Localizacao> filtroLocal;
 
 	@PostConstruct
 	@SuppressWarnings("unchecked")
 	public void init() {
-		this.area = new Area();
+		this.local = new Localizacao();
 
 		Query query = em.createQuery(
-				"SELECT ar FROM Area ar ORDER BY ar.descricao", Area.class);
-		this.listaArea = query.getResultList();
+				"SELECT local FROM Localizacao local ORDER BY local.descricao",
+				Localizacao.class);
+		this.listaLocal = query.getResultList();
 	}
 
-	public Area getArea() {
-		return area;
+	public Localizacao getLocal() {
+		return local;
 	}
 
-	public void setArea(Area area) {
-		this.area = area;
+	public void setLocal(Localizacao local) {
+		this.local = local;
 	}
 
-	public Subarea getSubarea() {
-		return subarea;
+	public Collection<Localizacao> getListaLocal() {
+		return listaLocal;
 	}
 
-	public void setSubarea(Subarea subarea) {
-		this.subarea = subarea;
+	public void setListaLocal(Collection<Localizacao> listaLocal) {
+		this.listaLocal = listaLocal;
 	}
 
-	public Collection<Area> getListaArea() {
-		return listaArea;
+	public List<Localizacao> getFiltroLocal() {
+		return filtroLocal;
 	}
 
-	public void setListaArea(Collection<Area> listaArea) {
-		this.listaArea = listaArea;
+	public void setFiltroLocal(List<Localizacao> filtroLocal) {
+		this.filtroLocal = filtroLocal;
 	}
 
-	public EntityManager getEm() {
-		return em;
-	}
-
-	public void setEm(EntityManager em) {
-		this.em = em;
-	}
-
-	public List<Area> getFiltroArea() {
-		return filtroArea;
-	}
-
-	public void setFiltroArea(List<Area> filtroArea) {
-		this.filtroArea = filtroArea;
-	}
-
-	public void salvar(Area area) {
+	public void salvar(Localizacao local) {
 		try {
-			this.em.persist(area);
+			this.em.persist(local);
 			this.em.flush();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -95,11 +78,11 @@ public class LocalBean implements Serializable {
 		}
 	}
 
-	public void excluir(Area area) {
+	public void excluir(Localizacao local) {
 
 		try {
-			Area ar = this.em.find(Area.class, area.getId());
-			this.em.remove(ar);
+			Localizacao loc = this.em.find(Localizacao.class, local.getId());
+			this.em.remove(loc);
 			this.em.flush();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -110,13 +93,14 @@ public class LocalBean implements Serializable {
 
 	public void onRowEdit(RowEditEvent event) {
 
-		this.area = (Area) event.getObject();
+		this.local = (Localizacao) event.getObject();
 
-		FacesMessage msg = new FacesMessage("Área Editado", area.getDescricao());
+		FacesMessage msg = new FacesMessage("Localização Editado",
+				local.getDescricao());
 		FacesContext.getCurrentInstance().addMessage(null, msg);
 
 		try {
-			em.merge(area.getId());
+			em.merge(local.getId());
 			em.flush();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -125,7 +109,7 @@ public class LocalBean implements Serializable {
 
 	public void onRowCancel(RowEditEvent event) {
 		FacesMessage msg = new FacesMessage("Área Cancelado",
-				((Area) event.getObject()).getDescricao());
+				((Localizacao) event.getObject()).getDescricao());
 		FacesContext.getCurrentInstance().addMessage(null, msg);
 	}
 
