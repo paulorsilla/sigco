@@ -69,14 +69,6 @@ public class SubareaBean implements Serializable {
 		this.listaSubarea = listaSubarea;
 	}
 
-	public EntityManager getEm() {
-		return em;
-	}
-
-	public void setEm(EntityManager em) {
-		this.em = em;
-	}
-
 	public List<Subarea> getFiltroSubarea() {
 		return filtroSubarea;
 	}
@@ -95,21 +87,23 @@ public class SubareaBean implements Serializable {
 
 	public void salvar(Subarea subarea) {
 
-		try {
-			this.em.persist(subarea);
-			this.em.flush();
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			this.init();
-		}
+		System.out.println("-> " + subarea.getDescricao());
+
+//		try {
+//			this.em.persist(subarea);
+//			this.em.flush();
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		} finally {
+//			this.init();
+//		}
 
 	}
 
 	public void excluir(Subarea subarea) {
 
 		try {
-			Subarea suba = this.em.find(Subarea.class, subarea.getId());
+			Subarea suba = this.em.find(Subarea.class, this.subarea.getId());
 			this.em.remove(suba);
 			this.em.flush();
 		} catch (Exception e) {

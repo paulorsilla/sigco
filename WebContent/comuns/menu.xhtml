@@ -30,6 +30,13 @@
 					url="/auth/admin/listaLocalizacao.jsf" />
 			</p:submenu>
 
+			<p:submenu label="Configurações" icon="ui-icon-save"
+				rendered="#{facesContext.externalContext.isUserInRole('Administrador')}">
+				<p:menuitem value="Escolaridade"
+					url="/auth/admin/configuracao/listaEscolaridade.jsf" />
+			</p:submenu>
+
+
 			<f:facet name="options">
 				<h:outputText value="Bem vindo, #{usuarioBean.validaAuth()}" />
 			</f:facet>

@@ -68,14 +68,6 @@ public class AreaBean implements Serializable {
 		this.listaArea = listaArea;
 	}
 
-	public EntityManager getEm() {
-		return em;
-	}
-
-	public void setEm(EntityManager em) {
-		this.em = em;
-	}
-
 	public List<Area> getFiltroArea() {
 		return filtroArea;
 	}
