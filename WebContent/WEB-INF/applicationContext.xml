@@ -40,6 +40,7 @@
 	<!-- Configuração SpringSecurity -->
 
 	<security:http auto-config="true" use-expressions="true">
+		<security:intercept-url pattern="/" access="isAnonimous()" />
 		<security:intercept-url pattern="/index.jsf"
 			access="isAuthenticated()" />
 		<security:intercept-url pattern="/auth/admin/*.jsf"

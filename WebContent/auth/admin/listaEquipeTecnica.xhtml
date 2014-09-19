@@ -26,9 +26,9 @@
 			<p:dataTable id="listaET" var="et" widgetVar="tabelaET"
 				editable="true" paginator="true" paginatorPosition="bottom"
 				rowsPerPageTemplate="10,15,20" rows="10" resizableColumns="true"
-				value="#{etBean.listaET}" style="margin-bottom: 10px"
+				value="#{eTBean.listaET}" style="margin-bottom: 10px"
 				rowKey="#{et.descricao}" emptyMessage="Nada encontrado!!"
-				filteredValue="#{etBean.filtroET}">
+				filteredValue="#{eTBean.filtroET}">
 
 				<f:facet name="header">Equipes Técnicas Cadastradas</f:facet>
 				<f:facet name="header">
@@ -39,10 +39,10 @@
 					</p:outputPanel>
 				</f:facet>
 
-				<p:ajax event="rowEdit" listener="#{etBean.onRowEdit}"
-					update=":area:msgs" />
-				<p:ajax event="rowEditCancel" listener="#{etBean.onRowCancel}"
-					update=":area:msgs" />
+				<p:ajax event="rowEdit" listener="#{eTBean.onRowEdit}"
+					update=":et:msgs" />
+				<p:ajax event="rowEditCancel" listener="#{eTBean.onRowCancel}"
+					update=":et:msgs" />
 
 				<p:column filterBy="#{et.descricao}"
 					filterStyle="display: none; hidden: true;" headerText="Área"
@@ -65,7 +65,7 @@
 					style="width: 40px; text-align: center">
 					<p:commandButton oncomplete="PF('dlgRemove').show()"
 						icon="ui-icon-trash" title="Excluir">
-						<f:setPropertyActionListener target="#{etBean.et}" value="#{et}" />
+						<f:setPropertyActionListener target="#{eTBean.et}" value="#{et}" />
 					</p:commandButton>
 				</p:column>
 			</p:dataTable>
@@ -77,7 +77,7 @@
 			severity="alert">
 			<h:form>
 
-				<p:commandButton value="Sim" action="#{etBean.excluir(etBean.et)}"
+				<p:commandButton value="Sim" action="#{eTBean.excluir(eTBean.et)}"
 					onclick="@dlgRemove.hide()" update="@form :et" />
 
 				<p:commandButton value="Cancelar" onclick="@dlgRemove"
@@ -94,15 +94,15 @@
 			<h:form>
 				<p:panelGrid columns="2">
 					<p:outputLabel for="et" value="Equipe Técnica: " />
-					<p:inputText id="et" required="true" value="#{etBean.et.descricao}" />
+					<p:inputText id="et" required="true" value="#{eTBean.et.descricao}" />
 				</p:panelGrid>
 
-				<p:commandButton action="#{etBean.salvar(etBean.et)}" value="Salvar"
+				<p:commandButton action="#{eTBean.salvar(eTBean.et)}" value="Salvar"
 					icon="ui-icon-check" oncomplete="PF('dlgNewET').show()"
 					update="@form :et @this" />
 				<p:spacer width="5px" />
 				<p:commandButton value="Salvar e Fechar" icon="ui-icon-close"
-					onclick="@dlgNewET" action="#{etBean.salvar(etBean.et)}"
+					onclick="@dlgNewET" action="#{eTBean.salvar(eTBean.et)}"
 					update="@form :et @this" />
 			</h:form>
 

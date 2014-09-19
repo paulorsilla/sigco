@@ -11,7 +11,7 @@
 		<p:spacer height="10px" />
 		<h:form>
 			<h:panelGrid columns="1" cellpadding="5">
-				<p:commandButton value="Adicionar Atuacao" type="button"
+				<p:commandButton value="Adicionar Atuação" type="button"
 					onclick="PF('dlgNewAtuacao').show(); " />
 			</h:panelGrid>
 		</h:form>
@@ -42,9 +42,9 @@
 				</f:facet>
 
 				<p:ajax event="rowEdit" listener="#{atuacaoBean.onRowEdit}"
-					update=":area:msgs" />
+					update=":atuacao:msgs" />
 				<p:ajax event="rowEditCancel" listener="#{atuacaoBean.onRowCancel}"
-					update=":area:msgs" />
+					update=":atuacao:msgs" />
 
 				<p:column filterBy="#{atuacao.descricao}"
 					filterStyle="display: none; hidden: true;" headerText="Atuacao"
@@ -98,7 +98,7 @@
 			<h:form>
 				<p:panelGrid columns="2">
 					<p:outputLabel for="atuacao" value="Atuacao: " />
-					<p:inputText id="area" required="true"
+					<p:inputText id="atuacao" required="true"
 						value="#{atuacaoBean.atuacao.descricao}" />
 				</p:panelGrid>
 

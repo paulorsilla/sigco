@@ -41,9 +41,9 @@
 				</f:facet>
 
 				<p:ajax event="rowEdit" listener="#{localBean.onRowEdit}"
-					update=":area:msgs" />
+					update=":local:msgs" />
 				<p:ajax event="rowEditCancel" listener="#{localBean.onRowCancel}"
-					update=":area:msgs" />
+					update=":local:msgs" />
 
 				<p:column filterBy="#{local.descricao}"
 					filterStyle="display: none; hidden: true;" headerText="Localização"

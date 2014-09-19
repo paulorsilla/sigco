@@ -41,9 +41,9 @@
 				</f:facet>
 
 				<p:ajax event="rowEdit" listener="#{funcaoBean.onRowEdit}"
-					update=":area:msgs" />
+					update=":funcao:msgs" />
 				<p:ajax event="rowEditCancel" listener="#{funcaoBean.onRowCancel}"
-					update=":area:msgs" />
+					update=":funcao:msgs" />
 
 				<p:column filterBy="#{funcao.descricao}"
 					filterStyle="display: none; hidden: true;" headerText="Função"
