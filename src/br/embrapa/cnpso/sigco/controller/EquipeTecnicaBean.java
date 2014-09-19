@@ -21,54 +21,56 @@ import br.embrapa.cnpso.sigco.model.EquipeTecnica;
 @Named
 @Stateful
 @ViewScoped
-public class ETBean implements Serializable {
+public class EquipeTecnicaBean implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@PersistenceContext
 	private EntityManager em;
 
-	private EquipeTecnica et;
-	private Collection<EquipeTecnica> listaET;
-	private List<EquipeTecnica> filtroET;
+	private EquipeTecnica equipetecnica;
+	private Collection<EquipeTecnica> listaEquipeTecnica;
+	private List<EquipeTecnica> filtroEquipeTecnica;
 
 	@PostConstruct
 	@SuppressWarnings("unchecked")
 	public void init() {
-		this.et = new EquipeTecnica();
+		this.equipetecnica = new EquipeTecnica();
 
 		Query query = em.createQuery(
 				"SELECT et FROM EquipeTecnica et ORDER BY et.descricao",
 				EquipeTecnica.class);
-		this.listaET = query.getResultList();
+		this.listaEquipeTecnica = query.getResultList();
 	}
 
-	public EquipeTecnica getEt() {
-		return et;
+	public EquipeTecnica getEquipetecnica() {
+		return equipetecnica;
 	}
 
-	public void setEt(EquipeTecnica et) {
-		this.et = et;
+	public void setEquipetecnica(EquipeTecnica equipetecnica) {
+		this.equipetecnica = equipetecnica;
 	}
 
-	public Collection<EquipeTecnica> getListaET() {
-		return listaET;
+	public Collection<EquipeTecnica> getListaEquipeTecnica() {
+		return listaEquipeTecnica;
 	}
 
-	public void setListaET(Collection<EquipeTecnica> listaET) {
-		this.listaET = listaET;
+	public void setListaEquipeTecnica(
+			Collection<EquipeTecnica> listaEquipeTecnica) {
+		this.listaEquipeTecnica = listaEquipeTecnica;
 	}
 
-	public List<EquipeTecnica> getFiltroET() {
-		return filtroET;
+	public List<EquipeTecnica> getFiltroEquipeTecnica() {
+		return filtroEquipeTecnica;
 	}
 
-	public void setFiltroET(List<EquipeTecnica> filtroET) {
-		this.filtroET = filtroET;
+	public void setFiltroEquipeTecnica(List<EquipeTecnica> filtroEquipeTecnica) {
+		this.filtroEquipeTecnica = filtroEquipeTecnica;
 	}
 
-	public void salvar(EquipeTecnica et) {
+	public void salvar(EquipeTecnica equipetecnica) {
+
 		try {
-			this.em.persist(et);
+			this.em.persist(equipetecnica);
 			this.em.flush();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -77,10 +79,11 @@ public class ETBean implements Serializable {
 		}
 	}
 
-	public void excluir(EquipeTecnica et) {
+	public void excluir(EquipeTecnica equipetecnica) {
 
 		try {
-			EquipeTecnica equi = this.em.find(EquipeTecnica.class, et.getId());
+			EquipeTecnica equi = this.em.find(EquipeTecnica.class,
+					this.equipetecnica.getId());
 			this.em.remove(equi);
 			this.em.flush();
 		} catch (Exception e) {
@@ -92,14 +95,14 @@ public class ETBean implements Serializable {
 
 	public void onRowEdit(RowEditEvent event) {
 
-		this.et = (EquipeTecnica) event.getObject();
+		this.equipetecnica = (EquipeTecnica) event.getObject();
 
 		FacesMessage msg = new FacesMessage("Equipe Técnica Editado",
-				et.getDescricao());
+				equipetecnica.getDescricao());
 		FacesContext.getCurrentInstance().addMessage(null, msg);
 
 		try {
-			em.merge(et.getId());
+			em.merge(equipetecnica.getId());
 			em.flush();
 		} catch (Exception e) {
 			e.printStackTrace();

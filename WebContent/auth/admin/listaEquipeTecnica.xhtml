@@ -12,7 +12,7 @@
 		<h:form>
 			<h:panelGrid columns="1" cellpadding="5">
 				<p:commandButton value="Adicionar Equipe Técnica" type="button"
-					onclick="PF('dlgNewET').show(); " />
+					onclick="PF('dlgNewEquipeTecnica').show(); " />
 			</h:panelGrid>
 		</h:form>
 
@@ -20,39 +20,43 @@
 
 		<!-- Tabela com lista de equipes técnicas cadastrados no sistema -->
 
-		<h:form id="et">
+		<h:form id="equipetecnica">
 			<p:growl id="msgs" showDetail="true" />
 
-			<p:dataTable id="listaET" var="et" widgetVar="tabelaET"
-				editable="true" paginator="true" paginatorPosition="bottom"
-				rowsPerPageTemplate="10,15,20" rows="10" resizableColumns="true"
-				value="#{eTBean.listaET}" style="margin-bottom: 10px"
-				rowKey="#{et.descricao}" emptyMessage="Nada encontrado!!"
-				filteredValue="#{eTBean.filtroET}">
+			<p:dataTable id="listaEquipeTecnica" var="equipetecnica"
+				widgetVar="tabelaEquipeTecnica" editable="true" paginator="true"
+				paginatorPosition="bottom" rowsPerPageTemplate="10,15,20" rows="10"
+				resizableColumns="true"
+				value="#{equipeTecnicaBean.listaEquipeTecnica}"
+				style="margin-bottom: 10px" rowKey="#{equipetecnica.descricao}"
+				emptyMessage="Nada encontrado!!"
+				filteredValue="#{equipeTecnicaBean.filtroEquipeTecnica}">
 
 				<f:facet name="header">Equipes Técnicas Cadastradas</f:facet>
 				<f:facet name="header">
 					<p:outputPanel style="align: right">
 						<h:outputText value="Buscar: " />
-						<p:inputText id="globalFilter" onkeyup="PF('tabelaET').filter()"
-							style="width: 150px" placeholder="pesquisar" />
+						<p:inputText id="globalFilter"
+							onkeyup="PF('tabelaEquipeTecnica').filter()" style="width: 150px"
+							placeholder="pesquisar" />
 					</p:outputPanel>
 				</f:facet>
 
-				<p:ajax event="rowEdit" listener="#{eTBean.onRowEdit}"
-					update=":et:msgs" />
-				<p:ajax event="rowEditCancel" listener="#{eTBean.onRowCancel}"
-					update=":et:msgs" />
+				<p:ajax event="rowEdit" listener="#{equipeTecnicaBean.onRowEdit}"
+					update=":equipetecnica:msgs" />
+				<p:ajax event="rowEditCancel"
+					listener="#{equipeTecnicaBean.onRowCancel}"
+					update=":equipetecnica:msgs" />
 
-				<p:column filterBy="#{et.descricao}"
-					filterStyle="display: none; hidden: true;" headerText="Área"
-					sortBy="#{et.descricao}">
+				<p:column filterBy="#{equipetecnica.descricao}"
+					filterStyle="display: none; hidden: true;"
+					headerText="Equipe Técnica" sortBy="#{equipetecnica.descricao}">
 					<p:cellEditor>
 						<f:facet name="input">
-							<p:inputText value="#{et.descricao}" />
+							<p:inputText value="#{equipetecnica.descricao}" />
 						</f:facet>
 						<f:facet name="output">
-							<p:outputLabel value="#{et.descricao}" />
+							<p:outputLabel value="#{equipetecnica.descricao}" />
 						</f:facet>
 					</p:cellEditor>
 				</p:column>
@@ -65,7 +69,9 @@
 					style="width: 40px; text-align: center">
 					<p:commandButton oncomplete="PF('dlgRemove').show()"
 						icon="ui-icon-trash" title="Excluir">
-						<f:setPropertyActionListener target="#{eTBean.et}" value="#{et}" />
+						<f:setPropertyActionListener
+							target="#{equipeTecnicaBean.equipetecnica}"
+							value="#{equipetecnica}" />
 					</p:commandButton>
 				</p:column>
 			</p:dataTable>
@@ -77,33 +83,38 @@
 			severity="alert">
 			<h:form>
 
-				<p:commandButton value="Sim" action="#{eTBean.excluir(eTBean.et)}"
-					onclick="@dlgRemove.hide()" update="@form :et" />
+				<p:commandButton value="Sim"
+					action="#{equipeTecnicaBean.excluir(equipetecnicaBean.equipetecnica)}"
+					onclick="@dlgRemove.hide()" update="@form :equipetecnica" />
 
 				<p:commandButton value="Cancelar" onclick="@dlgRemove"
-					update="@form :et" />
+					update="@form :equipetecnica" />
 
 			</h:form>
 		</p:confirmDialog>
 
 		<!-- Janela para inserção de nova equipe técnica -->
 
-		<p:dialog id="dlgNewET" header="Adicionando Equipe Técnica"
-			widgetVar="dlgNewET" modal="true" resizable="false"
+		<p:dialog id="dlgNewEquipeTecnica" header="Adicionando Equipe Técnica"
+			widgetVar="dlgNewEquipeTecnica" modal="true" resizable="false"
 			appendTo="@(body)" draggable="false" styleClass="semBorda">
 			<h:form>
 				<p:panelGrid columns="2">
-					<p:outputLabel for="et" value="Equipe Técnica: " />
-					<p:inputText id="et" required="true" value="#{eTBean.et.descricao}" />
+					<p:outputLabel for="equipetecnica" value="Equipe Técnica: " />
+					<p:inputText id="equipetecnica" required="true"
+						value="#{equipeTecnicaBean.equipetecnica.descricao}" />
 				</p:panelGrid>
 
-				<p:commandButton action="#{eTBean.salvar(eTBean.et)}" value="Salvar"
-					icon="ui-icon-check" oncomplete="PF('dlgNewET').show()"
-					update="@form :et @this" />
+				<p:commandButton
+					action="#{equipeTecnicaBean.salvar(equipeTecnicaBean.equipetecnica)}"
+					value="Salvar" icon="ui-icon-check"
+					oncomplete="PF('dlgNewEquipeTecnica').show()"
+					update="@form :equipetecnica @this" />
 				<p:spacer width="5px" />
 				<p:commandButton value="Salvar e Fechar" icon="ui-icon-close"
-					onclick="@dlgNewET" action="#{eTBean.salvar(eTBean.et)}"
-					update="@form :et @this" />
+					onclick="@dlgNewEquipeTecnica"
+					action="#{equipeTecnicaBean.salvar(equipeTecnicaBean.equipetecnica)}"
+					update="@form :equipetecnica @this" />
 			</h:form>
 
 		</p:dialog>

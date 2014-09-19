@@ -25,7 +25,7 @@ public class EquipeTecnica implements Serializable {
 	private String descricao;
 
 	public Long getId() {
-		return this.id;
+		return id;
 	}
 
 	public void setId(Long id) {
@@ -33,7 +33,7 @@ public class EquipeTecnica implements Serializable {
 	}
 
 	public String getDescricao() {
-		return this.descricao;
+		return descricao;
 	}
 
 	public void setDescricao(String descricao) {
