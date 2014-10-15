@@ -11,7 +11,7 @@
 		<p:spacer height="10px" />
 		<h:form>
 			<h:panelGrid columns="1" cellpadding="5">
-				<p:commandButton value="Adicionar Área" type="button"
+				<p:commandButton value="Adicionar Área de Atuação" type="button"
 					onclick="PF('dlgNewArea').show(); " />
 			</h:panelGrid>
 		</h:form>
@@ -26,11 +26,11 @@
 			<p:dataTable id="listaArea" var="area" widgetVar="tabelaArea"
 				editable="true" paginator="true" paginatorPosition="bottom"
 				rowsPerPageTemplate="10,15,20" rows="10" resizableColumns="true"
-				value="#{areaBean.listaArea}" style="margin-bottom: 10px"
+				value="#{areaAtuacaoBean.listaArea}" style="margin-bottom: 10px"
 				rowKey="#{area.descricao}" emptyMessage="Nada encontrado!!"
-				filteredValue="#{areaBean.filtroArea}">
+				filteredValue="#{areaAtuacaoBean.filtroArea}">
 
-				<f:facet name="header">Áreas Cadastradas</f:facet>
+				<f:facet name="header">Áreas de Atuação Cadastradas</f:facet>
 				<f:facet name="header">
 					<p:outputPanel style="align: right">
 						<h:outputText value="Buscar: " />
@@ -39,33 +39,20 @@
 					</p:outputPanel>
 				</f:facet>
 
-				<p:ajax event="rowEdit" listener="#{areaBean.onRowEdit}"
+				<p:ajax event="rowEdit" listener="#{areaAtuacaoBean.onRowEdit}"
 					update=":area:msgs" />
-				<p:ajax event="rowEditCancel" listener="#{areaBean.onRowCancel}"
-					update=":area:msgs" />
+				<p:ajax event="rowEditCancel"
+					listener="#{areaAtuacaoBean.onRowCancel}" update=":area:msgs" />
 
 				<p:column filterBy="#{area.descricao}"
-					filterStyle="display: none; hidden: true;" headerText="Área"
-					sortBy="#{area.descricao}">
+					filterStyle="display: none; hidden: true;"
+					headerText="Área de Atuação" sortBy="#{area.descricao}">
 					<p:cellEditor>
 						<f:facet name="input">
 							<p:inputText value="#{area.descricao}" />
 						</f:facet>
 						<f:facet name="output">
 							<p:outputLabel value="#{area.descricao}" />
-						</f:facet>
-					</p:cellEditor>
-				</p:column>
-
-				<p:column filterBy="#{area.sigla}"
-					filterStyle="display: none; hidden: true;" headerText="Sigla"
-					sortBy="#{area.sigla}">
-					<p:cellEditor>
-						<f:facet name="input">
-							<p:inputText value="#{area.sigla}" />
-						</f:facet>
-						<f:facet name="output">
-							<p:outputLabel value="#{area.sigla}" />
 						</f:facet>
 					</p:cellEditor>
 				</p:column>
@@ -78,7 +65,7 @@
 					style="width: 40px; text-align: center">
 					<p:commandButton oncomplete="PF('dlgRemove').show()"
 						icon="ui-icon-trash" title="Excluir">
-						<f:setPropertyActionListener target="#{areaBean.area}"
+						<f:setPropertyActionListener target="#{areaAtuacaoBean.area}"
 							value="#{area}" />
 					</p:commandButton>
 				</p:column>
@@ -87,13 +74,13 @@
 
 		<p:confirmDialog id="dlgRemove" header="Excluir Área"
 			widgetVar="dlgRemove" appendTo="@(body)"
-			message="Deseja realmente excluir a área selecionada ? 
-			Obs.: Isto irá causar a exclusão de todas as subáreas vinculadas a esta área."
+			message="Deseja realmente excluir a área de atuação selecionada ? 
+			Obs.: Isto irá causar a exclusão de todas as subáreas de atuação vinculadas a esta área."
 			severity="alert">
 			<h:form>
 
 				<p:commandButton value="Sim"
-					action="#{areaBean.excluir(areaBean.area)}"
+					action="#{areaAtuacaoBean.excluir(areaAtuacaoBean.area)}"
 					onclick="@dlgRemove.hide()" update="@form :area" />
 
 				<p:commandButton value="Cancelar" onclick="@dlgRemove"
@@ -104,26 +91,24 @@
 
 		<!-- Janela para inserção de nova área -->
 
-		<p:dialog id="dlgNewArea" header="Adicionando Área"
+		<p:dialog id="dlgNewArea" header="Adicionando Área de Atuação"
 			widgetVar="dlgNewArea" modal="true" resizable="false"
 			appendTo="@(body)" draggable="false" styleClass="semBorda">
 			<h:form>
 				<p:panelGrid columns="2">
-					<p:outputLabel for="area" value="Área: " />
+					<p:outputLabel for="area" value="Área de Atuação: " />
 					<p:inputText id="area" required="true"
-						value="#{areaBean.area.descricao}" />
-
-					<p:outputLabel for="sigla" value="Sigla: " />
-					<p:inputText id="sigla" required="true"
-						value="#{areaBean.area.sigla}" />
+						value="#{areaAtuacaoBean.area.descricao}" />
 				</p:panelGrid>
 
-				<p:commandButton action="#{areaBean.salvar(areaBean.area)}"
+				<p:commandButton
+					action="#{areaAtuacaoBean.salvar(areaAtuacaoBean.area)}"
 					value="Salvar" icon="ui-icon-check"
 					oncomplete="PF('dlgNewArea').show()" update="@form :area @this" />
 				<p:spacer width="5px" />
 				<p:commandButton value="Salvar e Fechar" icon="ui-icon-close"
-					onclick="@dlgNewArea" action="#{areaBean.salvar(areaBean.area)}"
+					onclick="@dlgNewArea"
+					action="#{areaAtuacaoBean.salvar(areaAtuacaoBean.area)}"
 					update="@form :area @this" />
 			</h:form>
 

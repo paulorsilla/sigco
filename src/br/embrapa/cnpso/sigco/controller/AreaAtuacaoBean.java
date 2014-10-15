@@ -16,67 +16,67 @@ import javax.persistence.Query;
 
 import org.primefaces.event.RowEditEvent;
 
-import br.embrapa.cnpso.sigco.model.Area;
-import br.embrapa.cnpso.sigco.model.Subarea;
+import br.embrapa.cnpso.sigco.model.AreaAtuacao;
+import br.embrapa.cnpso.sigco.model.SubareaAtuacao;
 
 @Named
 @Stateful
 @ViewScoped
-public class AreaBean implements Serializable {
+public class AreaAtuacaoBean implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
 	@PersistenceContext
 	private EntityManager em;
 
-	private Area area;
-	private Subarea subarea;
-	private Collection<Area> listaArea;
-	private List<Area> filtroArea;
+	private AreaAtuacao area;
+	private SubareaAtuacao subarea;
+	private Collection<AreaAtuacao> listaArea;
+	private List<AreaAtuacao> filtroArea;
 
 	@PostConstruct
 	@SuppressWarnings("unchecked")
 	public void init() {
-		this.area = new Area();
+		this.area = new AreaAtuacao();
 
 		Query query = em.createQuery(
-				"SELECT ar FROM Area ar ORDER BY ar.descricao", Area.class);
+				"SELECT ar FROM Area ar ORDER BY ar.descricao", AreaAtuacao.class);
 		this.listaArea = query.getResultList();
 	}
 
-	public Area getArea() {
+	public AreaAtuacao getArea() {
 		return area;
 	}
 
-	public void setArea(Area area) {
+	public void setArea(AreaAtuacao area) {
 		this.area = area;
 	}
 
-	public Subarea getSubarea() {
+	public SubareaAtuacao getSubarea() {
 		return subarea;
 	}
 
-	public void setSubarea(Subarea subarea) {
+	public void setSubarea(SubareaAtuacao subarea) {
 		this.subarea = subarea;
 	}
 
-	public Collection<Area> getListaArea() {
+	public Collection<AreaAtuacao> getListaArea() {
 		return listaArea;
 	}
 
-	public void setListaArea(Collection<Area> listaArea) {
+	public void setListaArea(Collection<AreaAtuacao> listaArea) {
 		this.listaArea = listaArea;
 	}
 
-	public List<Area> getFiltroArea() {
+	public List<AreaAtuacao> getFiltroArea() {
 		return filtroArea;
 	}
 
-	public void setFiltroArea(List<Area> filtroArea) {
+	public void setFiltroArea(List<AreaAtuacao> filtroArea) {
 		this.filtroArea = filtroArea;
 	}
 
-	public void salvar(Area area) {
+	public void salvar(AreaAtuacao area) {
 		try {
 			this.em.persist(area);
 			this.em.flush();
@@ -87,10 +87,10 @@ public class AreaBean implements Serializable {
 		}
 	}
 
-	public void excluir(Area area) {
+	public void excluir(AreaAtuacao area) {
 
 		try {
-			Area ar = this.em.find(Area.class, area.getId());
+			AreaAtuacao ar = this.em.find(AreaAtuacao.class, area.getId());
 			this.em.remove(ar);
 			this.em.flush();
 		} catch (Exception e) {
@@ -102,7 +102,7 @@ public class AreaBean implements Serializable {
 
 	public void onRowEdit(RowEditEvent event) {
 
-		this.area = (Area) event.getObject();
+		this.area = (AreaAtuacao) event.getObject();
 
 		FacesMessage msg = new FacesMessage("Área Editado", area.getDescricao());
 		FacesContext.getCurrentInstance().addMessage(null, msg);
@@ -117,7 +117,7 @@ public class AreaBean implements Serializable {
 
 	public void onRowCancel(RowEditEvent event) {
 		FacesMessage msg = new FacesMessage("Área Cancelado",
-				((Area) event.getObject()).getDescricao());
+				((AreaAtuacao) event.getObject()).getDescricao());
 		FacesContext.getCurrentInstance().addMessage(null, msg);
 	}
 

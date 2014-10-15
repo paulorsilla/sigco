@@ -9,8 +9,8 @@
 		
 		<class>br.embrapa.cnpso.sigco.model.Usuario</class>
 		<class>br.embrapa.cnpso.sigco.model.Autorizacao</class>
-		<class>br.embrapa.cnpso.sigco.model.Area</class>
-		<class>br.embrapa.cnpso.sigco.model.Subarea</class>
+		<class>br.embrapa.cnpso.sigco.model.AreaAtuacao</class>
+		<class>br.embrapa.cnpso.sigco.model.SubareaAtuacao</class>
 
 		<properties>
 			<!-- Propriedades do hibernate -->

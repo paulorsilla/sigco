@@ -13,23 +13,20 @@ import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 
 @Entity
-@SequenceGenerator(name = "seqIDA", sequenceName = "seqIDA")
-public class Area implements Serializable {
+@SequenceGenerator(name = "seqIDAa", sequenceName = "seqIDAa")
+public class AreaAtuacao implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO, generator = "seqIDA")
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seqIDAa")
 	private Long id;
 
 	@Column(length = 100)
 	private String descricao;
 
-	@Column(length = 10)
-	private String sigla;
-
 	@OneToMany(mappedBy = "area", cascade = CascadeType.ALL)
-	private Collection<Subarea> subarea;
+	private Collection<SubareaAtuacao> subarea;
 
 	public long getId() {
 		return id;
@@ -47,15 +44,7 @@ public class Area implements Serializable {
 		this.descricao = descricao;
 	}
 
-	public String getSigla() {
-		return sigla;
-	}
-
-	public void setSigla(String sigla) {
-		this.sigla = sigla;
-	}
-
-	public Collection<Subarea> getSubarea() {
+	public Collection<SubareaAtuacao> getSubarea() {
 		return subarea;
 	}
 
@@ -66,7 +55,6 @@ public class Area implements Serializable {
 		result = prime * result
 				+ ((descricao == null) ? 0 : descricao.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		result = prime * result + ((sigla == null) ? 0 : sigla.hashCode());
 		result = prime * result + ((subarea == null) ? 0 : subarea.hashCode());
 		return result;
 	}
@@ -79,7 +67,7 @@ public class Area implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Area other = (Area) obj;
+		AreaAtuacao other = (AreaAtuacao) obj;
 		if (descricao == null) {
 			if (other.descricao != null)
 				return false;
@@ -89,11 +77,6 @@ public class Area implements Serializable {
 			if (other.id != null)
 				return false;
 		} else if (!id.equals(other.id))
-			return false;
-		if (sigla == null) {
-			if (other.sigla != null)
-				return false;
-		} else if (!sigla.equals(other.sigla))
 			return false;
 		if (subarea == null) {
 			if (other.subarea != null)

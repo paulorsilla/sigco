@@ -16,28 +16,28 @@ import javax.persistence.Query;
 
 import org.primefaces.event.RowEditEvent;
 
-import br.embrapa.cnpso.sigco.model.Area;
-import br.embrapa.cnpso.sigco.model.Subarea;
+import br.embrapa.cnpso.sigco.model.AreaAtuacao;
+import br.embrapa.cnpso.sigco.model.SubareaAtuacao;
 
 @Stateful
 @Named
 @ViewScoped
-public class SubareaBean implements Serializable {
+public class SubareaAtuacaoBean implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
 	@PersistenceContext
 	private EntityManager em;
 
-	private Subarea subarea;
-	private Area area;
-	private Collection<Subarea> listaSubarea;
-	private List<Subarea> filtroSubarea;
+	private SubareaAtuacao subarea;
+	private AreaAtuacao area;
+	private Collection<SubareaAtuacao> listaSubarea;
+	private List<SubareaAtuacao> filtroSubarea;
 
 	@PostConstruct
 	@SuppressWarnings("unchecked")
 	public void init() {
-		this.subarea = new Subarea();
+		this.subarea = new SubareaAtuacao();
 
 		Query query = em
 				.createQuery("SELECT s FROM Subarea s ORDER BY s.descricao");
@@ -45,47 +45,47 @@ public class SubareaBean implements Serializable {
 
 	}
 
-	public Subarea getSubarea() {
+	public SubareaAtuacao getSubarea() {
 		return subarea;
 	}
 
-	public void setSubarea(Subarea subarea) {
+	public void setSubarea(SubareaAtuacao subarea) {
 		this.subarea = subarea;
 	}
 
-	public Area getArea() {
+	public AreaAtuacao getArea() {
 		return area;
 	}
 
-	public void setArea(Area area) {
+	public void setArea(AreaAtuacao area) {
 		this.area = area;
 	}
 
-	public Collection<Subarea> getListaSubarea() {
+	public Collection<SubareaAtuacao> getListaSubarea() {
 		return listaSubarea;
 	}
 
-	public void setListaSubarea(Collection<Subarea> listaSubarea) {
+	public void setListaSubarea(Collection<SubareaAtuacao> listaSubarea) {
 		this.listaSubarea = listaSubarea;
 	}
 
-	public List<Subarea> getFiltroSubarea() {
+	public List<SubareaAtuacao> getFiltroSubarea() {
 		return filtroSubarea;
 	}
 
-	public void setFiltroSubarea(List<Subarea> filtroSubarea) {
+	public void setFiltroSubarea(List<SubareaAtuacao> filtroSubarea) {
 		this.filtroSubarea = filtroSubarea;
 	}
 
 	@SuppressWarnings("unchecked")
-	public Collection<Area> listaArea() {
+	public Collection<AreaAtuacao> listaArea() {
 
 		Query query = em.createQuery("SELECT a FROM Area a");
 		return query.getResultList();
 
 	}
 
-	public void salvar(Subarea subarea) {
+	public void salvar(SubareaAtuacao subarea) {
 
 		System.out.println("-> " + subarea.getDescricao());
 
@@ -100,10 +100,10 @@ public class SubareaBean implements Serializable {
 
 	}
 
-	public void excluir(Subarea subarea) {
+	public void excluir(SubareaAtuacao subarea) {
 
 		try {
-			Subarea suba = this.em.find(Subarea.class, this.subarea.getId());
+			SubareaAtuacao suba = this.em.find(SubareaAtuacao.class, this.subarea.getId());
 			this.em.remove(suba);
 			this.em.flush();
 		} catch (Exception e) {
@@ -115,7 +115,7 @@ public class SubareaBean implements Serializable {
 
 	public void onRowEdit(RowEditEvent event) {
 
-		this.subarea = (Subarea) event.getObject();
+		this.subarea = (SubareaAtuacao) event.getObject();
 
 		FacesMessage msg = new FacesMessage("Subárea Editado",
 				subarea.getDescricao());
@@ -131,7 +131,7 @@ public class SubareaBean implements Serializable {
 
 	public void onRowCancel(RowEditEvent event) {
 		FacesMessage msg = new FacesMessage("Subárea Cancelado",
-				((Area) event.getObject()).getDescricao());
+				((AreaAtuacao) event.getObject()).getDescricao());
 		FacesContext.getCurrentInstance().addMessage(null, msg);
 	}
 

@@ -7,30 +7,25 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 
 @Entity
-@SequenceGenerator(name = "seqIDSA", sequenceName = "seqIDSA")
-public class Subarea implements Serializable {
+@SequenceGenerator(name = "seqIDCa", sequenceName = "seqIDCa")
+public class Cargo implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO, generator = "seqIDSA")
-	private Long id;
-
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seqIDCa")
+	private int id;
 	@Column(length = 100)
 	private String descricao;
 
-	@ManyToOne
-	private Area area;
-
-	public long getId() {
+	public int getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 
@@ -42,22 +37,13 @@ public class Subarea implements Serializable {
 		this.descricao = descricao;
 	}
 
-	public Area getArea() {
-		return area;
-	}
-
-	public void setArea(Area area) {
-		this.area = area;
-	}
-
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((area == null) ? 0 : area.hashCode());
 		result = prime * result
 				+ ((descricao == null) ? 0 : descricao.hashCode());
-		result = prime * result + (int) (id ^ (id >>> 32));
+		result = prime * result + id;
 		return result;
 	}
 
@@ -69,12 +55,7 @@ public class Subarea implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Subarea other = (Subarea) obj;
-		if (area == null) {
-			if (other.area != null)
-				return false;
-		} else if (!area.equals(other.area))
-			return false;
+		Cargo other = (Cargo) obj;
 		if (descricao == null) {
 			if (other.descricao != null)
 				return false;

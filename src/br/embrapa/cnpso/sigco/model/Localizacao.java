@@ -17,7 +17,7 @@ public class Localizacao implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO, generator = "seqIDL")
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seqIDL")
 	private Long id;
 
 	@Column(length = 100)

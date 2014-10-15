@@ -1,0 +1,142 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/comuns/template.xhtml">
+	<ui:define name="pageTitle">Cadastro de Escolaridade</ui:define>
+
+	<ui:define name="content">
+		<p:spacer height="10px" />
+		<h:form>
+			<h:panelGrid columns="1" cellpadding="5">
+				<p:commandButton value="Adicionar Escolaridade" type="button"
+					onclick="PF('dlgNewEscolaridade').show(); " />
+			</h:panelGrid>
+		</h:form>
+
+		<p:spacer height="10px" />
+
+		<!-- Tabela com lista de escolaridade cadastrados no sistema -->
+
+		<h:form id="escolaridade">
+			<p:growl id="msgs" showDetail="true" />
+
+			<p:dataTable id="listaEscolaridade" var="escolaridade"
+				widgetVar="tabelaEscolaridade" editable="true" paginator="true"
+				paginatorPosition="bottom" rowsPerPageTemplate="10,15,20" rows="10"
+				resizableColumns="true"
+				value="#{escolaridadeBeanBean.listaEscolaridade}"
+				style="margin-bottom: 10px" rowKey="#{escolaridade.descricao}"
+				emptyMessage="Nada encontrado!!"
+				filteredValue="#{escolaridadeBean.filtroEscolaridade}">
+
+				<f:facet name="header">Escolaridade Cadastradas</f:facet>
+				<f:facet name="header">
+					<p:outputPanel style="align: right">
+						<h:outputText value="Buscar: " />
+						<p:inputText id="globalFilter"
+							onkeyup="PF('tabelaEscolaridade').filter()" style="width: 150px"
+							placeholder="pesquisar" />
+					</p:outputPanel>
+				</f:facet>
+
+				<p:ajax event="rowEdit" listener="#{escolaridadeBean.onRowEdit}"
+					update=":escolaridade:msgs" />
+				<p:ajax event="rowEditCancel"
+					listener="#{escolaridadeBean.onRowCancel}"
+					update=":escolaridade:msgs" />
+
+				<p:column filterBy="#{escolaridade.descricao}"
+					filterStyle="display: none; hidden: true;"
+					headerText="Escolaridade" sortBy="#{escolaridade.descricao}">
+					<p:cellEditor>
+						<f:facet name="input">
+							<p:inputText value="#{escolaridade.descricao}" />
+						</f:facet>
+						<f:facet name="output">
+							<p:outputLabel value="#{escolaridade.descricao}" />
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+
+				<p:column filterBy="#{escolaridade.ordem}"
+					filterStyle="display: none; hidden: true;" headerText="Ordem"
+					sortBy="#{escolaridade.ordem}">
+					<p:cellEditor>
+						<f:facet name="input">
+							<p:inputText value="#{escolaridade.ordem}" />
+						</f:facet>
+						<f:facet name="output">
+							<p:outputLabel value="#{escolaridade.ordem}" />
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+
+				<p:column headerText="Alterar"
+					style="width:42px; text-align: center">
+					<p:rowEditor />
+				</p:column>
+				<p:column headerText="Excluir"
+					style="width: 40px; text-align: center">
+					<p:commandButton oncomplete="PF('dlgRemove').show()"
+						icon="ui-icon-trash" title="Excluir">
+						<f:setPropertyActionListener
+							target="#{escolaridadeBean.escolaridade}" value="#{escolaridade}" />
+					</p:commandButton>
+				</p:column>
+			</p:dataTable>
+		</h:form>
+
+		<p:confirmDialog id="dlgRemove" header="Excluir Função"
+			widgetVar="dlgRemove" appendTo="@(body)"
+			message="Deseja realmente excluir a escolaridade selecionada ?"
+			severity="alert">
+			<h:form>
+
+				<p:commandButton value="Sim"
+					action="#{escolaridadeBean.excluir(escolaridadeBean.escolaridade)}"
+					onclick="@dlgRemove.hide()" update="@form :escolaridade" />
+
+				<p:commandButton value="Cancelar" onclick="@dlgRemove"
+					update="@form :escolaridade" />
+
+			</h:form>
+		</p:confirmDialog>
+
+		<!-- Janela para inserção de nova Escolaridade -->
+
+		<p:dialog id="dlgNewEscolaridade" header="Adicionando Escolaridade"
+			widgetVar="dlgNewEscolaridade" modal="true" resizable="false"
+			appendTo="@(body)" draggable="false" styleClass="semBorda">
+			<h:form>
+				<p:panelGrid columns="2">
+					<p:outputLabel for="escolaridade" value="Escolaridade: " />
+					<p:inputText id="escolaridade" required="true"
+						value="#{escolaridadeBean.escolaridade.descricao}" />
+
+					<p:outputLabel for="ordem" value="Ordem: " />
+					<p:inputText id="ordem" required="true"
+						value="#{escolaridadeBean.escolaridade.ordem}" />
+				</p:panelGrid>
+				<p:commandButton
+					action="#{escolaridadeBean.salvar(escolaridadeBean.escolaridade)}"
+					value="Salvar" icon="ui-icon-check"
+					oncomplete="PF('dlgNewEscolaridade').show()"
+					update="@form :escolaridade @this" />
+
+				<p:spacer width="5px" />
+
+				<p:commandButton value="Salvar e Fechar" icon="ui-icon-close"
+					onclick="@dlgNewEscolaridade"
+					action="#{escolaridadeBean.salvar(escolaridadeBean.escolaridade)}"
+					update="@form :escolaridade @this" />
+			</h:form>
+
+		</p:dialog>
+
+	</ui:define>
+</ui:composition>
+
+</html>

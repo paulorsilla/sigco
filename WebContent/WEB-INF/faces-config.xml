@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
 <faces-config version="2.2" xmlns="http://xmlns.jcp.org/xml/ns/javaee"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd">
@@ -16,12 +17,12 @@
 	</converter>
 	<managed-bean>
 		<managed-bean-name>subareaBean</managed-bean-name>
-		<managed-bean-class>br.embrapa.cnpso.sigco.controller.SubareaBean</managed-bean-class>
+		<managed-bean-class>br.embrapa.cnpso.sigco.controller.SubareaAtuacaoBean</managed-bean-class>
 		<managed-bean-scope>view</managed-bean-scope>
 	</managed-bean>
 	<managed-bean>
 		<managed-bean-name>areaBean</managed-bean-name>
-		<managed-bean-class>br.embrapa.cnpso.sigco.controller.AreaBean</managed-bean-class>
+		<managed-bean-class>br.embrapa.cnpso.sigco.controller.AreaAtuacaoBean</managed-bean-class>
 		<managed-bean-scope>view</managed-bean-scope>
 	</managed-bean>
 	<managed-bean>
@@ -39,11 +40,7 @@
 		<managed-bean-class>br.embrapa.cnpso.sigco.controller.EquipeTecnicaBean</managed-bean-class>
 		<managed-bean-scope>view</managed-bean-scope>
 	</managed-bean>
-	<managed-bean>
-		<managed-bean-name>atuacaoBean</managed-bean-name>
-		<managed-bean-class>br.embrapa.cnpso.sigco.controller.AtuacaoBean</managed-bean-class>
-		<managed-bean-scope>view</managed-bean-scope>
-	</managed-bean>
+
 	<managed-bean>
 		<managed-bean-name>funcaoBean</managed-bean-name>
 		<managed-bean-class>br.embrapa.cnpso.sigco.controller.FuncaoBean</managed-bean-class>

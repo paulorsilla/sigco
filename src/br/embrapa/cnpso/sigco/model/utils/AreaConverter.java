@@ -9,11 +9,11 @@ import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-import br.embrapa.cnpso.sigco.model.Area;
+import br.embrapa.cnpso.sigco.model.AreaAtuacao;
 
 @Named
 @Stateful
-@FacesConverter(forClass = Area.class)
+@FacesConverter(forClass = AreaAtuacao.class)
 public class AreaConverter implements Converter {
 
 	@PersistenceContext
@@ -22,7 +22,7 @@ public class AreaConverter implements Converter {
 	@Override
 	public String getAsString(FacesContext context, UIComponent component,
 			Object object) {
-		Area area = (Area) object;
+		AreaAtuacao area = (AreaAtuacao) object;
 		if (area == null || area.getDescricao() == null)
 			return null;
 		return String.valueOf(area.getDescricao());
@@ -33,7 +33,7 @@ public class AreaConverter implements Converter {
 			String string) {
 		if (string == null || string.isEmpty())
 			return null;
-		Area area = em.find(Area.class, string);
+		AreaAtuacao area = em.find(AreaAtuacao.class, string);
 		return area;
 	}
 

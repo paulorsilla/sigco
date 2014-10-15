@@ -5,13 +5,13 @@
 	xmlns:p="http://primefaces.org/ui">
 
 <ui:composition template="/comuns/template.xhtml">
-	<ui:define name="pageTitle">Cadastro de Subáreas</ui:define>
+	<ui:define name="pageTitle">Cadastro de Subáreas de Atuação</ui:define>
 
 	<ui:define name="content">
 		<p:spacer height="10px" />
 		<h:form>
 			<h:panelGrid columns="1" cellpadding="5">
-				<p:commandButton value="Adicionar Subárea" type="button"
+				<p:commandButton value="Adicionar Subárea de Atuação" type="button"
 					onclick="PF('dlgNewSubarea').show(); " />
 			</h:panelGrid>
 		</h:form>
@@ -27,12 +27,12 @@
 			<p:dataTable id="listaSubarea" var="subarea"
 				widgetVar="tabelaSubarea" editable="true" paginator="true"
 				paginatorPosition="bottom" rowsPerPageTemplate="10,15,20" rows="10"
-				resizableColumns="true" value="#{subareaBean.listaSubarea}"
+				resizableColumns="true" value="#{subareaAtuacaoBean.listaSubarea}"
 				style="margin-bottom: 10px" rowKey="#{subarea.descricao}"
 				emptyMessage="Nada encontrado!!"
-				filteredValue="#{subareaBean.filtroSubarea}">
+				filteredValue="#{subareaAtuacaoBean.filtroSubarea}">
 
-				<f:facet name="header">Subáreas Cadastradas</f:facet>
+				<f:facet name="header">Subáreas de Atuação Cadastradas</f:facet>
 				<f:facet name="header">
 					<p:outputPanel style="align: right">
 						<h:outputText value="Buscar: " />
@@ -42,14 +42,14 @@
 					</p:outputPanel>
 				</f:facet>
 
-				<p:ajax event="rowEdit" listener="#{subareaBean.onRowEdit}"
+				<p:ajax event="rowEdit" listener="#{subareaAtuacaoBean.onRowEdit}"
 					update=":subarea:msgs" />
-				<p:ajax event="rowEditCancel" listener="#{subareaBean.onRowCancel}"
-					update=":subarea:msgs" />
+				<p:ajax event="rowEditCancel"
+					listener="#{subareaAtuacaoBean.onRowCancel}" update=":subarea:msgs" />
 
 				<p:column filterBy="#{subarea.descricao}"
-					filterStyle="display: none; hidden: true;" headerText="Subárea"
-					sortBy="#{subarea.descricao}">
+					filterStyle="display: none; hidden: true;"
+					headerText="Subárea de Atuação" sortBy="#{subarea.descricao}">
 					<p:cellEditor>
 						<f:facet name="input">
 							<p:inputText value="#{subarea.descricao}" />
@@ -67,29 +67,12 @@
 						<f:facet name="input">
 							<p:selectOneMenu value="#{subarea.area}"
 								converter="areaConverter" style="width: 38%">
-								<f:selectItems value="#{subareaBean.listaArea()}" var="area"
-									itemLabel="#{area.descricao}" id="area" />
+								<f:selectItems value="#{subareaAtuacaoBean.listaArea()}"
+									var="area" itemLabel="#{area.descricao}" id="area" />
 							</p:selectOneMenu>
 						</f:facet>
 						<f:facet name="output">
 							<p:outputLabel value="#{subarea.area}" />
-						</f:facet>
-					</p:cellEditor>
-				</p:column>
-
-				<p:column filterBy="#{subarea.area.sigla}"
-					filterStyle="display: none;" headerText="Sigla"
-					sortBy="#{subarea.area.sigla}">
-					<p:cellEditor>
-						<f:facet name="input">
-							<p:selectOneMenu value="#{subarea.area.sigla}"
-								converter="areaConverter" style="width: 38%">
-								<f:selectItems value="#{subareaBean.listaArea()}" var="area"
-									itemLabel="#{area.sigla}" id="sigla" />
-							</p:selectOneMenu>
-						</f:facet>
-						<f:facet name="output">
-							<p:outputLabel value="#{subarea.area.sigla}" />
 						</f:facet>
 					</p:cellEditor>
 				</p:column>
@@ -102,8 +85,8 @@
 					style="width: 40px; text-align: center">
 					<p:commandButton oncomplete="PF('dlgRemove').show()"
 						icon="ui-icon-trash" title="Excluir">
-						<f:setPropertyActionListener target="#{subareaBean.subarea}"
-							value="#{subarea}" />
+						<f:setPropertyActionListener
+							target="#{subareaAtuacaoBean.subarea}" value="#{subarea}" />
 					</p:commandButton>
 				</p:column>
 			</p:dataTable>
@@ -111,12 +94,12 @@
 
 		<p:confirmDialog id="dlgRemove" header="Excluir Subárea"
 			widgetVar="dlgRemove" appendTo="@(body)"
-			message="Deseja realmente excluir a subárea selecionada ?"
+			message="Deseja realmente excluir a subárea de atuação selecionada ?"
 			severity="alert">
 			<h:form>
 
 				<p:commandButton value="Sim"
-					action="#{subareaBean.excluir(subareaBean.subarea)}"
+					action="#{subareaAtuacaoBean.excluir(subareaAtuacaoBean.subarea)}"
 					onclick="@dlgRemove.hide()" update="@form :subarea" />
 
 				<p:commandButton value="Cancelar" onclick="@dlgRemove"
@@ -127,30 +110,32 @@
 
 		<!-- Janela para inserção de nova subarea -->
 
-		<p:dialog id="dlgNewSubarea" header="Adicionando Subárea"
+		<p:dialog id="dlgNewSubarea" header="Adicionando Subárea de Atuação"
 			widgetVar="dlgNewSubarea" modal="true" resizable="false"
 			appendTo="@(body)" draggable="false" styleClass="semBorda">
 			<h:form>
 				<p:panelGrid columns="2">
 					<p:outputLabel for="subarea" value="Subárea: " />
 					<p:inputText id="subarea" required="true"
-						value="#{subareaBean.subarea.descricao}" />
+						value="#{subareaAtuacaoBean.subarea.descricao}" />
 
 					<p:outputLabel for="area" value="Área: " />
-					<p:selectOneMenu label="area" value="#{subareaBean.subarea.area}"
+					<p:selectOneMenu label="area"
+						value="#{subareaAtuacaoBean.subarea.area}"
 						converter="areaConverter" required="true" id="area">
 						<f:selectItem itemLabel="--Selecione--" noSelectionOption="true" />
-						<f:selectItems value="#{subareaBean.listaArea()}" var="area"
-							itemLabel="#{area.descricao}" />
+						<f:selectItems value="#{subareaAtuacaoBean.listaArea()}"
+							var="area" itemLabel="#{area.descricao}" />
 					</p:selectOneMenu>
 
 					<p:commandButton
-						action="#{subareaBean.salvar(subareaBean.subarea)}" value="Salvar"
-						icon="ui-icon-check" oncomplete="PF('dlgNewSubarea').show()"
+						action="#{subareaAtuacaoBean.salvar(subareaAtuacaoBean.subarea)}"
+						value="Salvar" icon="ui-icon-check"
+						oncomplete="PF('dlgNewSubarea').show()"
 						update="@form :subarea @this" />
 					<p:commandButton value="Salvar e Fechar" icon="ui-icon-close"
 						onclick="@dlgNewSubarea"
-						action="#{subareaBean.salvar(subareaBean.subarea)}"
+						action="#{subareaAtuacaoBean.salvar(subareaAtuacaoBean.subarea)}"
 						update="@form :subarea @this" />
 				</p:panelGrid>
 			</h:form>
