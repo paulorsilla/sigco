@@ -5,7 +5,6 @@ import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.SequenceGenerator;
 
 @Entity
 public class Palestrante implements Serializable {
@@ -14,7 +13,8 @@ public class Palestrante implements Serializable {
 
 	@Id
 	private String cpf;
-
+	@Column(length = 30)
+	private String nome;
 	@Column(length = 12)
 	private String telefone;
 	@Column(length = 20)
@@ -28,6 +28,14 @@ public class Palestrante implements Serializable {
 
 	public void setCpf(String cpf) {
 		this.cpf = cpf;
+	}
+
+	public String getNome() {
+		return nome;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
 	}
 
 	public String getTelefone() {
@@ -60,6 +68,7 @@ public class Palestrante implements Serializable {
 		int result = 1;
 		result = prime * result + ((cidade == null) ? 0 : cidade.hashCode());
 		result = prime * result + ((cpf == null) ? 0 : cpf.hashCode());
+		result = prime * result + ((nome == null) ? 0 : nome.hashCode());
 		result = prime * result
 				+ ((telefone == null) ? 0 : telefone.hashCode());
 		result = prime * result + ((uf == null) ? 0 : uf.hashCode());
@@ -85,6 +94,11 @@ public class Palestrante implements Serializable {
 				return false;
 		} else if (!cpf.equals(other.cpf))
 			return false;
+		if (nome == null) {
+			if (other.nome != null)
+				return false;
+		} else if (!nome.equals(other.nome))
+			return false;
 		if (telefone == null) {
 			if (other.telefone != null)
 				return false;
@@ -97,5 +111,4 @@ public class Palestrante implements Serializable {
 			return false;
 		return true;
 	}
-
 }
