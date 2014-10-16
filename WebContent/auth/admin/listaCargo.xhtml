@@ -1,0 +1,120 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/comuns/template.xhtml">
+	<ui:define name="pageTitle">Cadastro de Cargos</ui:define>
+
+	<ui:define name="content">
+		<p:spacer height="10px" />
+		<h:form>
+			<h:panelGrid columns="1" cellpadding="5">
+				<p:commandButton value="Adicionar Cargo" type="button"
+					onclick="PF('dlgNewCargo').show(); " />
+			</h:panelGrid>
+		</h:form>
+
+		<p:spacer height="10px" />
+
+		<!-- Tabela com lista de cargos cadastrados no sistema -->
+
+		<h:form id="cargos">
+			<p:growl id="msgs" showDetail="true" />
+
+			<p:dataTable id="listaCargos" var="cargos" widgetVar="tabelaCargos"
+				editable="true" paginator="true" paginatorPosition="bottom"
+				rowsPerPageTemplate="10,15,20" rows="10" resizableColumns="true"
+				value="#{cargoBean.listaCargo}" style="margin-bottom: 10px"
+				rowKey="#{cargo.descricao}" emptyMessage="Nada encontrado!!"
+				filteredValue="#{cargoBean.filtroCargo}">
+
+				<f:facet name="header">Cargos Cadastradas</f:facet>
+				<f:facet name="header">
+					<p:outputPanel style="align: right">
+						<h:outputText value="Buscar: " />
+						<p:inputText id="globalFilter"
+							onkeyup="PF('tabelaCargos').filter()" style="width: 150px"
+							placeholder="pesquisar" />
+					</p:outputPanel>
+				</f:facet>
+
+				<p:ajax event="rowEdit" listener="#{cargosBean.onRowEdit}"
+					update=":cagos:msgs" />
+				<p:ajax event="rowEditCancel" listener="#{cargosBean.onRowCancel}"
+					update=":cargos:msgs" />
+
+				<p:column filterBy="#{cargos.descricao}"
+					filterStyle="display: none; hidden: true;" headerText="Cargos"
+					sortBy="#{cargos.descricao}">
+					<p:cellEditor>
+						<f:facet name="input">
+							<p:inputText value="#{cargos.descricao}" />
+						</f:facet>
+						<f:facet name="output">
+							<p:outputLabel value="#{cargos.descricao}" />
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+
+				<p:column headerText="Alterar"
+					style="width:42px; text-align: center">
+					<p:rowEditor />
+				</p:column>
+				<p:column headerText="Excluir"
+					style="width: 40px; text-align: center">
+					<p:commandButton oncomplete="PF('dlgRemove').show()"
+						icon="ui-icon-trash" title="Excluir">
+						<f:setPropertyActionListener target="#{cargoBean.cargo}"
+							value="#{cargo}" />
+					</p:commandButton>
+				</p:column>
+			</p:dataTable>
+		</h:form>
+
+		<p:confirmDialog id="dlgRemove" header="Excluir Cargo"
+			widgetVar="dlgRemove" appendTo="@(body)"
+			message="Deseja realmente excluir o cargo selecionada ? 
+			severity="alert">
+			<h:form>
+
+				<p:commandButton value="Sim"
+					action="#{cargoBean.excluir(cargoBean.cargo)}"
+					onclick="@dlgRemove.hide()" update="@form :cargos " />
+
+				<p:commandButton value="Cancelar" onclick="@dlgRemove"
+					update="@form :cargos" />
+
+			</h:form>
+		</p:confirmDialog>
+
+		<!-- Janela para inserção de novo cargo -->
+
+		<p:dialog id="dlgNewCargo" header="Adicionando Cargo"
+			widgetVar="dlgNewCargo" modal="true" resizable="false"
+			appendTo="@(body)" draggable="false" styleClass="semBorda">
+			<h:form>
+				<p:panelGrid columns="2">
+					<p:outputLabel for="cargos" value="Cargo: " />
+					<p:inputText id="cargo" required="true"
+						value="#{cargoBean.cargo.descricao}" />
+				</p:panelGrid>
+
+				<p:commandButton
+					action="#{cargoBean.salvar(cargoBean.cargo)}"
+					value="Salvar" icon="ui-icon-check"
+					oncomplete="PF('dlgNewCargo').show()" update="@form :cargos @this" />
+				<p:spacer width="5px" />
+				<p:commandButton value="Salvar e Fechar" icon="ui-icon-close"
+					onclick="@dlgNewCargo"
+					action="#{cargoBean.salvar(cargoBean.cargo)}"
+					update="@form :cargos @this" />
+			</h:form>
+
+		</p:dialog>
+
+	</ui:define>
+</ui:composition>
+
+</html>

@@ -1,0 +1,120 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/comuns/template.xhtml">
+	<ui:define name="pageTitle">Cadastro de Áreas</ui:define>
+
+	<ui:define name="content">
+		<p:spacer height="10px" />
+		<h:form>
+			<h:panelGrid columns="1" cellpadding="5">
+				<p:commandButton value="Adicionar Área de Atuação" type="button"
+					onclick="PF('dlgNewArea').show(); " />
+			</h:panelGrid>
+		</h:form>
+
+		<p:spacer height="10px" />
+
+		<!-- Tabela com lista de áreas cadastrados no sistema -->
+
+		<h:form id="area">
+			<p:growl id="msgs" showDetail="true" />
+
+			<p:dataTable id="listaArea" var="area" widgetVar="tabelaArea"
+				editable="true" paginator="true" paginatorPosition="bottom"
+				rowsPerPageTemplate="10,15,20" rows="10" resizableColumns="true"
+				value="#{areaAtuacaoBean.listaArea}" style="margin-bottom: 10px"
+				rowKey="#{area.descricao}" emptyMessage="Nada encontrado!!"
+				filteredValue="#{areaAtuacaoBean.filtroArea}">
+
+				<f:facet name="header">Áreas de Atuação Cadastradas</f:facet>
+				<f:facet name="header">
+					<p:outputPanel style="align: right">
+						<h:outputText value="Buscar: " />
+						<p:inputText id="globalFilter" onkeyup="PF('tabelaArea').filter()"
+							style="width: 150px" placeholder="pesquisar" />
+					</p:outputPanel>
+				</f:facet>
+
+				<p:ajax event="rowEdit" listener="#{areaAtuacaoBean.onRowEdit}"
+					update=":area:msgs" />
+				<p:ajax event="rowEditCancel"
+					listener="#{areaAtuacaoBean.onRowCancel}" update=":area:msgs" />
+
+				<p:column filterBy="#{area.descricao}"
+					filterStyle="display: none; hidden: true;"
+					headerText="Área de Atuação" sortBy="#{area.descricao}">
+					<p:cellEditor>
+						<f:facet name="input">
+							<p:inputText value="#{area.descricao}" />
+						</f:facet>
+						<f:facet name="output">
+							<p:outputLabel value="#{area.descricao}" />
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+
+				<p:column headerText="Alterar"
+					style="width:42px; text-align: center">
+					<p:rowEditor />
+				</p:column>
+				<p:column headerText="Excluir"
+					style="width: 40px; text-align: center">
+					<p:commandButton oncomplete="PF('dlgRemove').show()"
+						icon="ui-icon-trash" title="Excluir">
+						<f:setPropertyActionListener target="#{areaAtuacaoBean.area}"
+							value="#{area}" />
+					</p:commandButton>
+				</p:column>
+			</p:dataTable>
+		</h:form>
+
+		<p:confirmDialog id="dlgRemove" header="Excluir Área"
+			widgetVar="dlgRemove" appendTo="@(body)"
+			message="Deseja realmente excluir a área de atuação selecionada ? 
+			Obs.: Isto irá causar a exclusão de todas as subáreas de atuação vinculadas a esta área."
+			severity="alert">
+			<h:form>
+
+				<p:commandButton value="Sim"
+					action="#{areaAtuacaoBean.excluir(areaAtuacaoBean.area)}"
+					onclick="@dlgRemove.hide()" update="@form :area" />
+
+				<p:commandButton value="Cancelar" onclick="@dlgRemove"
+					update="@form :area" />
+
+			</h:form>
+		</p:confirmDialog>
+
+		<!-- Janela para inserção de nova área -->
+
+		<p:dialog id="dlgNewArea" header="Adicionando Área de Atuação"
+			widgetVar="dlgNewArea" modal="true" resizable="false"
+			appendTo="@(body)" draggable="false" styleClass="semBorda">
+			<h:form>
+				<p:panelGrid columns="2">
+					<p:outputLabel for="area" value="Área de Atuação: " />
+					<p:inputText id="area" required="true"
+						value="#{areaAtuacaoBean.area.descricao}" />
+				</p:panelGrid>
+
+				<p:commandButton
+					action="#{areaAtuacaoBean.salvar(areaAtuacaoBean.area)}"
+					value="Salvar" icon="ui-icon-check"
+					oncomplete="PF('dlgNewArea').show()" update="@form :area @this" />
+				<p:spacer width="5px" />
+				<p:commandButton value="Salvar e Fechar" icon="ui-icon-close"
+					onclick="@dlgNewArea"
+					action="#{areaAtuacaoBean.salvar(areaAtuacaoBean.area)}"
+					update="@form :area @this" />
+			</h:form>
+
+		</p:dialog>
+
+	</ui:define>
+</ui:composition>
+
+</html>
