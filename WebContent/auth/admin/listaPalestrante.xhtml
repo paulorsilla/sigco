@@ -5,54 +5,103 @@
 	xmlns:p="http://primefaces.org/ui">
 
 <ui:composition template="/comuns/template.xhtml">
-	<ui:define name="pageTitle">Cadastro de Áreas</ui:define>
+	<ui:define name="pageTitle">Cadastro de Palestrantes</ui:define>
 
 	<ui:define name="content">
 		<p:spacer height="10px" />
 		<h:form>
 			<h:panelGrid columns="1" cellpadding="5">
-				<p:commandButton value="Adicionar Área de Atuação" type="button"
-					onclick="PF('dlgNewArea').show(); " />
+				<p:commandButton value="Adicionar Palestrante" type="button"
+					onclick="PF('dlgNewPalestrante').show(); " />
 			</h:panelGrid>
 		</h:form>
 
 		<p:spacer height="10px" />
 
-		<!-- Tabela com lista de áreas cadastrados no sistema -->
+		<!-- Tabela com lista de palestrantes cadastrados no sistema -->
 
-		<h:form id="area">
+		<h:form id="palestrante">
 			<p:growl id="msgs" showDetail="true" />
 
-			<p:dataTable id="listaArea" var="area" widgetVar="tabelaArea"
-				editable="true" paginator="true" paginatorPosition="bottom"
-				rowsPerPageTemplate="10,15,20" rows="10" resizableColumns="true"
-				value="#{areaAtuacaoBean.listaArea}" style="margin-bottom: 10px"
-				rowKey="#{area.descricao}" emptyMessage="Nada encontrado!!"
-				filteredValue="#{areaAtuacaoBean.filtroArea}">
+			<p:dataTable id="listaPalestrante" var="palestrante"
+				widgetVar="tabelaPalestrante" editable="true" paginator="true"
+				paginatorPosition="bottom" rowsPerPageTemplate="10,15,20" rows="10"
+				resizableColumns="true" value="#{palestranteBean.listaPalestrante}"
+				style="margin-bottom: 10px" rowKey="#{palestrante.nome}"
+				emptyMessage="Nada encontrado!!"
+				filteredValue="#{palestranteBean.filtroPalestrante}">
 
-				<f:facet name="header">Áreas de Atuação Cadastradas</f:facet>
+				<f:facet name="header">Palestrante Cadastrados</f:facet>
 				<f:facet name="header">
 					<p:outputPanel style="align: right">
 						<h:outputText value="Buscar: " />
-						<p:inputText id="globalFilter" onkeyup="PF('tabelaArea').filter()"
-							style="width: 150px" placeholder="pesquisar" />
+						<p:inputText id="globalFilter"
+							onkeyup="PF('tabelaPalestrante').filter()" style="width: 150px"
+							placeholder="pesquisar" />
 					</p:outputPanel>
 				</f:facet>
 
-				<p:ajax event="rowEdit" listener="#{areaAtuacaoBean.onRowEdit}"
-					update=":area:msgs" />
+				<p:ajax event="rowEdit" listener="#{palestranteBean.onRowEdit}"
+					update=":palestrante:msgs" />
 				<p:ajax event="rowEditCancel"
-					listener="#{areaAtuacaoBean.onRowCancel}" update=":area:msgs" />
+					listener="#{palestranteBean.onRowCancel}"
+					update=":palestrante:msgs" />
 
-				<p:column filterBy="#{area.descricao}"
-					filterStyle="display: none; hidden: true;"
-					headerText="Área de Atuação" sortBy="#{area.descricao}">
+				<p:column filterBy="#{palestrante.cpf}"
+					filterStyle="display: none; hidden: true;" headerText="CPF"
+					sortBy="#{palestrante.cpf}">
+					<p:outputLabel value="#{palestrante.cpf}" />
+				</p:column>
+
+				<p:column filterBy="#{palestrante.nome}"
+					filterStyle="display: none; hidden: true;" headerText="Nome"
+					sortBy="#{palestrante.nome}">
 					<p:cellEditor>
 						<f:facet name="input">
-							<p:inputText value="#{area.descricao}" />
+							<p:inputText value="#{palestrante.nome}" />
 						</f:facet>
 						<f:facet name="output">
-							<p:outputLabel value="#{area.descricao}" />
+							<p:outputLabel value="#{palestrante.nome}" />
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+
+				<p:column filterBy="#{palestrante.telefone}"
+					filterStyle="display: none; hidden: true;" headerText="Telefone"
+					sortBy="#{palestrante.telefone}">
+					<p:cellEditor>
+						<f:facet name="input">
+							<p:inputMask mask="(99) 9999-9999"
+								value="#{palestrante.telefone}" />
+						</f:facet>
+						<f:facet name="output">
+							<p:outputLabel value="#{palestrante.telefone}" />
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+
+				<p:column filterBy="#{palestrante.cidade}"
+					filterStyle="display: none; hidden: true;" headerText="Cidade"
+					sortBy="#{palestrante.cidade}">
+					<p:cellEditor>
+						<f:facet name="input">
+							<p:inputText value="#{palestrante.cidade}" />
+						</f:facet>
+						<f:facet name="output">
+							<p:outputLabel value="#{palestrante.cidade}" />
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+
+				<p:column filterBy="#{palestrante.uf}"
+					filterStyle="display: none; hidden: true;" headerText="Estado"
+					sortBy="#{palestrante.uf}">
+					<p:cellEditor>
+						<f:facet name="input">
+							<p:inputMask mask="aa" value="#{palestrante.uf}" />
+						</f:facet>
+						<f:facet name="output">
+							<p:outputLabel value="#{palestrante.uf}" />
 						</f:facet>
 					</p:cellEditor>
 				</p:column>
@@ -65,51 +114,67 @@
 					style="width: 40px; text-align: center">
 					<p:commandButton oncomplete="PF('dlgRemove').show()"
 						icon="ui-icon-trash" title="Excluir">
-						<f:setPropertyActionListener target="#{areaAtuacaoBean.area}"
-							value="#{area}" />
+						<f:setPropertyActionListener
+							target="#{palestranteBean.palestrante}" value="#{palestrante}" />
 					</p:commandButton>
 				</p:column>
 			</p:dataTable>
 		</h:form>
 
-		<p:confirmDialog id="dlgRemove" header="Excluir Área"
+		<p:confirmDialog id="dlgRemove" header="Excluir Palestrante"
 			widgetVar="dlgRemove" appendTo="@(body)"
-			message="Deseja realmente excluir a área de atuação selecionada ? 
-			Obs.: Isto irá causar a exclusão de todas as subáreas de atuação vinculadas a esta área."
+			message="Deseja realmente excluir a área de atuação selecionada ? "
 			severity="alert">
 			<h:form>
 
 				<p:commandButton value="Sim"
-					action="#{areaAtuacaoBean.excluir(areaAtuacaoBean.area)}"
-					onclick="@dlgRemove.hide()" update="@form :area" />
+					action="#{palestranteBean.excluir(palestranteBean.palestrante)}"
+					onclick="@dlgRemove.hide()" update="@form :palestrante" />
 
 				<p:commandButton value="Cancelar" onclick="@dlgRemove"
-					update="@form :area" />
+					update="@form :palestrante" />
 
 			</h:form>
 		</p:confirmDialog>
 
-		<!-- Janela para inserção de nova área -->
+		<!-- Janela para inserção de palestrante -->
 
-		<p:dialog id="dlgNewArea" header="Adicionando Área de Atuação"
-			widgetVar="dlgNewArea" modal="true" resizable="false"
+		<p:dialog id="dlgNewPalestrante" header="Adicionando Palestrante"
+			widgetVar="dlgNewPalestrante" modal="true" resizable="false"
 			appendTo="@(body)" draggable="false" styleClass="semBorda">
 			<h:form>
 				<p:panelGrid columns="2">
-					<p:outputLabel for="area" value="Área de Atuação: " />
-					<p:inputText id="area" required="true"
-						value="#{areaAtuacaoBean.area.descricao}" />
+					<p:outputLabel for="cpf" value="CPF: " />
+					<p:inputMask mask="999.999.999-99" id="cpf" required="true"
+						value="#{palestranteBean.palestrante.cpf}" />
+
+					<p:outputLabel for="nome" value="Nome: " />
+					<p:inputText id="nome" required="true"
+						value="#{palestranteBean.palestrante.nome}" />
+
+					<p:outputLabel for="telefone" value="Telefone: " />
+					<p:inputMask mask="(99) 9999-9999" id="telefone" required="true"
+						value="#{palestranteBean.palestrante.telefone}" />
+
+					<p:outputLabel for="cidade" value="Cidade: " />
+					<p:inputText id="cidade" required="true"
+						value="#{palestranteBean.palestrante.cidade}" />
+
+					<p:outputLabel for="estado" value="Estado: " />
+					<p:inputText id="estado" required="true"
+						value="#{palestranteBean.palestrante.uf}" />
 				</p:panelGrid>
 
 				<p:commandButton
-					action="#{areaAtuacaoBean.salvar(areaAtuacaoBean.area)}"
+					action="#{palestranteBean.salvar(palestranteBean.palestrante)}"
 					value="Salvar" icon="ui-icon-check"
-					oncomplete="PF('dlgNewArea').show()" update="@form :area @this" />
+					oncomplete="PF('dlgNewPalestrante').show()"
+					update="@form :palestrante @this" />
 				<p:spacer width="5px" />
 				<p:commandButton value="Salvar e Fechar" icon="ui-icon-close"
-					onclick="@dlgNewArea"
-					action="#{areaAtuacaoBean.salvar(areaAtuacaoBean.area)}"
-					update="@form :area @this" />
+					onclick="@dlgNewPalestrante"
+					action="#{palestranteBean.salvar(palestranteBean.palestrante)}"
+					update="@form :palestrante @this" />
 			</h:form>
 
 		</p:dialog>

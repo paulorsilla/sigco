@@ -38,7 +38,7 @@ public class PalestranteBean implements Serializable {
 		this.palestrante = new Palestrante();
 
 		Query query = this.em.createQuery(
-				"SELECT pa FROM Palestrante ORDER BY pa.nome",
+				"SELECT pa FROM Palestrante pa ORDER BY pa.nome",
 				Palestrante.class);
 
 		this.listaPalestrante = query.getResultList();

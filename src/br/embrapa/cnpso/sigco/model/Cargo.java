@@ -18,6 +18,7 @@ public class Cargo implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seqIDCa")
 	private int id;
+	
 	@Column(length = 100)
 	private String descricao;
 

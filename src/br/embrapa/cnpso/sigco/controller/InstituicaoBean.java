@@ -38,7 +38,7 @@ public class InstituicaoBean implements Serializable {
 		this.instituicao = new Instituicao();
 
 		Query query = this.em.createQuery(
-				"SELECT in FROM Instituicao ORDER BY in.razaosocial",
+				"SELECT i FROM Instituicao i ORDER BY i.razaoSocial",
 				Instituicao.class);
 		this.listaInstituicao = query.getResultList();
 	}
@@ -91,7 +91,7 @@ public class InstituicaoBean implements Serializable {
 		}
 	}
 
-	public void OnRowEdit(RowEditEvent event) {
+	public void onRowEdit(RowEditEvent event) {
 		this.instituicao = (Instituicao) event.getObject();
 
 		FacesMessage msg = new FacesMessage("Instituição Editado",

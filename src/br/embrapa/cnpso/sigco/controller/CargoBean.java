@@ -38,7 +38,7 @@ public class CargoBean implements Serializable {
 		this.cargo = new Cargo();
 
 		Query query = this.em.createQuery(
-				"SELECT ca FROM Cargo ORDER BY ca.descricao", Cargo.class);
+				"SELECT ca FROM Cargo ca ORDER BY ca.descricao", Cargo.class);
 		this.listaCargo = query.getResultList();
 	}
 

@@ -27,7 +27,7 @@
 				editable="true" paginator="true" paginatorPosition="bottom"
 				rowsPerPageTemplate="10,15,20" rows="10" resizableColumns="true"
 				value="#{cargoBean.listaCargo}" style="margin-bottom: 10px"
-				rowKey="#{cargo.descricao}" emptyMessage="Nada encontrado!!"
+				rowKey="#{cargos.descricao}" emptyMessage="Nada encontrado!!"
 				filteredValue="#{cargoBean.filtroCargo}">
 
 				<f:facet name="header">Cargos Cadastradas</f:facet>
@@ -40,9 +40,9 @@
 					</p:outputPanel>
 				</f:facet>
 
-				<p:ajax event="rowEdit" listener="#{cargosBean.onRowEdit}"
-					update=":cagos:msgs" />
-				<p:ajax event="rowEditCancel" listener="#{cargosBean.onRowCancel}"
+				<p:ajax event="rowEdit" listener="#{cargoBean.onRowEdit}"
+					update=":cargos:msgs" />
+				<p:ajax event="rowEditCancel" listener="#{cargoBean.onRowCancel}"
 					update=":cargos:msgs" />
 
 				<p:column filterBy="#{cargos.descricao}"
@@ -67,7 +67,7 @@
 					<p:commandButton oncomplete="PF('dlgRemove').show()"
 						icon="ui-icon-trash" title="Excluir">
 						<f:setPropertyActionListener target="#{cargoBean.cargo}"
-							value="#{cargo}" />
+							value="#{cargos}" />
 					</p:commandButton>
 				</p:column>
 			</p:dataTable>
@@ -75,7 +75,7 @@
 
 		<p:confirmDialog id="dlgRemove" header="Excluir Cargo"
 			widgetVar="dlgRemove" appendTo="@(body)"
-			message="Deseja realmente excluir o cargo selecionada ? 
+			message="Deseja realmente excluir o cargo selecionada ?" 
 			severity="alert">
 			<h:form>
 
@@ -96,7 +96,7 @@
 			appendTo="@(body)" draggable="false" styleClass="semBorda">
 			<h:form>
 				<p:panelGrid columns="2">
-					<p:outputLabel for="cargos" value="Cargo: " />
+					<p:outputLabel for="cargo" value="Cargo: " />
 					<p:inputText id="cargo" required="true"
 						value="#{cargoBean.cargo.descricao}" />
 				</p:panelGrid>

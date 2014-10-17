@@ -5,54 +5,128 @@
 	xmlns:p="http://primefaces.org/ui">
 
 <ui:composition template="/comuns/template.xhtml">
-	<ui:define name="pageTitle">Cadastro de Áreas</ui:define>
+	<ui:define name="pageTitle">Cadastro de Instituições</ui:define>
 
 	<ui:define name="content">
 		<p:spacer height="10px" />
 		<h:form>
 			<h:panelGrid columns="1" cellpadding="5">
-				<p:commandButton value="Adicionar Área de Atuação" type="button"
-					onclick="PF('dlgNewArea').show(); " />
+				<p:commandButton value="Adicionar Instituição" type="button"
+					onclick="PF('dlgNewInstituicao').show(); " />
 			</h:panelGrid>
 		</h:form>
 
 		<p:spacer height="10px" />
 
-		<!-- Tabela com lista de áreas cadastrados no sistema -->
+		<!-- Tabela com lista de instituição cadastrados no sistema -->
 
-		<h:form id="area">
+		<h:form id="instituicao">
 			<p:growl id="msgs" showDetail="true" />
 
-			<p:dataTable id="listaArea" var="area" widgetVar="tabelaArea"
-				editable="true" paginator="true" paginatorPosition="bottom"
-				rowsPerPageTemplate="10,15,20" rows="10" resizableColumns="true"
-				value="#{areaAtuacaoBean.listaArea}" style="margin-bottom: 10px"
-				rowKey="#{area.descricao}" emptyMessage="Nada encontrado!!"
-				filteredValue="#{areaAtuacaoBean.filtroArea}">
+			<p:dataTable id="listaInstituicao" var="inst"
+				widgetVar="tabelaInstituicao" editable="true" paginator="true"
+				paginatorPosition="bottom" rowsPerPageTemplate="10,15,20" rows="10"
+				resizableColumns="true" value="#{instituicaoBean.listaInstituicao}"
+				style="margin-bottom: 10px" rowKey="#{inst.razaoSocial}"
+				emptyMessage="Nada encontrado!!"
+				filteredValue="#{instituicaoBean.filtroInstituicao}">
 
-				<f:facet name="header">Áreas de Atuação Cadastradas</f:facet>
+				<f:facet name="header">Instituições Cadastradas</f:facet>
 				<f:facet name="header">
 					<p:outputPanel style="align: right">
 						<h:outputText value="Buscar: " />
-						<p:inputText id="globalFilter" onkeyup="PF('tabelaArea').filter()"
-							style="width: 150px" placeholder="pesquisar" />
+						<p:inputText id="globalFilter"
+							onkeyup="PF('tabelaInstituicao').filter()" style="width: 150px"
+							placeholder="pesquisar" />
 					</p:outputPanel>
 				</f:facet>
 
-				<p:ajax event="rowEdit" listener="#{areaAtuacaoBean.onRowEdit}"
-					update=":area:msgs" />
+				<p:ajax event="rowEdit" listener="#{instituicaoBean.onRowEdit}"
+					update=":instituicao:msgs" />
 				<p:ajax event="rowEditCancel"
-					listener="#{areaAtuacaoBean.onRowCancel}" update=":area:msgs" />
+					listener="#{instituicaoBean.onRowCancel}"
+					update=":instituicao:msgs" />
 
-				<p:column filterBy="#{area.descricao}"
+				<p:column filterBy="#{inst.razaoSocial}"
 					filterStyle="display: none; hidden: true;"
-					headerText="Área de Atuação" sortBy="#{area.descricao}">
+					headerText="Razão Social" sortBy="#{inst.razaoSocial}">
 					<p:cellEditor>
 						<f:facet name="input">
-							<p:inputText value="#{area.descricao}" />
+							<p:inputText value="#{inst.razaoSocial}" />
 						</f:facet>
 						<f:facet name="output">
-							<p:outputLabel value="#{area.descricao}" />
+							<p:outputLabel value="#{inst.razaoSocial}" />
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+
+				<p:column filterBy="#{inst.cnpj}"
+					filterStyle="display: none; hidden: true;" headerText="CNPJ"
+					sortBy="#{inst.cnpj}">
+					<p:outputLabel value="#{inst.cnpj}" />
+				</p:column>
+
+				<p:column filterBy="#{inst.email}"
+					filterStyle="display: none; hidden: true;" headerText="E-mail"
+					sortBy="#{inst.email}">
+					<p:cellEditor>
+						<f:facet name="input">
+							<p:inputText value="#{inst.email}" />
+						</f:facet>
+						<f:facet name="output">
+							<p:outputLabel value="#{inst.email}" />
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+
+				<p:column filterBy="#{inst.telefone}"
+					filterStyle="display: none; hidden: true;" headerText="Telefone"
+					sortBy="#{inst.telefone}">
+					<p:cellEditor>
+						<f:facet name="input">
+							<p:inputMask mask="(99) 9999-9999" value="#{inst.telefone}" />
+						</f:facet>
+						<f:facet name="output">
+							<p:outputLabel value="#{inst.telefone}" />
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+
+				<p:column filterBy="#{inst.endereco}"
+					filterStyle="display: none; hidden: true;" headerText="Endereco"
+					sortBy="#{inst.endereco}">
+					<p:cellEditor>
+						<f:facet name="input">
+							<p:inputText value="#{inst.endereco}" />
+						</f:facet>
+						<f:facet name="output">
+							<p:outputLabel value="#{inst.endereco}" />
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+
+				<p:column filterBy="#{inst.cidade}"
+					filterStyle="display: none; hidden: true;" headerText="Cidade"
+					sortBy="#{inst.cidade}">
+					<p:cellEditor>
+						<f:facet name="input">
+							<p:inputText value="#{inst.cidade}" />
+						</f:facet>
+						<f:facet name="output">
+							<p:outputLabel value="#{inst.cidade}" />
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+
+				<p:column filterBy="#{inst.uf}"
+					filterStyle="display: none; hidden: true;" headerText="UF"
+					sortBy="#{inst.uf}">
+					<p:cellEditor>
+						<f:facet name="input">
+							<p:inputMask value="#{inst.uf}" mask="aa" />
+						</f:facet>
+						<f:facet name="output">
+							<p:outputLabel value="#{inst.uf}" />
 						</f:facet>
 					</p:cellEditor>
 				</p:column>
@@ -65,51 +139,75 @@
 					style="width: 40px; text-align: center">
 					<p:commandButton oncomplete="PF('dlgRemove').show()"
 						icon="ui-icon-trash" title="Excluir">
-						<f:setPropertyActionListener target="#{areaAtuacaoBean.area}"
-							value="#{area}" />
+						<f:setPropertyActionListener
+							target="#{instituicaoBean.instituicao}" value="#{inst}" />
 					</p:commandButton>
 				</p:column>
 			</p:dataTable>
 		</h:form>
 
-		<p:confirmDialog id="dlgRemove" header="Excluir Área"
+		<p:confirmDialog id="dlgRemove" header="Excluir Instituição"
 			widgetVar="dlgRemove" appendTo="@(body)"
-			message="Deseja realmente excluir a área de atuação selecionada ? 
-			Obs.: Isto irá causar a exclusão de todas as subáreas de atuação vinculadas a esta área."
+			message="Deseja realmente excluir a instituição de atuação selecionada ?"
 			severity="alert">
 			<h:form>
 
 				<p:commandButton value="Sim"
-					action="#{areaAtuacaoBean.excluir(areaAtuacaoBean.area)}"
-					onclick="@dlgRemove.hide()" update="@form :area" />
+					action="#{instituicaoBean.excluir(instituicaoBean.instituicao)}"
+					onclick="@dlgRemove.hide()" update="@form :instituicao" />
 
 				<p:commandButton value="Cancelar" onclick="@dlgRemove"
-					update="@form :area" />
+					update="@form :instituicao" />
 
 			</h:form>
 		</p:confirmDialog>
 
-		<!-- Janela para inserção de nova área -->
+		<!-- Janela para inserção de nova instituição -->
 
-		<p:dialog id="dlgNewArea" header="Adicionando Área de Atuação"
-			widgetVar="dlgNewArea" modal="true" resizable="false"
+		<p:dialog id="dlgNewInstituicao" header="Adicionando Instituição"
+			widgetVar="dlgNewInstituicao" modal="true" resizable="false"
 			appendTo="@(body)" draggable="false" styleClass="semBorda">
 			<h:form>
 				<p:panelGrid columns="2">
-					<p:outputLabel for="area" value="Área de Atuação: " />
-					<p:inputText id="area" required="true"
-						value="#{areaAtuacaoBean.area.descricao}" />
+					<p:outputLabel for="cnpj" value="CNPJ: " />
+					<p:inputMask mask="99.999.999/9999-99" id="cnpj" required="true"
+						value="#{instituicaoBean.instituicao.cnpj}" />
+
+					<p:outputLabel for="razao" value="Razão Social: " />
+					<p:inputText id="razao" required="true"
+						value="#{instituicaoBean.instituicao.razaoSocial}" />
+
+					<p:outputLabel for="email" value="E-mail: " />
+					<p:inputText id="email" required="true"
+						value="#{instituicaoBean.instituicao.email}" />
+
+					<p:outputLabel for="telefone" value="Telefone: " />
+					<p:inputMask mask="(99) 9999-9999" id="telefone" required="true"
+						value="#{instituicaoBean.instituicao.telefone}" />
+
+					<p:outputLabel for="end" value="Endereço: " />
+					<p:inputText id="end" required="true"
+						value="#{instituicaoBean.instituicao.endereco}" />
+
+					<p:outputLabel for="cidade" value="Cidade: " />
+					<p:inputText id="cidade" required="true"
+						value="#{instituicaoBean.instituicao.cidade}" />
+
+					<p:outputLabel for="uf" value="Estado: " />
+					<p:inputMask mask="aa" id="uf" required="true"
+						value="#{instituicaoBean.instituicao.uf}" />
 				</p:panelGrid>
 
 				<p:commandButton
-					action="#{areaAtuacaoBean.salvar(areaAtuacaoBean.area)}"
+					action="#{instituicaoBean.salvar(instituicaoBean.instituicao)}"
 					value="Salvar" icon="ui-icon-check"
-					oncomplete="PF('dlgNewArea').show()" update="@form :area @this" />
+					oncomplete="PF('dlgNewInstituicao').show()"
+					update="@form :instituicao @this" />
 				<p:spacer width="5px" />
 				<p:commandButton value="Salvar e Fechar" icon="ui-icon-close"
-					onclick="@dlgNewArea"
-					action="#{areaAtuacaoBean.salvar(areaAtuacaoBean.area)}"
-					update="@form :area @this" />
+					onclick="@dlgNewInstituicao"
+					action="#{instituicaoBean.salvar(instituicaoBean.instituicao)}"
+					update="@form :instituicao @this" />
 			</h:form>
 
 		</p:dialog>

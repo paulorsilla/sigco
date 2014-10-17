@@ -12,7 +12,8 @@ public class Instituicao implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	private int cnpj;
+	@Column(length = 14)
+	private String cnpj;
 	@Column(length = 100)
 	private String razaoSocial;
 	@Column(length = 12)
@@ -26,11 +27,11 @@ public class Instituicao implements Serializable {
 	@Column(length = 2)
 	private String uf;
 
-	public int getCnpj() {
+	public String getCnpj() {
 		return cnpj;
 	}
 
-	public void setCnpj(int cnpj) {
+	public void setCnpj(String cnpj) {
 		this.cnpj = cnpj;
 	}
 
@@ -87,7 +88,7 @@ public class Instituicao implements Serializable {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((cidade == null) ? 0 : cidade.hashCode());
-		result = prime * result + cnpj;
+		result = prime * result + ((cnpj == null) ? 0 : cnpj.hashCode());
 		result = prime * result + ((email == null) ? 0 : email.hashCode());
 		result = prime * result
 				+ ((endereco == null) ? 0 : endereco.hashCode());
@@ -113,7 +114,10 @@ public class Instituicao implements Serializable {
 				return false;
 		} else if (!cidade.equals(other.cidade))
 			return false;
-		if (cnpj != other.cnpj)
+		if (cnpj == null) {
+			if (other.cnpj != null)
+				return false;
+		} else if (!cnpj.equals(other.cnpj))
 			return false;
 		if (email == null) {
 			if (other.email != null)
@@ -142,5 +146,4 @@ public class Instituicao implements Serializable {
 			return false;
 		return true;
 	}
-
 }
