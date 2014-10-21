@@ -99,7 +99,7 @@ public class FuncaoBean implements Serializable {
 		FacesContext.getCurrentInstance().addMessage(null, msg);
 
 		try {
-			em.merge(funcao.getId());
+			em.merge(funcao);
 			em.flush();
 		} catch (Exception e) {
 			e.printStackTrace();

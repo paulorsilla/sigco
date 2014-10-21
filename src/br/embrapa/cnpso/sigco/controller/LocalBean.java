@@ -100,7 +100,7 @@ public class LocalBean implements Serializable {
 		FacesContext.getCurrentInstance().addMessage(null, msg);
 
 		try {
-			em.merge(local.getId());
+			em.merge(local);
 			em.flush();
 		} catch (Exception e) {
 			e.printStackTrace();

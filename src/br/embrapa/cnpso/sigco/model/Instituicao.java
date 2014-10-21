@@ -12,11 +12,11 @@ public class Instituicao implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@Column(length = 14)
+	@Column(length = 18)
 	private String cnpj;
 	@Column(length = 100)
 	private String razaoSocial;
-	@Column(length = 12)
+	@Column(length = 16)
 	private String telefone;
 	@Column(length = 50)
 	private String email;

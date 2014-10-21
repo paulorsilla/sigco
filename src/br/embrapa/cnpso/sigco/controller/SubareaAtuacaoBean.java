@@ -39,8 +39,11 @@ public class SubareaAtuacaoBean implements Serializable {
 	public void init() {
 		this.subarea = new SubareaAtuacao();
 
+//		Query query = em
+//				.createQuery("SELECT s FROM Subarea s ORDER BY s.descricao");
+
 		Query query = em
-				.createQuery("SELECT s FROM Subarea s ORDER BY s.descricao");
+				.createQuery("SELECT s FROM SubareaAtuacao s ORDER BY s.descricao");
 		this.listaSubarea = query.getResultList();
 
 	}
@@ -80,7 +83,8 @@ public class SubareaAtuacaoBean implements Serializable {
 	@SuppressWarnings("unchecked")
 	public Collection<AreaAtuacao> listaArea() {
 
-		Query query = em.createQuery("SELECT a FROM Area a");
+//		Query query = em.createQuery("SELECT a FROM Area a");
+		Query query = em.createQuery("SELECT a FROM AreaAtuacao a");
 		return query.getResultList();
 
 	}

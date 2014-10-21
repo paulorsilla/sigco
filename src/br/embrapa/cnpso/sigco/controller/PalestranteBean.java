@@ -100,7 +100,7 @@ public class PalestranteBean implements Serializable {
 		FacesContext.getCurrentInstance().addMessage(null, msg);
 
 		try {
-			this.em.merge(palestrante.getCpf());
+			this.em.merge(palestrante);
 			this.em.flush();
 		} catch (Exception e) {
 			e.printStackTrace();

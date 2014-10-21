@@ -102,7 +102,7 @@ public class EquipeTecnicaBean implements Serializable {
 		FacesContext.getCurrentInstance().addMessage(null, msg);
 
 		try {
-			em.merge(equipetecnica.getId());
+			em.merge(equipetecnica);
 			em.flush();
 		} catch (Exception e) {
 			e.printStackTrace();

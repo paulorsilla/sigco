@@ -46,13 +46,13 @@ public class EntityConverter implements Converter, Serializable {
                         getClazz(ctx, component).cast(obj));  
                 return id;  
             } catch (SecurityException e) {  
-                e.printStackTrace(); // seu log aqui  
+                e.printStackTrace();   
             } catch (IllegalArgumentException e) {  
-                e.printStackTrace(); // seu log aqui  
+                e.printStackTrace();   
             } catch (NoSuchFieldException e) {  
-                e.printStackTrace(); // seu log aqui  
+                e.printStackTrace();   
             } catch (IllegalAccessException e) {  
-                e.printStackTrace(); // seu log aqui  
+                e.printStackTrace();   
             }  
         }  
         return null;  

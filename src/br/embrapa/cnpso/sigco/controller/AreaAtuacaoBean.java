@@ -38,9 +38,12 @@ public class AreaAtuacaoBean implements Serializable {
 	@SuppressWarnings("unchecked")
 	public void init() {
 		this.area = new AreaAtuacao();
-
+		
+//		Query query = em.createQuery(
+//				"SELECT ar FROM Area ar ORDER BY ar.descricao", AreaAtuacao.class);
+		
 		Query query = em.createQuery(
-				"SELECT ar FROM Area ar ORDER BY ar.descricao", AreaAtuacao.class);
+				"SELECT ar FROM AreaAtuacao ar ORDER BY ar.descricao", AreaAtuacao.class);
 		this.listaArea = query.getResultList();
 	}
 
@@ -108,7 +111,7 @@ public class AreaAtuacaoBean implements Serializable {
 		FacesContext.getCurrentInstance().addMessage(null, msg);
 
 		try {
-			em.merge(area.getId());
+			em.merge(area);
 			em.flush();
 		} catch (Exception e) {
 			e.printStackTrace();

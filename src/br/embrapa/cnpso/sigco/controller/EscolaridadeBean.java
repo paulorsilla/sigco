@@ -100,7 +100,7 @@ public class EscolaridadeBean implements Serializable {
 		FacesContext.getCurrentInstance().addMessage(null, msg);
 
 		try {
-			em.merge(escolaridade.getId());
+			em.merge(escolaridade);
 			em.flush();
 		} catch (Exception e) {
 			e.printStackTrace();

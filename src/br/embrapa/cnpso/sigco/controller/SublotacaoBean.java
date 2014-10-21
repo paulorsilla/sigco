@@ -99,7 +99,7 @@ public class SublotacaoBean implements Serializable {
 		FacesContext.getCurrentInstance().addMessage(null, msg);
 
 		try {
-			this.em.merge(sublotacao.getId());
+			this.em.merge(sublotacao);
 			this.em.flush();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -108,7 +108,7 @@ public class SublotacaoBean implements Serializable {
 	}
 
 	public void onRowCancel(RowEditEvent event) {
-		FacesMessage msg = new FacesMessage("Sublotação Cancelado",
+		FacesMessage msg = new FacesMessage("Sublotação Cancelada",
 				((Sublotacao) event.getObject()).getDescricao());
 		FacesContext.getCurrentInstance().addMessage(null, msg);
 	}

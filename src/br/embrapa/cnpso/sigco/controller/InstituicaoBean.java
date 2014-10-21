@@ -36,10 +36,11 @@ public class InstituicaoBean implements Serializable {
 	@SuppressWarnings("unchecked")
 	public void init() {
 		this.instituicao = new Instituicao();
-
+		
 		Query query = this.em.createQuery(
 				"SELECT i FROM Instituicao i ORDER BY i.razaoSocial",
 				Instituicao.class);
+
 		this.listaInstituicao = query.getResultList();
 	}
 
@@ -94,12 +95,12 @@ public class InstituicaoBean implements Serializable {
 	public void onRowEdit(RowEditEvent event) {
 		this.instituicao = (Instituicao) event.getObject();
 
-		FacesMessage msg = new FacesMessage("Instituição Editado",
+		FacesMessage msg = new FacesMessage("Instituição Editada",
 				instituicao.getRazaoSocial());
 		FacesContext.getCurrentInstance().addMessage(null, msg);
 
 		try {
-			this.em.merge(instituicao.getCnpj());
+			this.em.merge(instituicao);
 			this.em.flush();
 		} catch (Exception e) {
 			e.printStackTrace();

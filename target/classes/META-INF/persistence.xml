@@ -7,10 +7,10 @@
 		<provider>org.hibernate.ejb.HibernatePersistence</provider>
 		<jta-data-source>java:jboss/datasources/SigcoWEB</jta-data-source>
 		
-		<class>br.embrapa.cnpso.sigco.model.Usuario</class>
+ 		<class>br.embrapa.cnpso.sigco.model.Usuario</class> 
 		<class>br.embrapa.cnpso.sigco.model.Autorizacao</class>
-		<class>br.embrapa.cnpso.sigco.model.AreaAtuacao</class>
-		<class>br.embrapa.cnpso.sigco.model.SubareaAtuacao</class>
+<!--  		<class>br.embrapa.cnpso.sigco.model.AreaAtuacao</class> -->
+<!--  		<class>br.embrapa.cnpso.sigco.model.SubareaAtuacao</class> -->
 
 		<properties>
 			<!-- Propriedades do hibernate -->
