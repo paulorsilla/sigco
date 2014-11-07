@@ -48,8 +48,8 @@
 		<security:intercept-url pattern="/auth/comum/*"
 			access="has_Role( 'Comum' )" />
 
-		<security:form-login login-page="/login.jsf"
-			authentication-failure-url="/login.jsf?erro=true"
+		<security:form-login default-target-url="/index.jsf"
+			login-page="/login.jsf" authentication-failure-url="/login.jsf?erro=true"
 			login-processing-url="/j_spring_security_check" />
 
 	</security:http>
