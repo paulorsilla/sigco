@@ -7,7 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 
 @Entity
-public class Palestrante implements Serializable {
+public class Facilitador implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -83,7 +83,7 @@ public class Palestrante implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Palestrante other = (Palestrante) obj;
+		Facilitador other = (Facilitador) obj;
 		if (cidade == null) {
 			if (other.cidade != null)
 				return false;

@@ -5,103 +5,103 @@
 	xmlns:p="http://primefaces.org/ui">
 
 <ui:composition template="/comuns/template.xhtml">
-	<ui:define name="pageTitle">Cadastro de Palestrantes</ui:define>
+	<ui:define name="pageTitle">Cadastro de Facilitadores</ui:define>
 
 	<ui:define name="content">
 		<p:spacer height="10px" />
 		<h:form>
 			<h:panelGrid columns="1" cellpadding="5">
-				<p:commandButton value="Adicionar Palestrante" type="button"
-					onclick="PF('dlgNewPalestrante').show(); " />
+				<p:commandButton value="Adicionar Facilitador" type="button"
+					onclick="PF('dlgNewFacilitador').show(); " />
 			</h:panelGrid>
 		</h:form>
 
 		<p:spacer height="10px" />
 
-		<!-- Tabela com lista de palestrantes cadastrados no sistema -->
+		<!-- Tabela com lista de facilitadores cadastrados no sistema -->
 
-		<h:form id="palestrante">
+		<h:form id="facilitador">
 			<p:growl id="msgs" showDetail="true" />
 
-			<p:dataTable id="listaPalestrante" var="palestrante"
-				widgetVar="tabelaPalestrante" editable="true" paginator="true"
+			<p:dataTable id="listaFacilitador" var="facilitador"
+				widgetVar="tabelaFacilitador" editable="true" paginator="true"
 				paginatorPosition="bottom" rowsPerPageTemplate="10,15,20" rows="10"
-				resizableColumns="true" value="#{palestranteBean.listaPalestrante}"
-				style="margin-bottom: 10px" rowKey="#{palestrante.nome}"
+				resizableColumns="true" value="#{facilitadorBean.listaFacilitador}"
+				style="margin-bottom: 10px" rowKey="#{facilitador.nome}"
 				emptyMessage="Nada encontrado!!"
-				filteredValue="#{palestranteBean.filtroPalestrante}">
+				filteredValue="#{facilitadorBean.filtroFacilitador}">
 
-				<f:facet name="header">Palestrante Cadastrados</f:facet>
+				<f:facet name="header">Facilitadores Cadastrados</f:facet>
 				<f:facet name="header">
 					<p:outputPanel style="align: right">
 						<h:outputText value="Buscar: " />
 						<p:inputText id="globalFilter"
-							onkeyup="PF('tabelaPalestrante').filter()" style="width: 150px"
+							onkeyup="PF('tabelaFacilitador').filter()" style="width: 150px"
 							placeholder="pesquisar" />
 					</p:outputPanel>
 				</f:facet>
 
-				<p:ajax event="rowEdit" listener="#{palestranteBean.onRowEdit}"
-					update=":palestrante:msgs" />
+				<p:ajax event="rowEdit" listener="#{facilitadorBean.onRowEdit}"
+					update=":facilitador:msgs" />
 				<p:ajax event="rowEditCancel"
-					listener="#{palestranteBean.onRowCancel}"
-					update=":palestrante:msgs" />
+					listener="#{facilitadorBean.onRowCancel}"
+					update=":facilitador:msgs" />
 
-				<p:column filterBy="#{palestrante.cpf}"
+				<p:column filterBy="#{facilitador.cpf}"
 					filterStyle="display: none; hidden: true;" headerText="CPF"
-					sortBy="#{palestrante.cpf}">
-					<p:outputLabel value="#{palestrante.cpf}" />
+					sortBy="#{facilitador.cpf}">
+					<p:outputLabel value="#{facilitador.cpf}" />
 				</p:column>
 
-				<p:column filterBy="#{palestrante.nome}"
+				<p:column filterBy="#{facilitador.nome}"
 					filterStyle="display: none; hidden: true;" headerText="Nome"
-					sortBy="#{palestrante.nome}">
+					sortBy="#{facilitador.nome}">
 					<p:cellEditor>
 						<f:facet name="input">
-							<p:inputText value="#{palestrante.nome}" />
+							<p:inputText value="#{facilitador.nome}" />
 						</f:facet>
 						<f:facet name="output">
-							<p:outputLabel value="#{palestrante.nome}" />
+							<p:outputLabel value="#{facilitador.nome}" />
 						</f:facet>
 					</p:cellEditor>
 				</p:column>
 
-				<p:column filterBy="#{palestrante.telefone}"
+				<p:column filterBy="#{facilitador.telefone}"
 					filterStyle="display: none; hidden: true;" headerText="Telefone"
-					sortBy="#{palestrante.telefone}">
+					sortBy="#{facilitador.telefone}">
 					<p:cellEditor>
 						<f:facet name="input">
 							<p:inputMask mask="(99) 9999-9999"
-								value="#{palestrante.telefone}" />
+								value="#{facilitador.telefone}" />
 						</f:facet>
 						<f:facet name="output">
-							<p:outputLabel value="#{palestrante.telefone}" />
+							<p:outputLabel value="#{facilitador.telefone}" />
 						</f:facet>
 					</p:cellEditor>
 				</p:column>
 
-				<p:column filterBy="#{palestrante.cidade}"
+				<p:column filterBy="#{facilitador.cidade}"
 					filterStyle="display: none; hidden: true;" headerText="Cidade"
-					sortBy="#{palestrante.cidade}">
+					sortBy="#{facilitador.cidade}">
 					<p:cellEditor>
 						<f:facet name="input">
-							<p:inputText value="#{palestrante.cidade}" />
+							<p:inputText value="#{facilitador.cidade}" />
 						</f:facet>
 						<f:facet name="output">
-							<p:outputLabel value="#{palestrante.cidade}" />
+							<p:outputLabel value="#{facilitador.cidade}" />
 						</f:facet>
 					</p:cellEditor>
 				</p:column>
 
-				<p:column filterBy="#{palestrante.uf}"
+				<p:column filterBy="#{facilitador.uf}"
 					filterStyle="display: none; hidden: true;" headerText="Estado"
-					sortBy="#{palestrante.uf}">
+					sortBy="#{facilitador.uf}">
 					<p:cellEditor>
 						<f:facet name="input">
-							<p:inputMask mask="aa" value="#{palestrante.uf}" />
+							<p:inputMask mask="aa" value="#{facilitador.uf}" />
 						</f:facet>
 						<f:facet name="output">
-							<p:outputLabel value="#{palestrante.uf}" />
+							<p:outputLabel value="#{facilitador.uf}" />
 						</f:facet>
 					</p:cellEditor>
 				</p:column>
@@ -115,66 +115,66 @@
 					<p:commandButton oncomplete="PF('dlgRemove').show()"
 						icon="ui-icon-trash" title="Excluir">
 						<f:setPropertyActionListener
-							target="#{palestranteBean.palestrante}" value="#{palestrante}" />
+							target="#{facilitadorBean.facilitador}" value="#{facilitador}" />
 					</p:commandButton>
 				</p:column>
 			</p:dataTable>
 		</h:form>
 
-		<p:confirmDialog id="dlgRemove" header="Excluir Palestrante"
+		<p:confirmDialog id="dlgRemove" header="Excluir Facilitador"
 			widgetVar="dlgRemove" appendTo="@(body)"
-			message="Deseja realmente excluir a área de atuação selecionada ? "
+			message="Deseja realmente excluir o facilitador selecionado ? "
 			severity="alert">
 			<h:form>
 
 				<p:commandButton value="Sim"
-					action="#{palestranteBean.excluir(palestranteBean.palestrante)}"
-					onclick="@dlgRemove.hide()" update="@form :palestrante" />
+					action="#{facilitadorBean.excluir(facilitadorBean.facilitador)}"
+					onclick="@dlgRemove.hide()" update="@form :facilitador" />
 
 				<p:commandButton value="Cancelar" onclick="@dlgRemove"
-					update="@form :palestrante" />
+					update="@form :facilitador" />
 
 			</h:form>
 		</p:confirmDialog>
 
-		<!-- Janela para inserção de palestrante -->
+		<!-- Janela para inserção de facilitador -->
 
-		<p:dialog id="dlgNewPalestrante" header="Adicionando Palestrante"
-			widgetVar="dlgNewPalestrante" modal="true" resizable="false"
+		<p:dialog id="dlgNewFacilitador" header="Adicionando Facilitador"
+			widgetVar="dlgNewFacilitador" modal="true" resizable="false"
 			appendTo="@(body)" draggable="false" styleClass="semBorda">
 			<h:form>
 				<p:panelGrid columns="2">
 					<p:outputLabel for="cpf" value="CPF: " />
 					<p:inputMask mask="999.999.999-99" id="cpf" required="true"
-						value="#{palestranteBean.palestrante.cpf}" />
+						value="#{facilitadorBean.facilitador.cpf}" />
 
 					<p:outputLabel for="nome" value="Nome: " />
 					<p:inputText id="nome" required="true"
-						value="#{palestranteBean.palestrante.nome}" />
+						value="#{facilitadorBean.facilitador.nome}" />
 
 					<p:outputLabel for="telefone" value="Telefone: " />
 					<p:inputMask mask="(99) 9999-9999" id="telefone" required="true"
-						value="#{palestranteBean.palestrante.telefone}" />
+						value="#{facilitadorBean.facilitador.telefone}" />
 
 					<p:outputLabel for="cidade" value="Cidade: " />
 					<p:inputText id="cidade" required="true"
-						value="#{palestranteBean.palestrante.cidade}" />
+						value="#{facilitadorBean.facilitador.cidade}" />
 
 					<p:outputLabel for="estado" value="Estado: " />
 					<p:inputText id="estado" required="true"
-						value="#{palestranteBean.palestrante.uf}" />
+						value="#{facilitadorBean.facilitador.uf}" />
 				</p:panelGrid>
 
 				<p:commandButton
-					action="#{palestranteBean.salvar(palestranteBean.palestrante)}"
+					action="#{facilitadorBean.salvar(facilitadorBean.facilitador)}"
 					value="Salvar" icon="ui-icon-check"
-					oncomplete="PF('dlgNewPalestrante').show()"
-					update="@form :palestrante @this" />
+					oncomplete="PF('dlgNewFacilitador').show()"
+					update="@form :facilitador @this" />
 				<p:spacer width="5px" />
 				<p:commandButton value="Salvar e Fechar" icon="ui-icon-close"
-					onclick="@dlgNewPalestrante"
-					action="#{palestranteBean.salvar(palestranteBean.palestrante)}"
-					update="@form :palestrante @this" />
+					onclick="@dlgNewFacilitador"
+					action="#{facilitadorBean.salvar(facilitadorBean.facilitador)}"
+					update="@form :facilitador @this" />
 			</h:form>
 
 		</p:dialog>

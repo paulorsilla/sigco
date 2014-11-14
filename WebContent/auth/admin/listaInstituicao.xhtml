@@ -75,6 +75,7 @@
 						</f:facet>
 						<f:facet name="output">
 							<p:outputLabel value="#{inst.email}" />
+
 						</f:facet>
 					</p:cellEditor>
 				</p:column>
@@ -179,7 +180,9 @@
 
 					<p:outputLabel for="email" value="E-mail: " />
 					<p:inputText id="email" required="true"
-						value="#{instituicaoBean.instituicao.email}" />
+						value="#{instituicaoBean.instituicao.email}">
+						<f:validateRegex pattern="^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$" />
+					</p:inputText>
 
 					<p:outputLabel for="telefone" value="Telefone: " />
 					<p:inputMask mask="(99) 9999-9999" id="telefone" required="true"
