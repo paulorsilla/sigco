@@ -93,15 +93,54 @@
 					</p:cellEditor>
 				</p:column>
 
-				<p:column filterBy="#{inst.endereco}"
-					filterStyle="display: none; hidden: true;" headerText="Endereco"
-					sortBy="#{inst.endereco}">
+				<p:column filterBy="#{inst.logradouro}"
+					filterStyle="display: none; hidden: true;" headerText="Logradouro"
+					sortBy="#{inst.logradouro}">
 					<p:cellEditor>
 						<f:facet name="input">
-							<p:inputText value="#{inst.endereco}" />
+							<p:inputText value="#{inst.logradouro}" />
 						</f:facet>
 						<f:facet name="output">
-							<p:outputLabel value="#{inst.endereco}" />
+							<p:outputLabel value="#{inst.logradouro}" />
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+
+				<p:column filterBy="#{inst.numero}"
+					filterStyle="display: none; hidden: true;" headerText="Número"
+					sortBy="#{inst.numero}">
+					<p:cellEditor>
+						<f:facet name="input">
+							<p:inputText value="#{inst.numero}" />
+						</f:facet>
+						<f:facet name="output">
+							<p:outputLabel value="#{inst.numero}" />
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+
+				<p:column filterBy="#{inst.complemento}"
+					filterStyle="display: none; hidden: true;" headerText="Complemento"
+					sortBy="#{inst.complemento}">
+					<p:cellEditor>
+						<f:facet name="input">
+							<p:inputText value="#{inst.complemento}" />
+						</f:facet>
+						<f:facet name="output">
+							<p:outputLabel value="#{inst.complemento}" />
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+
+				<p:column filterBy="#{inst.cep}"
+					filterStyle="display: none; hidden: true;" headerText="CEP"
+					sortBy="#{inst.cep}">
+					<p:cellEditor>
+						<f:facet name="input">
+							<p:inputText value="#{inst.cep}" />
+						</f:facet>
+						<f:facet name="output">
+							<p:outputLabel value="#{inst.cep}" />
 						</f:facet>
 					</p:cellEditor>
 				</p:column>
@@ -124,7 +163,11 @@
 					sortBy="#{inst.uf}">
 					<p:cellEditor>
 						<f:facet name="input">
-							<p:inputMask value="#{inst.uf}" mask="aa" />
+							<p:selectOneMenu value="#{instituicaoBean.instituicao.uf}"
+								converter="entityConverter" style="width: 38%">
+								<f:selectItems value="#{estadosBean.listaEstados()}"
+									var="estados" itemLabel="#{estados.uf}" id="estados" />
+							</p:selectOneMenu>
 						</f:facet>
 						<f:facet name="output">
 							<p:outputLabel value="#{inst.uf}" />
@@ -188,17 +231,35 @@
 					<p:inputMask mask="(99) 9999-9999" id="telefone" required="true"
 						value="#{instituicaoBean.instituicao.telefone}" />
 
-					<p:outputLabel for="end" value="Endereço: " />
-					<p:inputText id="end" required="true"
-						value="#{instituicaoBean.instituicao.endereco}" />
+					<p:outputLabel for="logradouro" value="Logradouro: " />
+					<p:inputText id="logradouro" required="true"
+						value="#{instituicaoBean.instituicao.logradouro}" />
+
+
+					<p:outputLabel for="num" value="Número: " />
+					<p:inputText id="num" required="true"
+						value="#{instituicaoBean.instituicao.numero}" />
+
+					<p:outputLabel for="complemento" value="Complemento: " />
+					<p:inputText id="complemento" required="true"
+						value="#{instituicaoBean.instituicao.complemento}" />
+
+					<p:outputLabel for="cep" value="CEP: " />
+					<p:inputText id="cep" required="true"
+						value="#{instituicaoBean.instituicao.cep}" />
 
 					<p:outputLabel for="cidade" value="Cidade: " />
 					<p:inputText id="cidade" required="true"
 						value="#{instituicaoBean.instituicao.cidade}" />
 
 					<p:outputLabel for="uf" value="Estado: " />
-					<p:inputMask mask="aa" id="uf" required="true"
-						value="#{instituicaoBean.instituicao.uf}" />
+					<p:selectOneMenu id="uf" label="uf"
+						value="#{instituicaoBean.instituicao.uf}"
+						converter="entityConverter" required="true">
+						<f:selectItem itemLabel="--Selecione--" noSelectionOption="true" />
+						<f:selectItems value="#{estadosBean.listaEstados()}" var="estados"
+							itemLabel="#{estados.uf}" />
+					</p:selectOneMenu>
 				</p:panelGrid>
 
 				<p:commandButton
