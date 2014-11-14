@@ -25,8 +25,7 @@ public class EstadosBean implements Serializable {
 	@SuppressWarnings("unchecked")
 	public Collection<Estados> listaEstados() {
 
-		Query query = em.createQuery("SELECT e FROM Estados ORDER BY e.uf",
-				Estados.class);
+		Query query = em.createQuery("SELECT e FROM Estados e ORDER BY e.uf");
 		return query.getResultList();
 	}
 

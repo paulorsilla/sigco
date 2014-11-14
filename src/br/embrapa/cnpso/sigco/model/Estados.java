@@ -14,7 +14,7 @@ public class Estados implements Serializable {
 	private String uf;
 
 	public Estados() {
-		super();
+
 	}
 
 	public String getUf() {

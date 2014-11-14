@@ -15,6 +15,12 @@
 		<converter-id>areaConverter</converter-id>
 		<converter-class>br.embrapa.cnpso.sigco.model.utils.AreaConverter</converter-class>
 	</converter>
+
+	<converter>
+		<converter-id>estadosConverter</converter-id>
+		<converter-class>br.embrapa.cnpso.sigco.model.utils.EstadosConverter</converter-class>
+	</converter>
+
 	<managed-bean>
 		<managed-bean-name>subareaBean</managed-bean-name>
 		<managed-bean-class>br.embrapa.cnpso.sigco.controller.SubareaAtuacaoBean</managed-bean-class>

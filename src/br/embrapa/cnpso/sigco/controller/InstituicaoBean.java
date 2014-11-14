@@ -16,6 +16,7 @@ import javax.persistence.Query;
 
 import org.primefaces.event.RowEditEvent;
 
+import br.embrapa.cnpso.sigco.model.Estados;
 import br.embrapa.cnpso.sigco.model.Instituicao;
 
 @Named
@@ -29,6 +30,7 @@ public class InstituicaoBean implements Serializable {
 	private EntityManager em;
 
 	private Instituicao instituicao;
+	private Estados estados;
 	private Collection<Instituicao> listaInstituicao;
 	private List<Instituicao> filtroInstituicao;
 
@@ -36,7 +38,7 @@ public class InstituicaoBean implements Serializable {
 	@SuppressWarnings("unchecked")
 	public void init() {
 		this.instituicao = new Instituicao();
-		
+
 		Query query = this.em.createQuery(
 				"SELECT i FROM Instituicao i ORDER BY i.razaoSocial",
 				Instituicao.class);
@@ -50,6 +52,14 @@ public class InstituicaoBean implements Serializable {
 
 	public void setInstituicao(Instituicao instituicao) {
 		this.instituicao = instituicao;
+	}
+
+	public Estados getEstados() {
+		return estados;
+	}
+
+	public void setEstados(Estados estados) {
+		this.estados = estados;
 	}
 
 	public Collection<Instituicao> getListaInstituicao() {

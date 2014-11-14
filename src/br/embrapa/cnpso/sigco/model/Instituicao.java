@@ -5,6 +5,7 @@ import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 
 @Entity
 public class Instituicao implements Serializable {
@@ -30,7 +31,9 @@ public class Instituicao implements Serializable {
 	private String cep;
 	@Column(length = 20)
 	private String cidade;
-	private String uf;
+
+	@OneToOne
+	private Estados uf;
 
 	public String getCnpj() {
 		return cnpj;
@@ -104,11 +107,11 @@ public class Instituicao implements Serializable {
 		this.cidade = cidade;
 	}
 
-	public String getUf() {
+	public Estados getUf() {
 		return uf;
 	}
 
-	public void setUf(String uf) {
+	public void setUf(Estados uf) {
 		this.uf = uf;
 	}
 
@@ -194,5 +197,4 @@ public class Instituicao implements Serializable {
 			return false;
 		return true;
 	}
-
 }

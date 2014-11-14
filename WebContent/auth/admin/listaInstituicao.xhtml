@@ -164,7 +164,7 @@
 					<p:cellEditor>
 						<f:facet name="input">
 							<p:selectOneMenu value="#{instituicaoBean.instituicao.uf}"
-								converter="entityConverter" style="width: 38%">
+								converter="estadosConverter" style="width: 100%">
 								<f:selectItems value="#{estadosBean.listaEstados()}"
 									var="estados" itemLabel="#{estados.uf}" id="estados" />
 							</p:selectOneMenu>
@@ -255,7 +255,7 @@
 					<p:outputLabel for="uf" value="Estado: " />
 					<p:selectOneMenu id="uf" label="uf"
 						value="#{instituicaoBean.instituicao.uf}"
-						converter="entityConverter" required="true">
+						converter="estadosConverter" required="true">
 						<f:selectItem itemLabel="--Selecione--" noSelectionOption="true" />
 						<f:selectItems value="#{estadosBean.listaEstados()}" var="estados"
 							itemLabel="#{estados.uf}" />
