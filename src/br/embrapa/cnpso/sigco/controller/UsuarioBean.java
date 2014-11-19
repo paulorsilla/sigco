@@ -13,11 +13,13 @@ import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import javax.persistence.criteria.CriteriaQuery;
 
 import org.primefaces.event.RowEditEvent;
 import org.springframework.security.core.context.SecurityContextHolder;
 
 import br.embrapa.cnpso.sigco.model.Autorizacao;
+import br.embrapa.cnpso.sigco.model.Empregado;
 import br.embrapa.cnpso.sigco.model.Usuario;
 
 @Stateful
@@ -36,13 +38,18 @@ public class UsuarioBean implements Serializable {
 	private List<Usuario> filtroUsuarios;
 
 	@PostConstruct
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public void init() {
 		this.usuario = new Usuario();
+		//
+		// Query query = em
+		// .createQuery("SELECT u FROM Usuario u ORDER BY u.login");
+		// this.listaUsuarios = query.getResultList();
 
-		Query query = em
-				.createQuery("SELECT u FROM Usuario u ORDER BY u.login");
-		this.listaUsuarios = query.getResultList();
+		CriteriaQuery cQ = em.getCriteriaBuilder().createQuery();
+		cQ.select(cQ.from(Usuario.class));
+
+		listaUsuarios = em.createQuery(cQ).getResultList();
 
 	}
 
@@ -127,6 +134,12 @@ public class UsuarioBean implements Serializable {
 	public void onRowCancel(RowEditEvent event) {
 		FacesMessage msg = new FacesMessage("Usuario Cancelado",
 				((Usuario) event.getObject()).getLogin());
+		FacesContext.getCurrentInstance().addMessage(null, msg);
+	}
+
+	public void removeMessage() {
+		FacesMessage msg = new FacesMessage("Usuário Removido",
+				usuario.getNomeCompleto());
 		FacesContext.getCurrentInstance().addMessage(null, msg);
 	}
 }

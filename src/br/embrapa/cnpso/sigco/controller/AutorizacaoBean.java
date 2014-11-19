@@ -9,8 +9,10 @@ import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import javax.persistence.criteria.CriteriaQuery;
 
 import br.embrapa.cnpso.sigco.model.Autorizacao;
+import br.embrapa.cnpso.sigco.model.Empregado;
 
 @Stateful
 @Named
@@ -22,11 +24,16 @@ public class AutorizacaoBean implements Serializable {
 	@PersistenceContext
 	private EntityManager em;
 
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public Collection<Autorizacao> listaAutorizacoes() {
 
-		Query query = em.createQuery("SELECT a FROM Autorizacao a");
-		return query.getResultList();
+		// Query query = em.createQuery("SELECT a FROM Autorizacao a");
+		// return query.getResultList();
+
+		CriteriaQuery cQ = em.getCriteriaBuilder().createQuery();
+		cQ.select(cQ.from(Autorizacao.class));
+
+		return em.createQuery(cQ).getResultList();
 
 	}
 }

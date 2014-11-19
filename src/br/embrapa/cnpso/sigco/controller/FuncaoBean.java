@@ -13,9 +13,11 @@ import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import javax.persistence.criteria.CriteriaQuery;
 
 import org.primefaces.event.RowEditEvent;
 
+import br.embrapa.cnpso.sigco.model.Empregado;
 import br.embrapa.cnpso.sigco.model.Funcao;
 
 @Named
@@ -32,14 +34,19 @@ public class FuncaoBean implements Serializable {
 	private List<Funcao> filtroFuncao;
 
 	@PostConstruct
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public void init() {
 		this.funcao = new Funcao();
 
-		Query query = em.createQuery(
-				"SELECT func FROM Funcao func ORDER BY func.descricao",
-				Funcao.class);
-		this.listaFuncao = query.getResultList();
+		// Query query = em.createQuery(
+		// "SELECT func FROM Funcao func ORDER BY func.descricao",
+		// Funcao.class);
+		// this.listaFuncao = query.getResultList();
+
+		CriteriaQuery cQ = em.getCriteriaBuilder().createQuery();
+		cQ.select(cQ.from(Funcao.class));
+
+		listaFuncao = em.createQuery(cQ).getResultList();
 	}
 
 	public Funcao getFuncao() {

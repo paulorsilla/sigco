@@ -13,8 +13,10 @@ import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import javax.persistence.criteria.CriteriaQuery;
 
 import org.primefaces.event.RowEditEvent;
+import org.springframework.cglib.core.Local;
 
 import br.embrapa.cnpso.sigco.model.Localizacao;
 
@@ -33,14 +35,19 @@ public class LocalBean implements Serializable {
 	private List<Localizacao> filtroLocal;
 
 	@PostConstruct
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public void init() {
 		this.local = new Localizacao();
 
-		Query query = em.createQuery(
-				"SELECT local FROM Localizacao local ORDER BY local.descricao",
-				Localizacao.class);
-		this.listaLocal = query.getResultList();
+		// Query query = em.createQuery(
+		// "SELECT local FROM Localizacao local ORDER BY local.descricao",
+		// Localizacao.class);
+		// this.listaLocal = query.getResultList();
+
+		CriteriaQuery cQ = em.getCriteriaBuilder().createQuery();
+		cQ.select(cQ.from(Local.class));
+
+		listaLocal = em.createQuery(cQ).getResultList();
 	}
 
 	public Localizacao getLocal() {

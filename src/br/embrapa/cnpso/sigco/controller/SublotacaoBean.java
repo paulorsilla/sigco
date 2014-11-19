@@ -13,9 +13,11 @@ import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import javax.persistence.criteria.CriteriaQuery;
 
 import org.primefaces.event.RowEditEvent;
 
+import br.embrapa.cnpso.sigco.model.Empregado;
 import br.embrapa.cnpso.sigco.model.Sublotacao;
 
 @Named
@@ -33,14 +35,19 @@ public class SublotacaoBean implements Serializable {
 	private List<Sublotacao> filtroSublotacao;
 
 	@PostConstruct
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public void init() {
 		this.sublotacao = new Sublotacao();
+		//
+		// Query query = em.createQuery(
+		// "SELECT sl FROM Sublotacao sl ORDER BY sl.descricao",
+		// Sublotacao.class);
+		// this.listaSublotacao = query.getResultList();
 
-		Query query = em.createQuery(
-				"SELECT sl FROM Sublotacao sl ORDER BY sl.descricao",
-				Sublotacao.class);
-		this.listaSublotacao = query.getResultList();
+		CriteriaQuery cQ = em.getCriteriaBuilder().createQuery();
+		cQ.select(cQ.from(Sublotacao.class));
+
+		listaSublotacao = em.createQuery(cQ).getResultList();
 	}
 
 	public Sublotacao getSublotacao() {
@@ -110,6 +117,12 @@ public class SublotacaoBean implements Serializable {
 	public void onRowCancel(RowEditEvent event) {
 		FacesMessage msg = new FacesMessage("Sublotação Cancelada",
 				((Sublotacao) event.getObject()).getDescricao());
+		FacesContext.getCurrentInstance().addMessage(null, msg);
+	}
+
+	public void removeMessage() {
+		FacesMessage msg = new FacesMessage("Sublotação Removido",
+				sublotacao.getDescricao());
 		FacesContext.getCurrentInstance().addMessage(null, msg);
 	}
 }

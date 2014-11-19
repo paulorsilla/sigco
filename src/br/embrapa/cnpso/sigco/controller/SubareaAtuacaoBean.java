@@ -13,10 +13,12 @@ import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import javax.persistence.criteria.CriteriaQuery;
 
 import org.primefaces.event.RowEditEvent;
 
 import br.embrapa.cnpso.sigco.model.AreaAtuacao;
+import br.embrapa.cnpso.sigco.model.Empregado;
 import br.embrapa.cnpso.sigco.model.SubareaAtuacao;
 
 @Stateful
@@ -35,16 +37,18 @@ public class SubareaAtuacaoBean implements Serializable {
 	private List<SubareaAtuacao> filtroSubarea;
 
 	@PostConstruct
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public void init() {
 		this.subarea = new SubareaAtuacao();
 
-//		Query query = em
-//				.createQuery("SELECT s FROM Subarea s ORDER BY s.descricao");
+		// Query query = em
+		// .createQuery("SELECT s FROM SubareaAtuacao s ORDER BY s.descricao");
+		// this.listaSubarea = query.getResultList();
 
-		Query query = em
-				.createQuery("SELECT s FROM SubareaAtuacao s ORDER BY s.descricao");
-		this.listaSubarea = query.getResultList();
+		CriteriaQuery cQ = em.getCriteriaBuilder().createQuery();
+		cQ.select(cQ.from(SubareaAtuacao.class));
+
+		listaSubarea = em.createQuery(cQ).getResultList();
 
 	}
 
@@ -83,7 +87,7 @@ public class SubareaAtuacaoBean implements Serializable {
 	@SuppressWarnings("unchecked")
 	public Collection<AreaAtuacao> listaArea() {
 
-//		Query query = em.createQuery("SELECT a FROM Area a");
+		// Query query = em.createQuery("SELECT a FROM Area a");
 		Query query = em.createQuery("SELECT a FROM AreaAtuacao a");
 		return query.getResultList();
 
@@ -93,21 +97,22 @@ public class SubareaAtuacaoBean implements Serializable {
 
 		System.out.println("-> " + subarea.getDescricao());
 
-//		try {
-//			this.em.persist(subarea);
-//			this.em.flush();
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		} finally {
-//			this.init();
-//		}
+		// try {
+		// this.em.persist(subarea);
+		// this.em.flush();
+		// } catch (Exception e) {
+		// e.printStackTrace();
+		// } finally {
+		// this.init();
+		// }
 
 	}
 
 	public void excluir(SubareaAtuacao subarea) {
 
 		try {
-			SubareaAtuacao suba = this.em.find(SubareaAtuacao.class, this.subarea.getId());
+			SubareaAtuacao suba = this.em.find(SubareaAtuacao.class,
+					this.subarea.getId());
 			this.em.remove(suba);
 			this.em.flush();
 		} catch (Exception e) {
@@ -136,6 +141,12 @@ public class SubareaAtuacaoBean implements Serializable {
 	public void onRowCancel(RowEditEvent event) {
 		FacesMessage msg = new FacesMessage("Subárea Cancelado",
 				((AreaAtuacao) event.getObject()).getDescricao());
+		FacesContext.getCurrentInstance().addMessage(null, msg);
+	}
+
+	public void removeMessage() {
+		FacesMessage msg = new FacesMessage("Subárea Removido",
+				subarea.getDescricao());
 		FacesContext.getCurrentInstance().addMessage(null, msg);
 	}
 

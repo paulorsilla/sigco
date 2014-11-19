@@ -13,9 +13,11 @@ import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import javax.persistence.criteria.CriteriaQuery;
 
 import org.primefaces.event.RowEditEvent;
 
+import br.embrapa.cnpso.sigco.model.Empregado;
 import br.embrapa.cnpso.sigco.model.Estados;
 import br.embrapa.cnpso.sigco.model.Instituicao;
 
@@ -35,15 +37,20 @@ public class InstituicaoBean implements Serializable {
 	private List<Instituicao> filtroInstituicao;
 
 	@PostConstruct
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public void init() {
 		this.instituicao = new Instituicao();
+		//
+		// Query query = this.em.createQuery(
+		// "SELECT i FROM Instituicao i ORDER BY i.razaoSocial",
+		// Instituicao.class);
+		//
+		// this.listaInstituicao = query.getResultList();
 
-		Query query = this.em.createQuery(
-				"SELECT i FROM Instituicao i ORDER BY i.razaoSocial",
-				Instituicao.class);
+		CriteriaQuery cQ = em.getCriteriaBuilder().createQuery();
+		cQ.select(cQ.from(Instituicao.class));
 
-		this.listaInstituicao = query.getResultList();
+		listaInstituicao = em.createQuery(cQ).getResultList();
 	}
 
 	public Instituicao getInstituicao() {

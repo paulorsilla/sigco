@@ -12,7 +12,8 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
+//import javax.persistence.Query;
+import javax.persistence.criteria.CriteriaQuery;
 
 import org.primefaces.event.RowEditEvent;
 
@@ -33,13 +34,18 @@ public class CargoBean implements Serializable {
 	private List<Cargo> filtroCargo;
 
 	@PostConstruct
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public void init() {
 		this.cargo = new Cargo();
 
-		Query query = this.em.createQuery(
-				"SELECT ca FROM Cargo ca ORDER BY ca.descricao", Cargo.class);
-		this.listaCargo = query.getResultList();
+		// Query query = this.em.createQuery(
+		// "SELECT ca FROM Cargo ca ORDER BY ca.descricao", Cargo.class);
+		// this.listaCargo = query.getResultList();
+
+		CriteriaQuery cQ = em.getCriteriaBuilder().createQuery();
+		cQ.select(cQ.from(Cargo.class));
+
+		listaCargo = em.createQuery(cQ).getResultList();
 	}
 
 	public Cargo getCargo() {

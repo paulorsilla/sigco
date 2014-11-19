@@ -13,9 +13,11 @@ import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import javax.persistence.criteria.CriteriaQuery;
 
 import org.primefaces.event.RowEditEvent;
 
+import br.embrapa.cnpso.sigco.model.Empregado;
 import br.embrapa.cnpso.sigco.model.Escolaridade;
 
 @Named
@@ -32,14 +34,19 @@ public class EscolaridadeBean implements Serializable {
 	private List<Escolaridade> filtroEscolaridade;
 
 	@PostConstruct
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public void init() {
 		this.escolaridade = new Escolaridade();
+		//
+		// Query query = em.createQuery(
+		// "SELECT es FROM Escolaridade es ORDER BY es.ordem",
+		// Escolaridade.class);
+		// this.listaEscolaridade = query.getResultList();
 
-		Query query = em.createQuery(
-				"SELECT es FROM Escolaridade es ORDER BY es.ordem",
-				Escolaridade.class);
-		this.listaEscolaridade = query.getResultList();
+		CriteriaQuery cQ = em.getCriteriaBuilder().createQuery();
+		cQ.select(cQ.from(Escolaridade.class));
+
+		listaEscolaridade = em.createQuery(cQ).getResultList();
 	}
 
 	public Escolaridade getEscolaridade() {

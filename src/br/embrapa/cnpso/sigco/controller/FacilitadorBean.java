@@ -13,9 +13,11 @@ import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import javax.persistence.criteria.CriteriaQuery;
 
 import org.primefaces.event.RowEditEvent;
 
+import br.embrapa.cnpso.sigco.model.Empregado;
 import br.embrapa.cnpso.sigco.model.Facilitador;
 
 @Named
@@ -33,15 +35,20 @@ public class FacilitadorBean implements Serializable {
 	private List<Facilitador> filtroFacilitador;
 
 	@PostConstruct
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public void init() {
 		this.facilitador = new Facilitador();
 
-		Query query = this.em.createQuery(
-				"SELECT fa FROM Facilitador fa ORDER BY fa.nome",
-				Facilitador.class);
+		// Query query = this.em.createQuery(
+		// "SELECT fa FROM Facilitador fa ORDER BY fa.nome",
+		// Facilitador.class);
+		//
+		// this.listaFacilitador = query.getResultList();
 
-		this.listaFacilitador = query.getResultList();
+		CriteriaQuery cQ = em.getCriteriaBuilder().createQuery();
+		cQ.select(cQ.from(Facilitador.class));
+
+		listaFacilitador = em.createQuery(cQ).getResultList();
 	}
 
 	public Facilitador getFacilitador() {

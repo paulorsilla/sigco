@@ -13,10 +13,12 @@ import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import javax.persistence.criteria.CriteriaQuery;
 
 import org.primefaces.event.RowEditEvent;
 
 import br.embrapa.cnpso.sigco.model.AreaAtuacao;
+import br.embrapa.cnpso.sigco.model.Empregado;
 import br.embrapa.cnpso.sigco.model.SubareaAtuacao;
 
 @Named
@@ -35,16 +37,22 @@ public class AreaAtuacaoBean implements Serializable {
 	private List<AreaAtuacao> filtroArea;
 
 	@PostConstruct
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public void init() {
 		this.area = new AreaAtuacao();
-		
-//		Query query = em.createQuery(
-//				"SELECT ar FROM Area ar ORDER BY ar.descricao", AreaAtuacao.class);
-		
-		Query query = em.createQuery(
-				"SELECT ar FROM AreaAtuacao ar ORDER BY ar.descricao", AreaAtuacao.class);
-		this.listaArea = query.getResultList();
+
+		// Query query = em.createQuery(
+		// "SELECT ar FROM Area ar ORDER BY ar.descricao", AreaAtuacao.class);
+
+		// Query query = em.createQuery(
+		// "SELECT ar FROM AreaAtuacao ar ORDER BY ar.descricao",
+		// AreaAtuacao.class);
+		// this.listaArea = query.getResultList();
+
+		CriteriaQuery cQ = em.getCriteriaBuilder().createQuery();
+		cQ.select(cQ.from(AreaAtuacao.class));
+
+		listaArea = em.createQuery(cQ).getResultList();
 	}
 
 	public AreaAtuacao getArea() {

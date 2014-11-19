@@ -13,9 +13,11 @@ import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import javax.persistence.criteria.CriteriaQuery;
 
 import org.primefaces.event.RowEditEvent;
 
+import br.embrapa.cnpso.sigco.model.Empregado;
 import br.embrapa.cnpso.sigco.model.EquipeTecnica;
 
 @Named
@@ -32,14 +34,19 @@ public class EquipeTecnicaBean implements Serializable {
 	private List<EquipeTecnica> filtroEquipeTecnica;
 
 	@PostConstruct
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public void init() {
 		this.equipetecnica = new EquipeTecnica();
 
-		Query query = em.createQuery(
-				"SELECT et FROM EquipeTecnica et ORDER BY et.descricao",
-				EquipeTecnica.class);
-		this.listaEquipeTecnica = query.getResultList();
+		// Query query = em.createQuery(
+		// "SELECT et FROM EquipeTecnica et ORDER BY et.descricao",
+		// EquipeTecnica.class);
+		// this.listaEquipeTecnica = query.getResultList();
+
+		CriteriaQuery cQ = em.getCriteriaBuilder().createQuery();
+		cQ.select(cQ.from(EquipeTecnica.class));
+
+		listaEquipeTecnica = em.createQuery(cQ).getResultList();
 	}
 
 	public EquipeTecnica getEquipetecnica() {

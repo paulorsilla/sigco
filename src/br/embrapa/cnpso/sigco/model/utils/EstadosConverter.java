@@ -5,7 +5,6 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
-import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -14,7 +13,6 @@ import br.embrapa.cnpso.sigco.model.Estados;
 
 @Named
 @Stateful
-@ViewScoped
 @FacesConverter(forClass = Estados.class)
 public class EstadosConverter implements Converter {
 
