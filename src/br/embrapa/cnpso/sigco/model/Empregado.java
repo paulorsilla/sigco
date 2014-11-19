@@ -1,10 +1,12 @@
 package br.embrapa.cnpso.sigco.model;
 
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -23,6 +25,9 @@ public class Empregado extends Pessoa implements Serializable {
 	private Date dataDesligamento;
 
 	private boolean situacao;
+
+	@OneToMany
+	private Collection<Competencia> competencia;
 
 	public String getMatricula() {
 		return matricula;
@@ -56,10 +61,20 @@ public class Empregado extends Pessoa implements Serializable {
 		this.situacao = situacao;
 	}
 
+	public Collection<Competencia> getCompetencia() {
+		return competencia;
+	}
+
+	public void setCompetencia(Collection<Competencia> competencia) {
+		this.competencia = competencia;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = super.hashCode();
+		result = prime * result
+				+ ((competencia == null) ? 0 : competencia.hashCode());
 		result = prime * result
 				+ ((dataAdmissao == null) ? 0 : dataAdmissao.hashCode());
 		result = prime
@@ -80,6 +95,11 @@ public class Empregado extends Pessoa implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Empregado other = (Empregado) obj;
+		if (competencia == null) {
+			if (other.competencia != null)
+				return false;
+		} else if (!competencia.equals(other.competencia))
+			return false;
 		if (dataAdmissao == null) {
 			if (other.dataAdmissao != null)
 				return false;
@@ -99,4 +119,5 @@ public class Empregado extends Pessoa implements Serializable {
 			return false;
 		return true;
 	}
+
 }
