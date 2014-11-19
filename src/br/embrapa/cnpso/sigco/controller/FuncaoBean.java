@@ -12,12 +12,10 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaQuery;
 
 import org.primefaces.event.RowEditEvent;
 
-import br.embrapa.cnpso.sigco.model.Empregado;
 import br.embrapa.cnpso.sigco.model.Funcao;
 
 @Named
@@ -119,4 +117,9 @@ public class FuncaoBean implements Serializable {
 		FacesContext.getCurrentInstance().addMessage(null, msg);
 	}
 
+	public void removeMessage() {
+		FacesMessage msg = new FacesMessage("Função Removido",
+				funcao.getDescricao());
+		FacesContext.getCurrentInstance().addMessage(null, msg);
+	}
 }

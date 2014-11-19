@@ -18,7 +18,6 @@ import javax.persistence.criteria.CriteriaQuery;
 import org.primefaces.event.RowEditEvent;
 
 import br.embrapa.cnpso.sigco.model.AreaAtuacao;
-import br.embrapa.cnpso.sigco.model.Empregado;
 import br.embrapa.cnpso.sigco.model.SubareaAtuacao;
 
 @Stateful

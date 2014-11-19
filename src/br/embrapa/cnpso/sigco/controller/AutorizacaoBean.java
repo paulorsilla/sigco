@@ -8,11 +8,9 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaQuery;
 
 import br.embrapa.cnpso.sigco.model.Autorizacao;
-import br.embrapa.cnpso.sigco.model.Empregado;
 
 @Stateful
 @Named

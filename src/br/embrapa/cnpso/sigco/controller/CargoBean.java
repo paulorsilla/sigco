@@ -116,4 +116,10 @@ public class CargoBean implements Serializable {
 		FacesContext.getCurrentInstance().addMessage(null, msg);
 	}
 
+	public void removeMessage() {
+		FacesMessage msg = new FacesMessage("Cargo Removido",
+				cargo.getDescricao());
+		FacesContext.getCurrentInstance().addMessage(null, msg);
+	}
+
 }

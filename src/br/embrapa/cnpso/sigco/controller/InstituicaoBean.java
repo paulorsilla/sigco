@@ -12,12 +12,10 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaQuery;
 
 import org.primefaces.event.RowEditEvent;
 
-import br.embrapa.cnpso.sigco.model.Empregado;
 import br.embrapa.cnpso.sigco.model.Estados;
 import br.embrapa.cnpso.sigco.model.Instituicao;
 
@@ -127,6 +125,12 @@ public class InstituicaoBean implements Serializable {
 	public void onRowCancel(RowEditEvent event) {
 		FacesMessage msg = new FacesMessage("Instituição Cancelada",
 				((Instituicao) event.getObject()).getRazaoSocial());
+		FacesContext.getCurrentInstance().addMessage(null, msg);
+	}
+
+	public void removeMessage() {
+		FacesMessage msg = new FacesMessage("Instituição Removido",
+				instituicao.getRazaoSocial());
 		FacesContext.getCurrentInstance().addMessage(null, msg);
 	}
 

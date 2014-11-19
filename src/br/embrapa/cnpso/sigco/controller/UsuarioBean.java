@@ -12,14 +12,12 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaQuery;
 
 import org.primefaces.event.RowEditEvent;
 import org.springframework.security.core.context.SecurityContextHolder;
 
 import br.embrapa.cnpso.sigco.model.Autorizacao;
-import br.embrapa.cnpso.sigco.model.Empregado;
 import br.embrapa.cnpso.sigco.model.Usuario;
 
 @Stateful

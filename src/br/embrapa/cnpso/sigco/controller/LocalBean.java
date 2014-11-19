@@ -12,7 +12,6 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaQuery;
 
 import org.primefaces.event.RowEditEvent;
@@ -120,4 +119,9 @@ public class LocalBean implements Serializable {
 		FacesContext.getCurrentInstance().addMessage(null, msg);
 	}
 
+	public void removeMessage() {
+		FacesMessage msg = new FacesMessage("Localização Removido",
+				local.getDescricao());
+		FacesContext.getCurrentInstance().addMessage(null, msg);
+	}
 }

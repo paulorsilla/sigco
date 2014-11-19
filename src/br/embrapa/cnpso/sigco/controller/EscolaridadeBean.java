@@ -12,12 +12,10 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaQuery;
 
 import org.primefaces.event.RowEditEvent;
 
-import br.embrapa.cnpso.sigco.model.Empregado;
 import br.embrapa.cnpso.sigco.model.Escolaridade;
 
 @Named
@@ -117,6 +115,12 @@ public class EscolaridadeBean implements Serializable {
 	public void onRowCancel(RowEditEvent event) {
 		FacesMessage msg = new FacesMessage("Escolaridade Cancelado",
 				((Escolaridade) event.getObject()).getDescricao());
+		FacesContext.getCurrentInstance().addMessage(null, msg);
+	}
+
+	public void removeMessage() {
+		FacesMessage msg = new FacesMessage("Escolaridade Removido",
+				escolaridade.getDescricao());
 		FacesContext.getCurrentInstance().addMessage(null, msg);
 	}
 
