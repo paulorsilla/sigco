@@ -38,11 +38,6 @@ public class LocalBean implements Serializable {
 	public void init() {
 		this.local = new Localizacao();
 
-		// Query query = em.createQuery(
-		// "SELECT local FROM Localizacao local ORDER BY local.descricao",
-		// Localizacao.class);
-		// this.listaLocal = query.getResultList();
-
 		CriteriaQuery cQ = em.getCriteriaBuilder().createQuery();
 		cQ.select(cQ.from(Local.class));
 

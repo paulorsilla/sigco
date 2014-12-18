@@ -4,11 +4,10 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:p="http://primefaces.org/ui">
 
-<ui:composition template="/comuns/template.xhtml">
+<ui:composition template="/comuns/layout.xhtml">
 	<ui:define name="pageTitle">Cadastro de Usuários</ui:define>
 
-	<ui:define name="content">
-		<p:spacer height="10px" />
+	<ui:define name="corpo">
 		<h:form>
 			<h:panelGrid columns="1" cellpadding="5">
 				<p:commandButton id="newUser" value="Novo Usuário" type="button"
@@ -43,8 +42,7 @@
 					update=":cadastro:msgs" />
 				<p:ajax event="rowEditCancel" listener="#{usuarioBean.onRowCancel}"
 					update=":cadastro:msgs" />
-
-				<!-- 				<p:ajax event="delete" listener="#{usuarioBean.onRowDelete}" -->
+				<!-- 				<p:ajax event="" listener="#{usuarioBean.removeMessage()}" -->
 				<!-- 					update=":cadastro:msgs" /> -->
 
 				<p:column filterBy="#{usuario.login}" filterStyle="display: none;"

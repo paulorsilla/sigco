@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title><ui:insert name="titulo">Sistema Gerenciador de Competências</ui:insert></title>
+	<h:outputStylesheet library="css" name="sistema.css" />
+</h:head>
+<h:body>
+	<ui:insert name="menu">
+		<!-- <ui:include src="/comuns/menu.xhtml" />  -->
+
+		<header>
+		<div style="float: left">
+			<h:link outcome="/index">
+				<h:graphicImage url="/resources/img/logo-embrapa2.png"
+					value="./index.xhtml" />
+			</h:link>
+		</div>
+		<div style="float: right; margin-right: 110px">
+			<span
+				style="float: left; height: 30px; line-height: 30px; margin-right: 60px">
+				Olá usuário! </span>
+			<h:form style="display: inline-block">
+				<p:menubar styleClass="menu-sistema">
+					<p:submenu label="Cadastros">
+						<p:menuitem value="Usuários"
+							outcome="/auth/admin/listaUsuarios.jsf" />
+						<p:menuitem value="Área de atuação"
+							outcome="/auth/admin/listaAreaAtuacao.jsf" />
+						<p:menuitem value="Subárea de atuação"
+							outcome="/auth/admin/listaSubareaAtuacao.jsf" />
+						<p:menuitem value="Cargo" outcome="/auth/admin/listaCargo.jsf" />
+						<p:menuitem value="Instituição"
+							outcome="/auth/admin/listaInstituicao.jsf" />
+						<p:separator />
+						<p:menuitem value="Facilitador"
+							outcome="/auth/admin/listaFacilitador.jsf" />
+						<p:menuitem value="Sublotação"
+							outcome="/auth/admin/listaSublotacao.jsf" />
+						<p:menuitem value="Equipe Técnica"
+							outcome="/auth/admin/listaEquipeTecnica.jsf" />
+						<p:menuitem value="Função" url="/auth/admin/listaFuncao.jsf" />
+						<p:menuitem value="Localização"
+							outcome="/auth/admin/listaLocalizacao.jsf" />
+						<p:menuitem value="Escolaridade"
+							outcome="/auth/admin/listaEscolaridade.jsf" />
+					</p:submenu>
+
+					<p:menuitem value="Sair"
+						url="#{facesContext.externalContext.requestContextPath}/j_spring_security_logout" />
+				</p:menubar>
+			</h:form>
+
+		</div>
+
+		<div style="clear: both"></div>
+
+		</header>
+	</ui:insert>
+	<div id="conteudo">
+		<ui:insert name="corpo" />
+	</div>
+	<p:separator style="margin-top: 20px" />
+	<footer style="text-align: center;"> <a
+		href="http://www.embrapa.br">Empresa Brasileira de Pesquisa
+		Agropecuária</a> - <a href="http://www.embrapa.br/soja">Embrapa Soja</a> -
+	Rod. Carlos João Strass, s/n Acesso Orlando Amaral, Distrito de Warta.
+	<br />
+	Caixa Postal: 231 CEP: 86001-970 - Londrina - PR </footer>
+</h:body>
+</html>

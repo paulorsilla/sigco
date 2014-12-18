@@ -4,9 +4,19 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:p="http://primefaces.org/ui">
 
-<ui:composition template="/comuns/template.xhtml">
-	<ui:define name="menu"></ui:define>
-	<ui:define name="content">
+<ui:composition template="/comuns/layout.xhtml">
+	<ui:define name="menu">
+		<header>
+			<div style="float: left">
+				<h:link outcome="/index">
+					<h:graphicImage url="/resources/img/logo-embrapa2.png"
+						value="./index.xhtml" />
+				</h:link>
+			</div>
+			<div style="clear: both"></div>
+		</header>
+	</ui:define>
+	<ui:define name="corpo">
 
 		<p:dialog header="Login" visible="true" closable="false"
 			draggable="false" resizable="false" width="320">
@@ -16,8 +26,7 @@
 			</center>
 			<form action="${request.contextPath}/j_spring_security_check"
 				method="post">
-				<h:panelGrid columns="2"
-					cellpadding="5">
+				<h:panelGrid columns="2" cellpadding="5">
 					<h:outputLabel for="j_username" value="Usuário: *" />
 					<h:inputText id="j_username" required="true" />
 					<h:outputLabel for="j_password" value="Password: * " />

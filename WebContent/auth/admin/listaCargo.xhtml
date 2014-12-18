@@ -4,11 +4,10 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:p="http://primefaces.org/ui">
 
-<ui:composition template="/comuns/template.xhtml">
+<ui:composition template="/comuns/layout.xhtml">
 	<ui:define name="pageTitle">Cadastro de Cargos</ui:define>
 
-	<ui:define name="content">
-		<p:spacer height="10px" />
+	<ui:define name="corpo">
 		<h:form>
 			<h:panelGrid columns="1" cellpadding="5">
 				<p:commandButton value="Adicionar Cargo" type="button"
@@ -75,7 +74,7 @@
 
 		<p:confirmDialog id="dlgRemove" header="Excluir Cargo"
 			widgetVar="dlgRemove" appendTo="@(body)"
-			message="Deseja realmente excluir o cargo selecionada ?" 
+			message="Deseja realmente excluir o cargo selecionada ?"
 			severity="alert">
 			<h:form>
 
@@ -101,8 +100,7 @@
 						value="#{cargoBean.cargo.descricao}" />
 				</p:panelGrid>
 
-				<p:commandButton
-					action="#{cargoBean.salvar(cargoBean.cargo)}"
+				<p:commandButton action="#{cargoBean.salvar(cargoBean.cargo)}"
 					value="Salvar" icon="ui-icon-check"
 					oncomplete="PF('dlgNewCargo').show()" update="@form :cargos @this" />
 				<p:spacer width="5px" />
