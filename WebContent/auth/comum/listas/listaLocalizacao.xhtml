@@ -11,7 +11,8 @@
 		<h:form>
 			<h:panelGrid columns="1" cellpadding="5">
 				<p:commandButton value="Adicionar Localização" type="button"
-					onclick="PF('dlgNewLocal').show(); " />
+					action="/auth/admin/cadastros/cadLocalizacao.jsf?faces-redirect=true"
+					immediate="true" />
 			</h:panelGrid>
 		</h:form>
 

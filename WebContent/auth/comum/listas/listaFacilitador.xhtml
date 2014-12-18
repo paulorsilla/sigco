@@ -11,7 +11,8 @@
 		<h:form>
 			<h:panelGrid columns="1" cellpadding="5">
 				<p:commandButton value="Adicionar Facilitador" type="button"
-					onclick="PF('dlgNewFacilitador').show(); " />
+					action="/auth/admin/cadastros/cadFacilitador.jsf?faces-redirect=true"
+					immediate="true" />
 			</h:panelGrid>
 		</h:form>
 

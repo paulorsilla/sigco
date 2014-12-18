@@ -1,15 +1,41 @@
 @charset "utf-8";
 
+* {
+	margin: 0;
+	padding: 0;
+}
+
+html {
+	height: 100%;
+}
+
+article, aside, details, figcaption, figure, footer, header, hgroup,
+	main, nav, section, summary {
+	display: block;
+}
+
 body {
 	font-size: 12px;
 	font-family: Arial, Helvetica, sans-serif;
 	margin: 0px;
 	font-weight: normal;
+	height: 100%;
+	width: 100%;
+	background-color: #E5E4E2;
 }
 
+.wrapper {
+	width: 100%;
+	margin: 0 auto;
+	min-height: 100%;
+	height: auto !important;
+	height: 100%;
+}
+
+/* header */
 header {
 	padding: 5px 0px;
-	margin-bottom: 20px;
+	margin-bottom: 0px;
 	height: 30px;
 	background-color: #545454;
 	color: #fff;
@@ -20,13 +46,48 @@ header>div {
 	margin-left: 8px
 }
 
-#conteudo {
+/* Middle */
+
+/*#conteudo {
 	padding: 0px 8px
 }
+*/
+.middle {
+	width: 100%;
+	padding: 0 0 50px;
+}
 
+.middle:after {
+	display: table;
+	clear: both;
+	content: '';
+}
+
+.container {
+	padding: 3% 0 0 45%;
+}
+
+/* Left Sidebar */
+.left-sidebar {
+	float: left;
+	width: 165px;
+	height: 100%;
+	position: absolute;
+	background-color: gray;
+	color: gray;
+}
+
+/* Footer */
 footer {
-	padding: 0px 8px;
-	margin-bottom: 10px;
+	clear: both;
+	padding: 5px 8px;
+	margin-bottom: 0px;
+	position: fixed;
+	bottom: 0;
+	text-align: center;
+	width: 100%;
+	background-color: #545454;
+	color: #fff;
 }
 
 h1 {
@@ -106,12 +167,14 @@ h1 {
 
 .menu-sistema .ui-menu-parent>a .ui-menuitem-text, .menu-sistema>.ui-menu-list>.ui-menuitem>a>.ui-menuitem-text
 	{
-	color: #ffffff !important;
+	/*color: #000 ! important;*/
+	
 }
 
 .menu-sistema .ui-icon-triangle-1-s {
 	background: url(#{ [ 'url("./resources/img/seta-para-baixo.png")' ]
 }
+
 }
 )
 no-repeat
@@ -119,6 +182,48 @@ no-repeat
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ;
 }
 /* Menu sistema fim */
+
+/* Sem Borda */
+.semBorda tr, .semBorda td {
+	border: none !important;
+}
+
+/* Bordas arredondadas nas imagens */
+.border {
+	border-radius: 0px;
+}
+
+.ui-slidemenu-wrapper {
+	height: 100%;
+}
+
+.ui-slidemenu-content {
+	height: 100%;
+}
+
+.ui-slidemenu-backward {
+	bottom: 100%;
+}
+
+.ui-panelgrid .ui-widget-content {
+	background: transparent;
+}

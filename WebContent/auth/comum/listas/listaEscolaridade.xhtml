@@ -12,7 +12,8 @@
 		<h:form>
 			<h:panelGrid columns="1" cellpadding="5">
 				<p:commandButton value="Adicionar Escolaridade" type="button"
-					onclick="PF('dlgNewEscolaridade').show(); " />
+					action="/auth/admin/cadastros/cadEscolaridade.jsf?faces-redirect=true"
+					immediate="true" />
 			</h:panelGrid>
 		</h:form>
 

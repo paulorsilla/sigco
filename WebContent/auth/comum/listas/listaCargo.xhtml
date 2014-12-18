@@ -10,8 +10,9 @@
 	<ui:define name="corpo">
 		<h:form>
 			<h:panelGrid columns="1" cellpadding="5">
-				<p:commandButton value="Adicionar Cargo" type="button"
-					onclick="PF('dlgNewCargo').show(); " />
+				<p:commandButton value="Adicionar Cargo"
+					action="/auth/admin/cadastros/cadCargo.jsf?faces-redirect=true"
+					immediate="true" />
 			</h:panelGrid>
 		</h:form>
 
@@ -93,22 +94,7 @@
 		<p:dialog id="dlgNewCargo" header="Adicionando Cargo"
 			widgetVar="dlgNewCargo" modal="true" resizable="false"
 			appendTo="@(body)" draggable="false" styleClass="semBorda">
-			<h:form>
-				<p:panelGrid columns="2">
-					<p:outputLabel for="cargo" value="Cargo: " />
-					<p:inputText id="cargo" required="true"
-						value="#{cargoBean.cargo.descricao}" />
-				</p:panelGrid>
 
-				<p:commandButton action="#{cargoBean.salvar(cargoBean.cargo)}"
-					value="Salvar" icon="ui-icon-check"
-					oncomplete="PF('dlgNewCargo').show()" update="@form :cargos @this" />
-				<p:spacer width="5px" />
-				<p:commandButton value="Salvar e Fechar" icon="ui-icon-close"
-					onclick="@dlgNewCargo"
-					action="#{cargoBean.salvar(cargoBean.cargo)}"
-					update="@form :cargos @this" />
-			</h:form>
 
 		</p:dialog>
 

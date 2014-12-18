@@ -10,8 +10,9 @@
 	<ui:define name="corpo">
 		<h:form>
 			<h:panelGrid columns="1" cellpadding="5">
-				<p:commandButton value="Adicionar Área de Atuação" type="button"
-					onclick="PF('dlgNewArea').show(); " />
+				<p:commandButton value="Adicionar Área de Atuação"
+					action="/auth/admin/cadastros/cadAreaAtuacao.jsf?faces-redirect=true"
+					immediate="true" />
 			</h:panelGrid>
 		</h:form>
 

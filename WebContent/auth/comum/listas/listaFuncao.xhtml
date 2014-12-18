@@ -11,7 +11,8 @@
 		<h:form>
 			<h:panelGrid columns="1" cellpadding="5">
 				<p:commandButton value="Adicionar Função" type="button"
-					onclick="PF('dlgNewFuncao').show(); " />
+					action="/auth/admin/cadastros/cadFuncao.jsf?faces-redirect=true"
+					immediate="true" />
 			</h:panelGrid>
 		</h:form>
 

@@ -5,17 +5,9 @@
 	xmlns:p="http://primefaces.org/ui">
 
 <ui:composition template="/comuns/layout.xhtml">
-	<ui:define name="menu">
-		<header>
-			<div style="float: left">
-				<h:link outcome="/index">
-					<h:graphicImage url="/resources/img/logo-embrapa2.png"
-						value="./index.xhtml" />
-				</h:link>
-			</div>
-			<div style="clear: both"></div>
-		</header>
-	</ui:define>
+	
+	<ui:define name="menuLateral" />
+	
 	<ui:define name="corpo">
 
 		<p:dialog header="Login" visible="true" closable="false"

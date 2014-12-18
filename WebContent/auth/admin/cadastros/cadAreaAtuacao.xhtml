@@ -1,0 +1,24 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/comuns/layout.xhtml">
+	<ui:define name="pageTitle">Cadastro de Áreas</ui:define>
+
+	<ui:define name="corpo">
+		<h:form>
+
+			<p:outputLabel for="area" value="Área de Atuação: " />
+			<p:inputText id="area" required="true"
+				value="#{areaAtuacaoBean.area.descricao}" />
+			<p:commandButton
+				action="#{areaAtuacaoBean.salvar(areaAtuacaoBean.area)}"
+				value="Salvar" icon="ui-icon-check" update="@form @this" />
+
+			<p:spacer width="5px" />
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

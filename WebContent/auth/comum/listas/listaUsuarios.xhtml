@@ -10,8 +10,9 @@
 	<ui:define name="corpo">
 		<h:form>
 			<h:panelGrid columns="1" cellpadding="5">
-				<p:commandButton id="newUser" value="Novo Usuário" type="button"
-					onclick="PF('dlgNewUser').show(); " />
+				<p:commandButton id="novoUsuario" value="Novo Usuário" ajax="false"
+					action="/auth/admin/cadastros/cadUsuarios.jsf?faces-redirect=true"
+					immediate="true" />
 			</h:panelGrid>
 		</h:form>
 
