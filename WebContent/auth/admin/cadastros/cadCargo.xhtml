@@ -9,14 +9,20 @@
 
 	<ui:define name="corpo">
 		<h:form>
-			<p:panelGrid columns="2" style="">
+			<p:panelGrid columns="3" styleClass="semBorda">
+				<p:commandButton action="#{cargoBean.salvar(cargoBean.cargo)}"
+					value="Salvar" icon="ui-icon-check" update="@form @this" />
+
+				<p:commandButton value="Salvar e Fechar" icon="ui-icon-close"
+					update="@form @this" action="#{cargoBean.salvar(cargoBean.cargo)}"
+					immediate="true" />
+				<p:commandButton value="Cancelar" immediate="true"
+					action="/auth/comum/listas/listaCargo.jsf?faces-redirect=true" />
+			</p:panelGrid>
+			<p:panelGrid columns="2" styleClass="semBorda">
 				<p:outputLabel for="cargo" value="Cargo: " />
 				<p:inputText id="cargo" required="true"
 					value="#{cargoBean.cargo.descricao}" />
-
-				<p:commandButton action="#{cargoBean.salvar(cargoBean.cargo)}"
-					value="Salvar" icon="ui-icon-check" update="@form @this" />
-				<p:spacer />
 			</p:panelGrid>
 		</h:form>
 	</ui:define>

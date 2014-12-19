@@ -25,12 +25,11 @@
 
 			<p:dataTable id="listaCargos" var="cargos" widgetVar="tabelaCargos"
 				editable="true" paginator="true" paginatorPosition="bottom"
-				rowsPerPageTemplate="10,15,20" rows="10" resizableColumns="true"
+				rowsPerPageTemplate="15,20,25,30" rows="15" resizableColumns="true"
 				value="#{cargoBean.listaCargo}" style="margin-bottom: 10px"
 				rowKey="#{cargos.descricao}" emptyMessage="Nada encontrado!!"
 				filteredValue="#{cargoBean.filtroCargo}">
 
-				<f:facet name="header">Cargos Cadastradas</f:facet>
 				<f:facet name="header">
 					<p:outputPanel style="align: right">
 						<h:outputText value="Buscar: " />
@@ -88,15 +87,6 @@
 
 			</h:form>
 		</p:confirmDialog>
-
-		<!-- Janela para inserção de novo cargo -->
-
-		<p:dialog id="dlgNewCargo" header="Adicionando Cargo"
-			widgetVar="dlgNewCargo" modal="true" resizable="false"
-			appendTo="@(body)" draggable="false" styleClass="semBorda">
-
-
-		</p:dialog>
 
 	</ui:define>
 </ui:composition>

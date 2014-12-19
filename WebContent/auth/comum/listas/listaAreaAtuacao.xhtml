@@ -25,12 +25,11 @@
 
 			<p:dataTable id="listaArea" var="area" widgetVar="tabelaArea"
 				editable="true" paginator="true" paginatorPosition="bottom"
-				rowsPerPageTemplate="10,15,20" rows="10" resizableColumns="true"
+				rowsPerPageTemplate="15,20,25,30" rows="15" resizableColumns="true"
 				value="#{areaAtuacaoBean.listaArea}" style="margin-bottom: 10px"
 				rowKey="#{area.descricao}" emptyMessage="Nada encontrado!!"
 				filteredValue="#{areaAtuacaoBean.filtroArea}">
 
-				<f:facet name="header">Áreas de Atuação Cadastradas</f:facet>
 				<f:facet name="header">
 					<p:outputPanel style="align: right">
 						<h:outputText value="Buscar: " />

@@ -25,13 +25,13 @@
 
 			<p:dataTable id="listaFacilitador" var="facilitador"
 				widgetVar="tabelaFacilitador" editable="true" paginator="true"
-				paginatorPosition="bottom" rowsPerPageTemplate="10,15,20" rows="10"
-				resizableColumns="true" value="#{facilitadorBean.listaFacilitador}"
+				paginatorPosition="bottom" rowsPerPageTemplate="15,20,25,30"
+				rows="15" resizableColumns="true"
+				value="#{facilitadorBean.listaFacilitador}"
 				style="margin-bottom: 10px" rowKey="#{facilitador.nome}"
 				emptyMessage="Nada encontrado!!"
 				filteredValue="#{facilitadorBean.filtroFacilitador}">
 
-				<f:facet name="header">Facilitadores Cadastrados</f:facet>
 				<f:facet name="header">
 					<p:outputPanel style="align: right">
 						<h:outputText value="Buscar: " />

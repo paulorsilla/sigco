@@ -25,14 +25,13 @@
 
 			<p:dataTable id="listaEquipeTecnica" var="equipetecnica"
 				widgetVar="tabelaEquipeTecnica" editable="true" paginator="true"
-				paginatorPosition="bottom" rowsPerPageTemplate="10,15,20" rows="10"
-				resizableColumns="true"
+				paginatorPosition="bottom" rowsPerPageTemplate="15,20,25,30"
+				rows="15" resizableColumns="true"
 				value="#{equipeTecnicaBean.listaEquipeTecnica}"
 				style="margin-bottom: 10px" rowKey="#{equipetecnica.descricao}"
 				emptyMessage="Nada encontrado!!"
 				filteredValue="#{equipeTecnicaBean.filtroEquipeTecnica}">
 
-				<f:facet name="header">Equipes Técnicas Cadastradas</f:facet>
 				<f:facet name="header">
 					<p:outputPanel style="align: right">
 						<h:outputText value="Buscar: " />

@@ -23,13 +23,12 @@
 
 			<p:dataTable id="listaUsuarios" var="usuario"
 				widgetVar="tabelaUsuarios" editable="true" paginator="true"
-				paginatorPosition="bottom" rowsPerPageTemplate="10,15,20" rows="10"
-				resizableColumns="true" value="#{usuarioBean.listaUsuarios}"
-				style="margin-bottom: 10px" rowKey="#{usuario.login}"
-				emptyMessage="Nada encontrado!!"
+				paginatorPosition="bottom" rowsPerPageTemplate="15,20,25,30"
+				rows="15" resizableColumns="true"
+				value="#{usuarioBean.listaUsuarios}" style="margin-bottom: 10px"
+				rowKey="#{usuario.login}" emptyMessage="Nada encontrado!!"
 				filteredValue="#{usuarioBean.filtroUsuarios}">
 
-				<f:facet name="header">Usuários Cadastrados</f:facet>
 				<f:facet name="header">
 					<p:outputPanel style="align: right">
 						<h:outputText value="Buscar: " />
@@ -126,47 +125,6 @@
 
 			</h:form>
 		</p:confirmDialog>
-
-		<!-- Janela para inserção de novo usuário -->
-
-		<p:dialog id="dlgNewUser" header="Adicionando Usuário"
-			widgetVar="dlgNewUser" modal="true" resizable="false"
-			appendTo="@(body)" draggable="false" styleClass="semBorda">
-			<h:form>
-				<p:panelGrid columns="2">
-					<p:outputLabel for="login" value="Login: " />
-					<p:inputText id="login" required="true"
-						value="#{usuarioBean.usuario.login}" />
-
-					<p:outputLabel for="nomeCompleto" value="Nome Completo: " />
-					<p:inputText id="nomeCompleto" required="true"
-						value="#{usuarioBean.usuario.nomeCompleto}" />
-
-					<p:outputLabel for="autorizacao" value="Autorização: " />
-					<p:selectOneMenu label="autorizacao"
-						value="#{usuarioBean.usuario.autorizacao}"
-						converter="entityConverter" required="true" id="autorizacao">
-						<f:selectItem itemLabel="--Selecione--" noSelectionOption="true" />
-						<f:selectItems value="#{autorizacaoBean.listaAutorizacoes()}"
-							var="autorizacao" itemLabel="#{autorizacao.nome}" />
-					</p:selectOneMenu>
-
-					<p:outputLabel value="Ativo: " />
-					<p:selectBooleanCheckbox value="#{usuarioBean.usuario.enable}" />
-				</p:panelGrid>
-
-				<p:commandButton action="#{usuarioBean.salvar(usuarioBean.usuario)}"
-					value="Salvar" icon="ui-icon-check"
-					oncomplete="PF('dlgNewUser').show()" update="@form @this :cadastro" />
-				<p:spacer width="5px" />
-				<p:commandButton value="Salvar e Fechar" icon="ui-icon-close"
-					onclick="@dlgNewUser"
-					action="#{usuarioBean.salvar(usuarioBean.usuario)}"
-					update="@form @this :cadastro" />
-			</h:form>
-
-		</p:dialog>
-
 	</ui:define>
 </ui:composition>
 </html>

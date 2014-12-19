@@ -25,13 +25,13 @@
 
 			<p:dataTable id="listaInstituicao" var="inst"
 				widgetVar="tabelaInstituicao" editable="true" paginator="true"
-				paginatorPosition="bottom" rowsPerPageTemplate="10,15,20" rows="10"
-				resizableColumns="true" value="#{instituicaoBean.listaInstituicao}"
+				paginatorPosition="bottom" rowsPerPageTemplate="15,20,25,30"
+				rows="15" resizableColumns="true"
+				value="#{instituicaoBean.listaInstituicao}"
 				style="margin-bottom: 10px" rowKey="#{inst.razaoSocial}"
 				emptyMessage="Nada encontrado!!"
 				filteredValue="#{instituicaoBean.filtroInstituicao}">
 
-				<f:facet name="header">Instituições Cadastradas</f:facet>
 				<f:facet name="header">
 					<p:outputPanel style="align: right">
 						<h:outputText value="Buscar: " />

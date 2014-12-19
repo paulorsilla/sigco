@@ -26,14 +26,13 @@
 
 			<p:dataTable id="listaEscolaridade" var="escolaridade"
 				widgetVar="tabelaEscolaridade" editable="true" paginator="true"
-				paginatorPosition="bottom" rowsPerPageTemplate="10,15,20" rows="10"
-				resizableColumns="true"
+				paginatorPosition="bottom" rowsPerPageTemplate="15,20,25,30"
+				rows="15" resizableColumns="true"
 				value="#{escolaridadeBeanBean.listaEscolaridade}"
 				style="margin-bottom: 10px" rowKey="#{escolaridade.descricao}"
 				emptyMessage="Nada encontrado!!"
 				filteredValue="#{escolaridadeBean.filtroEscolaridade}">
 
-				<f:facet name="header">Escolaridade Cadastradas</f:facet>
 				<f:facet name="header">
 					<p:outputPanel style="align: right">
 						<h:outputText value="Buscar: " />

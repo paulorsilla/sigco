@@ -40,6 +40,7 @@ header {
 	background-color: #545454;
 	color: #fff;
 	box-shadow: 0px 2px 2px #ccc;
+	
 }
 
 header>div {
@@ -64,7 +65,7 @@ header>div {
 }
 
 .container {
-	padding: 3% 0 0 45%;
+	padding: 0 0.2% 0 12%;
 }
 
 /* Left Sidebar */
@@ -136,10 +137,6 @@ h1 {
 	padding-right: 10px;
 }
 
-.produto-tabela input {
-	width: 99%;
-}
-
 /* Customiza TabView - início */
 .ui-tabs .ui-tabs-panel {
 	padding: 0.5em 0.2em !important;
@@ -198,6 +195,26 @@ no-repeat
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ;
 }
 /* Menu sistema fim */
@@ -210,18 +227,6 @@ no-repeat
 /* Bordas arredondadas nas imagens */
 .border {
 	border-radius: 0px;
-}
-
-.ui-slidemenu-wrapper {
-	height: 100%;
-}
-
-.ui-slidemenu-content {
-	height: 100%;
-}
-
-.ui-slidemenu-backward {
-	bottom: 100%;
 }
 
 .ui-panelgrid .ui-widget-content {

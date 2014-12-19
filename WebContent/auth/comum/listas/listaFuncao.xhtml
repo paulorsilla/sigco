@@ -25,12 +25,11 @@
 
 			<p:dataTable id="listaFuncao" var="funcao" widgetVar="tabelaFuncao"
 				editable="true" paginator="true" paginatorPosition="bottom"
-				rowsPerPageTemplate="10,15,20" rows="10" resizableColumns="true"
+				rowsPerPageTemplate="15,20,25,30" rows="15" resizableColumns="true"
 				value="#{funcaoBean.listaFuncao}" style="margin-bottom: 10px"
 				rowKey="#{funcao.descricao}" emptyMessage="Nada encontrado!!"
 				filteredValue="#{funcaoBean.filtroFuncao}">
 
-				<f:facet name="header">Funções Cadastradas</f:facet>
 				<f:facet name="header">
 					<p:outputPanel style="align: right">
 						<h:outputText value="Buscar: " />

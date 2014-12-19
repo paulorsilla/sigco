@@ -28,7 +28,10 @@
 		<div style="float: right; margin-right: 110px">
 			<span
 				style="float: left; height: 33px; line-height: 30px; margin-right: 60px">
-				Olá usuário! </span>
+				Olá usuário!<p:spacer height="20px" /> <p:outputLabel
+					onclick="#{facesContext.externalContext.requestContextPath}/j_spring_security_logout"
+					value="Sair" />
+			</span>
 		</div>
 		</header>
 
@@ -102,7 +105,6 @@
 		</div>
 
 		<!-- Fim Middle-->
-
 	</div>
 
 	<!-- Fim Wrapper -->
