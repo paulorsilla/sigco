@@ -76,6 +76,8 @@ public class CargoBean implements Serializable {
 		try {
 			this.em.persist(cargo);
 			this.em.flush();
+			FacesContext.getCurrentInstance().getExternalContext()
+					.redirect("./auth/comum/listas/listaCargo.jsf");
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {

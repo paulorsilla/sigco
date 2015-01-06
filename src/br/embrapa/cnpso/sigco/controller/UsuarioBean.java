@@ -92,6 +92,11 @@ public class UsuarioBean implements Serializable {
 		try {
 			this.em.persist(usr);
 			this.em.flush();
+			FacesContext
+					.getCurrentInstance()
+					.getExternalContext()
+					.redirect(
+							"./auth/comum/listas/listaUsuarios.jsf");
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
