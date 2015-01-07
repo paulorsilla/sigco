@@ -12,39 +12,44 @@
 		<!-- Janela para inserção de novo usuário -->
 
 		<h:form>
-			<p:panelGrid columns="3" styleClass="semBorda">
-				<p:commandButton action="#{usuarioBean.salvar(usuarioBean.usuario)}"
-					value="Salvar" icon="ui-icon-check" update="@form @this" />
+			<p:toolbar styleClass="toolbar">
+				<f:facet name="left">
+					<p:commandButton type="button"
+						action="#{usuarioBean.salvar(usuarioBean.usuario)}" value="Salvar"
+						icon="ui-icon-check" update="@form @this" />
+					<p:commandButton value="Salvar e Fechar" icon="ui-icon-close"
+						update="@form @this"
+						action="#{usuarioBean.salvar(usuarioBean.usuario)}" />
+				</f:facet>
+				<f:facet name="right">
+					<p:commandButton value="Cancelar" immediate="true"
+						action="/auth/comum/listas/listaUsuarios.jsf?faces-redirect=true" />
+				</f:facet>
+			</p:toolbar>
 
-				<p:commandButton value="Salvar e Fechar" icon="ui-icon-close"
-					update="@form @this"
-					action="#{usuarioBean.salvar(usuarioBean.usuario)}" />
+			<p:panel header="Cadastro de Usuários">
+				<p:panelGrid columns="2" styleClass="semBorda">
+					<p:outputLabel for="login" value="Login: " />
+					<p:inputText id="login" required="true"
+						value="#{usuarioBean.usuario.login}" />
 
-				<p:commandButton value="Cancelar" immediate="true"
-					action="/auth/comum/listas/listaUsuarios.jsf?faces-redirect=true" />
-			</p:panelGrid>
-			<p:panelGrid columns="2" styleClass="semBorda">
-				<p:outputLabel for="login" value="Login: " />
-				<p:inputText id="login" required="true"
-					value="#{usuarioBean.usuario.login}" />
+					<p:outputLabel for="nomeCompleto" value="Nome Completo: " />
+					<p:inputText id="nomeCompleto" required="true"
+						value="#{usuarioBean.usuario.nomeCompleto}" />
 
-				<p:outputLabel for="nomeCompleto" value="Nome Completo: " />
-				<p:inputText id="nomeCompleto" required="true"
-					value="#{usuarioBean.usuario.nomeCompleto}" />
+					<p:outputLabel for="autorizacao" value="Autorização: " />
+					<p:selectOneMenu label="autorizacao"
+						value="#{usuarioBean.usuario.autorizacao}"
+						converter="entityConverter" required="true" id="autorizacao">
+						<f:selectItem itemLabel="--Selecione--" noSelectionOption="true" />
+						<f:selectItems value="#{autorizacaoBean.listaAutorizacoes()}"
+							var="autorizacao" itemLabel="#{autorizacao.nome}" />
+					</p:selectOneMenu>
 
-				<p:outputLabel for="autorizacao" value="Autorização: " />
-				<p:selectOneMenu label="autorizacao"
-					value="#{usuarioBean.usuario.autorizacao}"
-					converter="entityConverter" required="true" id="autorizacao">
-					<f:selectItem itemLabel="--Selecione--" noSelectionOption="true" />
-					<f:selectItems value="#{autorizacaoBean.listaAutorizacoes()}"
-						var="autorizacao" itemLabel="#{autorizacao.nome}" />
-				</p:selectOneMenu>
-
-				<p:outputLabel value="Ativo: " />
-				<p:selectBooleanCheckbox value="#{usuarioBean.usuario.enable}" />
-			</p:panelGrid>
-
+					<p:outputLabel value="Ativo: " />
+					<p:selectBooleanCheckbox value="#{usuarioBean.usuario.enable}" />
+				</p:panelGrid>
+			</p:panel>
 		</h:form>
 	</ui:define>
 </ui:composition>

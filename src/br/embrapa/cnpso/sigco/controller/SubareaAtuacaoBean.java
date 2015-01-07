@@ -40,15 +40,10 @@ public class SubareaAtuacaoBean implements Serializable {
 	public void init() {
 		this.subarea = new SubareaAtuacao();
 
-		// Query query = em
-		// .createQuery("SELECT s FROM SubareaAtuacao s ORDER BY s.descricao");
-		// this.listaSubarea = query.getResultList();
-
 		CriteriaQuery cQ = em.getCriteriaBuilder().createQuery();
 		cQ.select(cQ.from(SubareaAtuacao.class));
 
 		listaSubarea = em.createQuery(cQ).getResultList();
-
 	}
 
 	public SubareaAtuacao getSubarea() {
@@ -86,7 +81,6 @@ public class SubareaAtuacaoBean implements Serializable {
 	@SuppressWarnings("unchecked")
 	public Collection<AreaAtuacao> listaArea() {
 
-		// Query query = em.createQuery("SELECT a FROM Area a");
 		Query query = em.createQuery("SELECT a FROM AreaAtuacao a");
 		return query.getResultList();
 
@@ -99,6 +93,8 @@ public class SubareaAtuacaoBean implements Serializable {
 		// try {
 		// this.em.persist(subarea);
 		// this.em.flush();
+		// FacesContext.getCurrentInstance().getExternalContext()
+		//	.redirect("/sigco/auth/comum/listas/listaSubareaAtuacao.jsf");
 		// } catch (Exception e) {
 		// e.printStackTrace();
 		// } finally {

@@ -69,6 +69,8 @@ public class CompTecnicaBean implements Serializable {
 		try {
 			this.em.persist(tecnica);
 			this.em.flush();
+			FacesContext.getCurrentInstance().getExternalContext()
+					.redirect("/sigco/auth/comum/listas/listaCompTecnica.jsf");
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {

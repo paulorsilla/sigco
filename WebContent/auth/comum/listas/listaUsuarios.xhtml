@@ -9,105 +9,108 @@
 
 	<ui:define name="corpo">
 		<h:form>
-			<h:panelGrid columns="1" cellpadding="5">
-				<p:commandButton id="novoUsuario" value="Novo Usuário" ajax="false"
-					action="/auth/admin/cadastros/cadUsuarios.jsf?faces-redirect=true"
-					immediate="true" />
-			</h:panelGrid>
+			<p:toolbar styleClass="toolbar">
+				<f:facet name="left">
+					<p:commandButton id="novoUsuario" value="Novo Usuário" ajax="false"
+						action="/auth/admin/cadastros/cadUsuarios.jsf?faces-redirect=true"
+						immediate="true" />
+				</f:facet>
+			</p:toolbar>
 		</h:form>
 
-		<p:spacer height="10px" />
 		<!-- Tabela com lista de Usuários cadastrados no sistema -->
 		<h:form id="cadastro">
 			<p:growl id="msgs" showDetail="true" />
 
-			<p:dataTable id="listaUsuarios" var="usuario"
-				widgetVar="tabelaUsuarios" editable="true" paginator="true"
-				paginatorPosition="bottom" rowsPerPageTemplate="15,20,25,30"
-				rows="15" resizableColumns="true"
-				value="#{usuarioBean.listaUsuarios}" style="margin-bottom: 10px"
-				rowKey="#{usuario.login}" emptyMessage="Nada encontrado!!"
-				filteredValue="#{usuarioBean.filtroUsuarios}">
+			<p:panel header="Lista de Usuários Cadastrados">
+				<p:dataTable id="listaUsuarios" var="usuario"
+					widgetVar="tabelaUsuarios" editable="true" paginator="true"
+					paginatorPosition="bottom" rowsPerPageTemplate="15,20,25,30"
+					rows="15" resizableColumns="true"
+					value="#{usuarioBean.listaUsuarios}" style="margin-bottom: 10px"
+					rowKey="#{usuario.login}" emptyMessage="Nada encontrado!!"
+					filteredValue="#{usuarioBean.filtroUsuarios}">
 
-				<f:facet name="header">
-					<p:outputPanel style="align: right">
-						<h:outputText value="Buscar: " />
-						<p:inputText id="globalFilter"
-							onkeyup="PF('tabelaUsuarios').filter()" style="width: 150px"
-							placeholder="pesquisar" />
-					</p:outputPanel>
-				</f:facet>
+					<f:facet name="header">
+						<p:outputPanel style="align: right">
+							<h:outputText value="Buscar: " />
+							<p:inputText id="globalFilter"
+								onkeyup="PF('tabelaUsuarios').filter()" style="width: 150px"
+								placeholder="pesquisar" />
+						</p:outputPanel>
+					</f:facet>
 
-				<p:ajax event="rowEdit" listener="#{usuarioBean.onRowEdit}"
-					update=":cadastro:msgs" />
-				<p:ajax event="rowEditCancel" listener="#{usuarioBean.onRowCancel}"
-					update=":cadastro:msgs" />
-				<!-- 				<p:ajax event="" listener="#{usuarioBean.removeMessage()}" -->
-				<!-- 					update=":cadastro:msgs" /> -->
+					<p:ajax event="rowEdit" listener="#{usuarioBean.onRowEdit}"
+						update=":cadastro:msgs" />
+					<p:ajax event="rowEditCancel" listener="#{usuarioBean.onRowCancel}"
+						update=":cadastro:msgs" />
+					<!-- 				<p:ajax event="" listener="#{usuarioBean.removeMessage()}" -->
+					<!-- 					update=":cadastro:msgs" /> -->
 
-				<p:column filterBy="#{usuario.login}" filterStyle="display: none;"
-					headerText="Login" sortBy="#{usuario.login}">
-					<p:outputLabel value="#{usuario.login}" />
-				</p:column>
+					<p:column filterBy="#{usuario.login}" filterStyle="display: none;"
+						headerText="Login" sortBy="#{usuario.login}">
+						<p:outputLabel value="#{usuario.login}" />
+					</p:column>
 
-				<p:column filterBy="#{usuario.nomeCompleto}"
-					filterStyle="display: none;" headerText="Nome Completo"
-					sortBy="#{usuario.nomeCompleto}">
-					<p:cellEditor>
-						<f:facet name="input">
-							<p:inputText id="nomeCompleto" value="#{usuario.nomeCompleto}" />
-						</f:facet>
-						<f:facet name="output">
-							<p:outputLabel value="#{usuario.nomeCompleto}" />
-						</f:facet>
-					</p:cellEditor>
-				</p:column>
+					<p:column filterBy="#{usuario.nomeCompleto}"
+						filterStyle="display: none;" headerText="Nome Completo"
+						sortBy="#{usuario.nomeCompleto}">
+						<p:cellEditor>
+							<f:facet name="input">
+								<p:inputText id="nomeCompleto" value="#{usuario.nomeCompleto}" />
+							</f:facet>
+							<f:facet name="output">
+								<p:outputLabel value="#{usuario.nomeCompleto}" />
+							</f:facet>
+						</p:cellEditor>
+					</p:column>
 
-				<p:column filterBy="#{usuario.autorizacao.nome}"
-					filterStyle="display: none;" headerText="Autorização"
-					sortBy="#{usuario.autorizacao.nome}">
-					<p:cellEditor>
-						<f:facet name="input">
-							<p:selectOneMenu value="#{usuario.autorizacao}"
-								converter="entityConverter" style="width: 38%">
-								<f:selectItems value="#{autorizacaoBean.listaAutorizacoes()}"
-									var="autorizacao" itemLabel="#{autorizacao.nome}"
-									id="autorizacao" />
-							</p:selectOneMenu>
-						</f:facet>
-						<f:facet name="output">
-							<p:outputLabel value="#{usuario.autorizacao}" />
-						</f:facet>
-					</p:cellEditor>
-				</p:column>
+					<p:column filterBy="#{usuario.autorizacao.nome}"
+						filterStyle="display: none;" headerText="Autorização"
+						sortBy="#{usuario.autorizacao.nome}">
+						<p:cellEditor>
+							<f:facet name="input">
+								<p:selectOneMenu value="#{usuario.autorizacao}"
+									converter="entityConverter" style="width: 38%">
+									<f:selectItems value="#{autorizacaoBean.listaAutorizacoes()}"
+										var="autorizacao" itemLabel="#{autorizacao.nome}"
+										id="autorizacao" />
+								</p:selectOneMenu>
+							</f:facet>
+							<f:facet name="output">
+								<p:outputLabel value="#{usuario.autorizacao}" />
+							</f:facet>
+						</p:cellEditor>
+					</p:column>
 
-				<p:column filterBy="#{usuario.enable}" filterStyle="display: none;"
-					headerText="Ativo" sortBy="#{usuario.enable}">
-					<p:cellEditor>
-						<f:facet name="output">
-							<p:selectBooleanCheckbox value="#{usuario.enable}"
-								disabled="true" style="width: auto" />
-						</f:facet>
-						<f:facet name="input">
-							<p:selectBooleanCheckbox value="#{usuario.enable}"
-								style="float: center" />
-						</f:facet>
-					</p:cellEditor>
-				</p:column>
+					<p:column filterBy="#{usuario.enable}" filterStyle="display: none;"
+						headerText="Ativo" sortBy="#{usuario.enable}">
+						<p:cellEditor>
+							<f:facet name="output">
+								<p:selectBooleanCheckbox value="#{usuario.enable}"
+									disabled="true" style="width: auto" />
+							</f:facet>
+							<f:facet name="input">
+								<p:selectBooleanCheckbox value="#{usuario.enable}"
+									style="float: center" />
+							</f:facet>
+						</p:cellEditor>
+					</p:column>
 
-				<p:column headerText="Alterar"
-					style="width:42px; text-align: center">
-					<p:rowEditor />
-				</p:column>
-				<p:column headerText="Excluir"
-					style="width: 40px; text-align: center">
-					<p:commandButton onclick="PF('dlgRemove').show()"
-						icon="ui-icon-trash" title="Excluir">
-						<f:setPropertyActionListener target="#{usuarioBean.usuario}"
-							value="#{usuario}" />
-					</p:commandButton>
-				</p:column>
-			</p:dataTable>
+					<p:column headerText="Alterar"
+						style="width:42px; text-align: center">
+						<p:rowEditor />
+					</p:column>
+					<p:column headerText="Excluir"
+						style="width: 40px; text-align: center">
+						<p:commandButton onclick="PF('dlgRemove').show()"
+							icon="ui-icon-trash" title="Excluir">
+							<f:setPropertyActionListener target="#{usuarioBean.usuario}"
+								value="#{usuario}" />
+						</p:commandButton>
+					</p:column>
+				</p:dataTable>
+			</p:panel>
 		</h:form>
 
 		<p:confirmDialog id="dlgRemove" header="Excluir Usuário"

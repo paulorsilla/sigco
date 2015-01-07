@@ -38,15 +38,6 @@ public class AreaAtuacaoBean implements Serializable {
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public void init() {
 		this.area = new AreaAtuacao();
-
-		// Query query = em.createQuery(
-		// "SELECT ar FROM Area ar ORDER BY ar.descricao", AreaAtuacao.class);
-
-		// Query query = em.createQuery(
-		// "SELECT ar FROM AreaAtuacao ar ORDER BY ar.descricao",
-		// AreaAtuacao.class);
-		// this.listaArea = query.getResultList();
-
 		CriteriaQuery cQ = em.getCriteriaBuilder().createQuery();
 		cQ.select(cQ.from(AreaAtuacao.class));
 
@@ -89,6 +80,8 @@ public class AreaAtuacaoBean implements Serializable {
 		try {
 			this.em.persist(area);
 			this.em.flush();
+			FacesContext.getCurrentInstance().getExternalContext()
+					.redirect("/sigco/auth/comum/listas/listaAreaAtuacao.jsf");
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {

@@ -96,7 +96,7 @@ public class UsuarioBean implements Serializable {
 					.getCurrentInstance()
 					.getExternalContext()
 					.redirect(
-							"./auth/comum/listas/listaUsuarios.jsf");
+							"/sigco/auth/comum/listas/listaUsuarios.jsf");
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {

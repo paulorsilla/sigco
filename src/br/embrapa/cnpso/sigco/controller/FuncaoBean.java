@@ -36,11 +36,6 @@ public class FuncaoBean implements Serializable {
 	public void init() {
 		this.funcao = new Funcao();
 
-		// Query query = em.createQuery(
-		// "SELECT func FROM Funcao func ORDER BY func.descricao",
-		// Funcao.class);
-		// this.listaFuncao = query.getResultList();
-
 		CriteriaQuery cQ = em.getCriteriaBuilder().createQuery();
 		cQ.select(cQ.from(Funcao.class));
 
@@ -75,6 +70,8 @@ public class FuncaoBean implements Serializable {
 		try {
 			this.em.persist(funcao);
 			this.em.flush();
+			FacesContext.getCurrentInstance().getExternalContext()
+					.redirect("/sigco/auth/comum/listas/listaFuncao.jsf");
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {

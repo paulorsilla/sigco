@@ -35,11 +35,6 @@ public class SublotacaoBean implements Serializable {
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public void init() {
 		this.sublotacao = new Sublotacao();
-		//
-		// Query query = em.createQuery(
-		// "SELECT sl FROM Sublotacao sl ORDER BY sl.descricao",
-		// Sublotacao.class);
-		// this.listaSublotacao = query.getResultList();
 
 		CriteriaQuery cQ = em.getCriteriaBuilder().createQuery();
 		cQ.select(cQ.from(Sublotacao.class));
@@ -75,6 +70,8 @@ public class SublotacaoBean implements Serializable {
 		try {
 			this.em.persist(sublotacao);
 			this.em.flush();
+			FacesContext.getCurrentInstance().getExternalContext()
+					.redirect("/sigco/auth/comum/listas/listaSublotacao.jsf");
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {

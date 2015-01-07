@@ -25,9 +25,6 @@ public class AutorizacaoBean implements Serializable {
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public Collection<Autorizacao> listaAutorizacoes() {
 
-		// Query query = em.createQuery("SELECT a FROM Autorizacao a");
-		// return query.getResultList();
-
 		CriteriaQuery cQ = em.getCriteriaBuilder().createQuery();
 		cQ.select(cQ.from(Autorizacao.class));
 

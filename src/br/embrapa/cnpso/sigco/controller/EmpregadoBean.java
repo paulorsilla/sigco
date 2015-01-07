@@ -69,6 +69,8 @@ public class EmpregadoBean implements Serializable {
 		try {
 			this.em.persist(empregado);
 			this.em.flush();
+			FacesContext.getCurrentInstance().getExternalContext()
+					.redirect("/sigco/auth/comum/listas/listaEmpregado.jsf");
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {

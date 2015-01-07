@@ -36,13 +36,6 @@ public class FacilitadorBean implements Serializable {
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public void init() {
 		this.facilitador = new Facilitador();
-
-		// Query query = this.em.createQuery(
-		// "SELECT fa FROM Facilitador fa ORDER BY fa.nome",
-		// Facilitador.class);
-		//
-		// this.listaFacilitador = query.getResultList();
-
 		CriteriaQuery cQ = em.getCriteriaBuilder().createQuery();
 		cQ.select(cQ.from(Facilitador.class));
 
@@ -77,6 +70,8 @@ public class FacilitadorBean implements Serializable {
 		try {
 			this.em.persist(facilitador);
 			this.em.flush();
+			FacesContext.getCurrentInstance().getExternalContext()
+					.redirect("/sigco/auth/comum/listas/listaFacilitador.jsf");
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {

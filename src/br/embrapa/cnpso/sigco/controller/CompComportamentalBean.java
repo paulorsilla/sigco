@@ -71,6 +71,11 @@ public class CompComportamentalBean implements Serializable {
 		try {
 			this.em.persist(comportamental);
 			this.em.flush();
+			FacesContext
+					.getCurrentInstance()
+					.getExternalContext()
+					.redirect(
+							"/sigco/auth/comum/listas/listaCompComportamental.jsf");
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {

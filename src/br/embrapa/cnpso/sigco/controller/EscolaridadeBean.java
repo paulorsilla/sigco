@@ -35,12 +35,6 @@ public class EscolaridadeBean implements Serializable {
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public void init() {
 		this.escolaridade = new Escolaridade();
-		//
-		// Query query = em.createQuery(
-		// "SELECT es FROM Escolaridade es ORDER BY es.ordem",
-		// Escolaridade.class);
-		// this.listaEscolaridade = query.getResultList();
-
 		CriteriaQuery cQ = em.getCriteriaBuilder().createQuery();
 		cQ.select(cQ.from(Escolaridade.class));
 
@@ -75,6 +69,8 @@ public class EscolaridadeBean implements Serializable {
 		try {
 			this.em.persist(escolaridade);
 			this.em.flush();
+			FacesContext.getCurrentInstance().getExternalContext()
+					.redirect("/sigco/auth/comum/listas/listaEscolaridade.jsf");
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {

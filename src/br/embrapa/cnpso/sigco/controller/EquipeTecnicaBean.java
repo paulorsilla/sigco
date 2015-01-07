@@ -36,11 +36,6 @@ public class EquipeTecnicaBean implements Serializable {
 	public void init() {
 		this.equipetecnica = new EquipeTecnica();
 
-		// Query query = em.createQuery(
-		// "SELECT et FROM EquipeTecnica et ORDER BY et.descricao",
-		// EquipeTecnica.class);
-		// this.listaEquipeTecnica = query.getResultList();
-
 		CriteriaQuery cQ = em.getCriteriaBuilder().createQuery();
 		cQ.select(cQ.from(EquipeTecnica.class));
 
@@ -77,6 +72,10 @@ public class EquipeTecnicaBean implements Serializable {
 		try {
 			this.em.persist(equipetecnica);
 			this.em.flush();
+			FacesContext
+					.getCurrentInstance()
+					.getExternalContext()
+					.redirect("/sigco/auth/comum/listas/listaEquipeTecnica.jsf");
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {

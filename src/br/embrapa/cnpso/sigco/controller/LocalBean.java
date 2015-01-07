@@ -72,6 +72,8 @@ public class LocalBean implements Serializable {
 		try {
 			this.em.persist(local);
 			this.em.flush();
+			FacesContext.getCurrentInstance().getExternalContext()
+					.redirect("/sigco/auth/comum/listas/listaLocalizacao.jsf");
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {

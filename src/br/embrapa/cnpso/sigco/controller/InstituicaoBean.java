@@ -38,12 +38,6 @@ public class InstituicaoBean implements Serializable {
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public void init() {
 		this.instituicao = new Instituicao();
-		//
-		// Query query = this.em.createQuery(
-		// "SELECT i FROM Instituicao i ORDER BY i.razaoSocial",
-		// Instituicao.class);
-		//
-		// this.listaInstituicao = query.getResultList();
 
 		CriteriaQuery cQ = em.getCriteriaBuilder().createQuery();
 		cQ.select(cQ.from(Instituicao.class));
@@ -87,6 +81,8 @@ public class InstituicaoBean implements Serializable {
 		try {
 			this.em.persist(instituicao);
 			this.em.flush();
+			FacesContext.getCurrentInstance().getExternalContext()
+					.redirect("/sigco/auth/comum/listas/listaInstituicao.jsf");
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {

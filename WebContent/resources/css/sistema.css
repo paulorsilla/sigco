@@ -40,7 +40,6 @@ header {
 	background-color: #545454;
 	color: #fff;
 	box-shadow: 0px 2px 2px #ccc;
-	
 }
 
 header>div {
@@ -179,42 +178,6 @@ no-repeat
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 ;
 }
 /* Menu sistema fim */
@@ -231,4 +194,9 @@ no-repeat
 
 .ui-panelgrid .ui-widget-content {
 	background: transparent;
+}
+
+.toolbar {
+	margin-top: 2px;
+	margin-bottom: 4px;
 }

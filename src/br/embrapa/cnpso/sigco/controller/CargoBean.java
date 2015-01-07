@@ -38,10 +38,6 @@ public class CargoBean implements Serializable {
 	public void init() {
 		this.cargo = new Cargo();
 
-		// Query query = this.em.createQuery(
-		// "SELECT ca FROM Cargo ca ORDER BY ca.descricao", Cargo.class);
-		// this.listaCargo = query.getResultList();
-
 		CriteriaQuery cQ = em.getCriteriaBuilder().createQuery();
 		cQ.select(cQ.from(Cargo.class));
 
@@ -77,7 +73,7 @@ public class CargoBean implements Serializable {
 			this.em.persist(cargo);
 			this.em.flush();
 			FacesContext.getCurrentInstance().getExternalContext()
-					.redirect("./auth/comum/listas/listaCargo.jsf");
+					.redirect("/sigco/auth/comum/listas/listaCargo.jsf");
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
