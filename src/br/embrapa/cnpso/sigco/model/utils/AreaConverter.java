@@ -13,7 +13,7 @@ import br.embrapa.cnpso.sigco.model.AreaAtuacao;
 
 @Named
 @Stateful
-@FacesConverter(forClass = AreaAtuacao.class)
+// @FacesConverter(forClass = AreaAtuacao.class)
 public class AreaConverter implements Converter {
 
 	@PersistenceContext

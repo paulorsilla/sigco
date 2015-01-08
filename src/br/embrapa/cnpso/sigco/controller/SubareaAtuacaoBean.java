@@ -90,16 +90,19 @@ public class SubareaAtuacaoBean implements Serializable {
 
 		System.out.println("-> " + subarea.getDescricao());
 
-		// try {
-		// this.em.persist(subarea);
-		// this.em.flush();
-		// FacesContext.getCurrentInstance().getExternalContext()
-		//	.redirect("/sigco/auth/comum/listas/listaSubareaAtuacao.jsf");
-		// } catch (Exception e) {
-		// e.printStackTrace();
-		// } finally {
-		// this.init();
-		// }
+		try {
+			this.em.persist(subarea);
+			this.em.flush();
+			FacesContext
+					.getCurrentInstance()
+					.getExternalContext()
+					.redirect(
+							"/sigco/auth/comum/listas/listaSubareaAtuacao.jsf");
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			this.init();
+		}
 
 	}
 

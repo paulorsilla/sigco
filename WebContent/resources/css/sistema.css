@@ -40,7 +40,6 @@ header {
 	background-color: #545454;
 	color: #fff;
 	box-shadow: 0px 2px 2px #ccc;
-	position: fixed;
 	top: 0;
 	left: 0;
 	right: 0;
@@ -178,6 +177,8 @@ h1 {
 }
 )
 no-repeat
+
+
 
 
 

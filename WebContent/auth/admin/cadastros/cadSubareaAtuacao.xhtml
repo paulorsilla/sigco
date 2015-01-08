@@ -11,7 +11,7 @@
 		<h:form>
 			<p:toolbar styleClass="toolbar">
 				<f:facet name="left">
-					<p:commandButton type="button"
+					<p:commandButton
 						action="#{subareaAtuacaoBean.salvar(subareaAtuacaoBean.subarea)}"
 						value="Salvar" icon="ui-icon-check" update="@form @this" />
 					<p:commandButton value="Salvar e Fechar" icon="ui-icon-close"
@@ -29,6 +29,16 @@
 					<p:outputLabel for="descricao" value="Descrição: " />
 					<p:inputText id="descricao" required="true"
 						value="#{subareaAtuacaoBean.subarea.descricao}" />
+
+					<p:outputLabel for="area" value="Área " />
+					<p:selectOneMenu label="area" converter="entityConverter"
+						value="#{subareaAtuacaoBean.subarea.area}" required="true"
+						id="area">
+						<f:selectItem itemLabel="--Selecione--" noSelectionOption="true" />
+						<f:selectItems value="#{areaAtuacaoBean.listaArea}" var="area"
+							itemLabel="#{area.descricao}" />
+					</p:selectOneMenu>
+
 				</p:panelGrid>
 			</p:panel>
 		</h:form>
