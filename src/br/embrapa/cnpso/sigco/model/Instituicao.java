@@ -17,6 +17,10 @@ public class Instituicao implements Serializable {
 	private String cnpj;
 	@Column(length = 100)
 	private String razaoSocial;
+	@Column(length = 100)
+	private String contato1;
+	@Column(length = 100)
+	private String contato2;
 	@Column(length = 14)
 	private String telefone;
 	@Column(length = 30)
@@ -51,6 +55,22 @@ public class Instituicao implements Serializable {
 		this.razaoSocial = razaoSocial;
 	}
 
+	public void setContato1(String contato) {
+		this.contato1 = contato;
+	}
+	
+	public String getContato1() {
+		return this.contato1;
+	}
+
+	public void setContato2(String contato) {
+		this.contato2 = contato;
+	}
+	
+	public String getContato2() {
+		return this.contato2;
+	}
+	
 	public String getTelefone() {
 		return telefone;
 	}

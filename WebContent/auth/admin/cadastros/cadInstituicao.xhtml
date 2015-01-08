@@ -35,6 +35,15 @@
 					<p:outputLabel for="razaoSocial" value="Razão Social: " />
 					<p:inputMask id="razaoSocial" required="true"
 						value="#{instituicaoBean.instituicao.razaoSocial}" />
+						
+					<p:outputLabel for="contato1" value="Contato: " />
+					<p:inputMask id="contato1" required="false"
+						value="#{instituicaoBean.instituicao.contato1}" />
+						
+					<p:outputLabel for="contato2" value="Contato: " />
+					<p:inputMask id="contato2" required="false"
+						value="#{instituicaoBean.instituicao.contato2}" />
+						
 
 					<p:outputLabel for="email" value="Email: " />
 					<p:inputText id="email" required="true"
