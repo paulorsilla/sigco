@@ -9,185 +9,187 @@
 
 	<ui:define name="corpo">
 		<h:form>
-			<h:panelGrid columns="1" cellpadding="5">
-				<p:commandButton value="Adicionar Instituição" type="button"
-					action="/auth/admin/cadastros/cadUsuarios.jsf?faces-redirect=true"
-					immediate="true" />
-			</h:panelGrid>
+			<p:toolbar styleClass="toolbar">
+				<f:facet name="left">
+					<p:commandButton id="novaInstituicao" value="Adicionar Instituição"
+						action="/auth/admin/cadastros/cadInstituicao.jsf?faces-redirect=true"
+						immediate="true" />
+				</f:facet>
+			</p:toolbar>
 		</h:form>
-
-		<p:spacer height="10px" />
 
 		<!-- Tabela com lista de instituição cadastrados no sistema -->
 
 		<h:form id="instituicao">
 			<p:growl id="msgs" showDetail="true" />
 
-			<p:dataTable id="listaInstituicao" var="inst"
-				widgetVar="tabelaInstituicao" editable="true" paginator="true"
-				paginatorPosition="bottom" rowsPerPageTemplate="15,20,25,30"
-				rows="15" resizableColumns="true"
-				value="#{instituicaoBean.listaInstituicao}"
-				style="margin-bottom: 10px" rowKey="#{inst.razaoSocial}"
-				emptyMessage="Nada encontrado!!"
-				filteredValue="#{instituicaoBean.filtroInstituicao}">
+			<p:panel header="Lista de Instituições Cadastradas">
+				<p:dataTable id="listaInstituicao" var="inst"
+					widgetVar="tabelaInstituicao" editable="true" paginator="true"
+					paginatorPosition="bottom" rowsPerPageTemplate="15,20,25,30"
+					rows="15" resizableColumns="true"
+					value="#{instituicaoBean.listaInstituicao}"
+					style="margin-bottom: 10px" rowKey="#{inst.razaoSocial}"
+					emptyMessage="Nada encontrado!!"
+					filteredValue="#{instituicaoBean.filtroInstituicao}">
 
-				<f:facet name="header">
-					<p:outputPanel style="align: right">
-						<h:outputText value="Buscar: " />
-						<p:inputText id="globalFilter"
-							onkeyup="PF('tabelaInstituicao').filter()" style="width: 150px"
-							placeholder="pesquisar" />
-					</p:outputPanel>
-				</f:facet>
+					<f:facet name="header">
+						<p:outputPanel style="align: right">
+							<h:outputText value="Buscar: " />
+							<p:inputText id="globalFilter"
+								onkeyup="PF('tabelaInstituicao').filter()" style="width: 150px"
+								placeholder="pesquisar" />
+						</p:outputPanel>
+					</f:facet>
 
-				<p:ajax event="rowEdit" listener="#{instituicaoBean.onRowEdit}"
-					update=":instituicao:msgs" />
-				<p:ajax event="rowEditCancel"
-					listener="#{instituicaoBean.onRowCancel}"
-					update=":instituicao:msgs" />
+					<p:ajax event="rowEdit" listener="#{instituicaoBean.onRowEdit}"
+						update=":instituicao:msgs" />
+					<p:ajax event="rowEditCancel"
+						listener="#{instituicaoBean.onRowCancel}"
+						update=":instituicao:msgs" />
 
-				<p:column filterBy="#{inst.razaoSocial}"
-					filterStyle="display: none; hidden: true;"
-					headerText="Razão Social" sortBy="#{inst.razaoSocial}">
-					<p:cellEditor>
-						<f:facet name="input">
-							<p:inputText value="#{inst.razaoSocial}" />
-						</f:facet>
-						<f:facet name="output">
-							<p:outputLabel value="#{inst.razaoSocial}" />
-						</f:facet>
-					</p:cellEditor>
-				</p:column>
+					<p:column filterBy="#{inst.razaoSocial}"
+						filterStyle="display: none; hidden: true;"
+						headerText="Razão Social" sortBy="#{inst.razaoSocial}">
+						<p:cellEditor>
+							<f:facet name="input">
+								<p:inputText value="#{inst.razaoSocial}" />
+							</f:facet>
+							<f:facet name="output">
+								<p:outputLabel value="#{inst.razaoSocial}" />
+							</f:facet>
+						</p:cellEditor>
+					</p:column>
 
-				<p:column filterBy="#{inst.cnpj}"
-					filterStyle="display: none; hidden: true;" headerText="CNPJ"
-					sortBy="#{inst.cnpj}">
-					<p:outputLabel value="#{inst.cnpj}" />
-				</p:column>
+					<p:column filterBy="#{inst.cnpj}"
+						filterStyle="display: none; hidden: true;" headerText="CNPJ"
+						sortBy="#{inst.cnpj}">
+						<p:outputLabel value="#{inst.cnpj}" />
+					</p:column>
 
-				<p:column filterBy="#{inst.email}"
-					filterStyle="display: none; hidden: true;" headerText="E-mail"
-					sortBy="#{inst.email}">
-					<p:cellEditor>
-						<f:facet name="input">
-							<p:inputText value="#{inst.email}" />
-						</f:facet>
-						<f:facet name="output">
-							<p:outputLabel value="#{inst.email}" />
+					<p:column filterBy="#{inst.email}"
+						filterStyle="display: none; hidden: true;" headerText="E-mail"
+						sortBy="#{inst.email}">
+						<p:cellEditor>
+							<f:facet name="input">
+								<p:inputText value="#{inst.email}" />
+							</f:facet>
+							<f:facet name="output">
+								<p:outputLabel value="#{inst.email}" />
 
-						</f:facet>
-					</p:cellEditor>
-				</p:column>
+							</f:facet>
+						</p:cellEditor>
+					</p:column>
 
-				<p:column filterBy="#{inst.telefone}"
-					filterStyle="display: none; hidden: true;" headerText="Telefone"
-					sortBy="#{inst.telefone}">
-					<p:cellEditor>
-						<f:facet name="input">
-							<p:inputMask mask="(99) 9999-9999" value="#{inst.telefone}" />
-						</f:facet>
-						<f:facet name="output">
-							<p:outputLabel value="#{inst.telefone}" />
-						</f:facet>
-					</p:cellEditor>
-				</p:column>
+					<p:column filterBy="#{inst.telefone}"
+						filterStyle="display: none; hidden: true;" headerText="Telefone"
+						sortBy="#{inst.telefone}">
+						<p:cellEditor>
+							<f:facet name="input">
+								<p:inputMask mask="(99) 9999-9999" value="#{inst.telefone}" />
+							</f:facet>
+							<f:facet name="output">
+								<p:outputLabel value="#{inst.telefone}" />
+							</f:facet>
+						</p:cellEditor>
+					</p:column>
 
-				<p:column filterBy="#{inst.logradouro}"
-					filterStyle="display: none; hidden: true;" headerText="Logradouro"
-					sortBy="#{inst.logradouro}">
-					<p:cellEditor>
-						<f:facet name="input">
-							<p:inputText value="#{inst.logradouro}" />
-						</f:facet>
-						<f:facet name="output">
-							<p:outputLabel value="#{inst.logradouro}" />
-						</f:facet>
-					</p:cellEditor>
-				</p:column>
+					<p:column filterBy="#{inst.logradouro}"
+						filterStyle="display: none; hidden: true;" headerText="Logradouro"
+						sortBy="#{inst.logradouro}">
+						<p:cellEditor>
+							<f:facet name="input">
+								<p:inputText value="#{inst.logradouro}" />
+							</f:facet>
+							<f:facet name="output">
+								<p:outputLabel value="#{inst.logradouro}" />
+							</f:facet>
+						</p:cellEditor>
+					</p:column>
 
-				<p:column filterBy="#{inst.numero}"
-					filterStyle="display: none; hidden: true;" headerText="Número"
-					sortBy="#{inst.numero}">
-					<p:cellEditor>
-						<f:facet name="input">
-							<p:inputText value="#{inst.numero}" />
-						</f:facet>
-						<f:facet name="output">
-							<p:outputLabel value="#{inst.numero}" />
-						</f:facet>
-					</p:cellEditor>
-				</p:column>
+					<p:column filterBy="#{inst.numero}"
+						filterStyle="display: none; hidden: true;" headerText="Número"
+						sortBy="#{inst.numero}">
+						<p:cellEditor>
+							<f:facet name="input">
+								<p:inputText value="#{inst.numero}" />
+							</f:facet>
+							<f:facet name="output">
+								<p:outputLabel value="#{inst.numero}" />
+							</f:facet>
+						</p:cellEditor>
+					</p:column>
 
-				<p:column filterBy="#{inst.complemento}"
-					filterStyle="display: none; hidden: true;" headerText="Complemento"
-					sortBy="#{inst.complemento}">
-					<p:cellEditor>
-						<f:facet name="input">
-							<p:inputText value="#{inst.complemento}" />
-						</f:facet>
-						<f:facet name="output">
-							<p:outputLabel value="#{inst.complemento}" />
-						</f:facet>
-					</p:cellEditor>
-				</p:column>
+					<p:column filterBy="#{inst.complemento}"
+						filterStyle="display: none; hidden: true;"
+						headerText="Complemento" sortBy="#{inst.complemento}">
+						<p:cellEditor>
+							<f:facet name="input">
+								<p:inputText value="#{inst.complemento}" />
+							</f:facet>
+							<f:facet name="output">
+								<p:outputLabel value="#{inst.complemento}" />
+							</f:facet>
+						</p:cellEditor>
+					</p:column>
 
-				<p:column filterBy="#{inst.cep}"
-					filterStyle="display: none; hidden: true;" headerText="CEP"
-					sortBy="#{inst.cep}">
-					<p:cellEditor>
-						<f:facet name="input">
-							<p:inputText value="#{inst.cep}" />
-						</f:facet>
-						<f:facet name="output">
-							<p:outputLabel value="#{inst.cep}" />
-						</f:facet>
-					</p:cellEditor>
-				</p:column>
+					<p:column filterBy="#{inst.cep}"
+						filterStyle="display: none; hidden: true;" headerText="CEP"
+						sortBy="#{inst.cep}">
+						<p:cellEditor>
+							<f:facet name="input">
+								<p:inputText value="#{inst.cep}" />
+							</f:facet>
+							<f:facet name="output">
+								<p:outputLabel value="#{inst.cep}" />
+							</f:facet>
+						</p:cellEditor>
+					</p:column>
 
-				<p:column filterBy="#{inst.cidade}"
-					filterStyle="display: none; hidden: true;" headerText="Cidade"
-					sortBy="#{inst.cidade}">
-					<p:cellEditor>
-						<f:facet name="input">
-							<p:inputText value="#{inst.cidade}" />
-						</f:facet>
-						<f:facet name="output">
-							<p:outputLabel value="#{inst.cidade}" />
-						</f:facet>
-					</p:cellEditor>
-				</p:column>
+					<p:column filterBy="#{inst.cidade}"
+						filterStyle="display: none; hidden: true;" headerText="Cidade"
+						sortBy="#{inst.cidade}">
+						<p:cellEditor>
+							<f:facet name="input">
+								<p:inputText value="#{inst.cidade}" />
+							</f:facet>
+							<f:facet name="output">
+								<p:outputLabel value="#{inst.cidade}" />
+							</f:facet>
+						</p:cellEditor>
+					</p:column>
 
-				<p:column filterBy="#{inst.uf}"
-					filterStyle="display: none; hidden: true;" headerText="UF"
-					sortBy="#{inst.uf}">
-					<p:cellEditor>
-						<f:facet name="input">
-							<p:selectOneMenu value="#{instituicaoBean.instituicao.uf}"
-								converter="estadosConverter" style="width: 100%">
-								<f:selectItems value="#{estadosBean.listaEstados()}"
-									var="estados" itemLabel="#{estados.uf}" id="estados" />
-							</p:selectOneMenu>
-						</f:facet>
-						<f:facet name="output">
-							<p:outputLabel value="#{inst.uf}" />
-						</f:facet>
-					</p:cellEditor>
-				</p:column>
+					<p:column filterBy="#{inst.uf}"
+						filterStyle="display: none; hidden: true;" headerText="UF"
+						sortBy="#{inst.uf}">
+						<p:cellEditor>
+							<f:facet name="input">
+								<p:selectOneMenu value="#{instituicaoBean.instituicao.uf}"
+									converter="estadosConverter" style="width: 100%">
+									<f:selectItems value="#{estadosBean.listaEstados()}"
+										var="estados" itemLabel="#{estados.uf}" id="estados" />
+								</p:selectOneMenu>
+							</f:facet>
+							<f:facet name="output">
+								<p:outputLabel value="#{inst.uf}" />
+							</f:facet>
+						</p:cellEditor>
+					</p:column>
 
-				<p:column headerText="Alterar"
-					style="width:42px; text-align: center">
-					<p:rowEditor />
-				</p:column>
-				<p:column headerText="Excluir"
-					style="width: 40px; text-align: center">
-					<p:commandButton oncomplete="PF('dlgRemove').show()"
-						icon="ui-icon-trash" title="Excluir">
-						<f:setPropertyActionListener
-							target="#{instituicaoBean.instituicao}" value="#{inst}" />
-					</p:commandButton>
-				</p:column>
-			</p:dataTable>
+					<p:column headerText="Alterar"
+						style="width:42px; text-align: center">
+						<p:rowEditor />
+					</p:column>
+					<p:column headerText="Excluir"
+						style="width: 40px; text-align: center">
+						<p:commandButton oncomplete="PF('dlgRemove').show()"
+							icon="ui-icon-trash" title="Excluir">
+							<f:setPropertyActionListener
+								target="#{instituicaoBean.instituicao}" value="#{inst}" />
+						</p:commandButton>
+					</p:column>
+				</p:dataTable>
+			</p:panel>
 		</h:form>
 
 		<p:confirmDialog id="dlgRemove" header="Excluir Instituição"

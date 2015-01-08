@@ -11,7 +11,7 @@
 		<h:form>
 			<p:toolbar styleClass="toolbar">
 				<f:facet name="left">
-					<p:commandButton id="novoUsuario" value="Novo Usuário" ajax="false"
+					<p:commandButton id="novoUsuario" value="Novo Usuário"
 						action="/auth/admin/cadastros/cadUsuarios.jsf?faces-redirect=true"
 						immediate="true" />
 				</f:facet>
@@ -44,8 +44,6 @@
 						update=":cadastro:msgs" />
 					<p:ajax event="rowEditCancel" listener="#{usuarioBean.onRowCancel}"
 						update=":cadastro:msgs" />
-					<!-- 				<p:ajax event="" listener="#{usuarioBean.removeMessage()}" -->
-					<!-- 					update=":cadastro:msgs" /> -->
 
 					<p:column filterBy="#{usuario.login}" filterStyle="display: none;"
 						headerText="Login" sortBy="#{usuario.login}">

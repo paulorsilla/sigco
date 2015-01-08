@@ -5,25 +5,34 @@
 	xmlns:p="http://primefaces.org/ui">
 
 <ui:composition template="/comuns/layout.xhtml">
-	<ui:define name="pageTitle">Cadastro de Áreas</ui:define>
+	<ui:define name="pageTitle">Cadastro de Cargo</ui:define>
 
 	<ui:define name="corpo">
-		<h:form>
-			<p:panelGrid columns="3" styleClass="semBorda">
-				<p:commandButton action="#{cargoBean.salvar(cargoBean.cargo)}"
-					value="Salvar" icon="ui-icon-check" update="@form @this" />
+		<!-- Janela para inserção de novo cargo -->
 
-				<p:commandButton value="Salvar e Fechar" icon="ui-icon-close"
-					update="@form @this" action="#{cargoBean.salvar(cargoBean.cargo)}"
-					immediate="true" />
-				<p:commandButton value="Cancelar" immediate="true"
-					action="/auth/comum/listas/listaCargo.jsf?faces-redirect=true" />
-			</p:panelGrid>
-			<p:panelGrid columns="2" styleClass="semBorda">
-				<p:outputLabel for="cargo" value="Cargo: " />
-				<p:inputText id="cargo" required="true"
-					value="#{cargoBean.cargo.descricao}" />
-			</p:panelGrid>
+		<h:form>
+			<p:toolbar styleClass="toolbar">
+				<f:facet name="left">
+					<p:commandButton type="button"
+						action="#{cargoBean.salvar(cargoBean.cargo)}" value="Salvar"
+						icon="ui-icon-check" update="@form @this" />
+					<p:commandButton value="Salvar e Fechar" icon="ui-icon-close"
+						update="@form @this" action="#{cargoBean.salvar(cargoBean.cargo)}" />
+				</f:facet>
+				<f:facet name="right">
+					<p:commandButton value="Cancelar" immediate="true"
+						action="/auth/comum/listas/listaCargo.jsf?faces-redirect=true" />
+				</f:facet>
+			</p:toolbar>
+
+			<p:panel header="Cadastro de Cargo">
+				<p:panelGrid columns="2" styleClass="semBorda">
+					<p:outputLabel for="cargo" value="Cargo: " />
+					<p:inputText id="cargo" required="true"
+						value="#{cargoBean.cargo.descricao}" />
+
+				</p:panelGrid>
+			</p:panel>
 		</h:form>
 	</ui:define>
 </ui:composition>

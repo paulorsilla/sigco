@@ -9,116 +9,118 @@
 
 	<ui:define name="corpo">
 		<h:form>
-			<h:panelGrid columns="1" cellpadding="5">
-				<p:commandButton value="Adicionar Facilitador" type="button"
-					action="/auth/admin/cadastros/cadFacilitador.jsf?faces-redirect=true"
-					immediate="true" />
-			</h:panelGrid>
+			<p:toolbar styleClass="toolbar">
+				<f:facet name="left">
+					<p:commandButton value="Adicionar Facilitador"
+						action="/auth/admin/cadastros/cadFacilitador.jsf?faces-redirect=true"
+						immediate="true" />
+				</f:facet>
+			</p:toolbar>
 		</h:form>
-
-		<p:spacer height="10px" />
 
 		<!-- Tabela com lista de facilitadores cadastrados no sistema -->
 
 		<h:form id="facilitador">
 			<p:growl id="msgs" showDetail="true" />
 
-			<p:dataTable id="listaFacilitador" var="facilitador"
-				widgetVar="tabelaFacilitador" editable="true" paginator="true"
-				paginatorPosition="bottom" rowsPerPageTemplate="15,20,25,30"
-				rows="15" resizableColumns="true"
-				value="#{facilitadorBean.listaFacilitador}"
-				style="margin-bottom: 10px" rowKey="#{facilitador.nome}"
-				emptyMessage="Nada encontrado!!"
-				filteredValue="#{facilitadorBean.filtroFacilitador}">
+			<p:panel header="Lista de Facilitadores Cadastrados">
+				<p:dataTable id="listaFacilitador" var="facilitador"
+					widgetVar="tabelaFacilitador" editable="true" paginator="true"
+					paginatorPosition="bottom" rowsPerPageTemplate="15,20,25,30"
+					rows="15" resizableColumns="true"
+					value="#{facilitadorBean.listaFacilitador}"
+					style="margin-bottom: 10px" rowKey="#{facilitador.nome}"
+					emptyMessage="Nada encontrado!!"
+					filteredValue="#{facilitadorBean.filtroFacilitador}">
 
-				<f:facet name="header">
-					<p:outputPanel style="align: right">
-						<h:outputText value="Buscar: " />
-						<p:inputText id="globalFilter"
-							onkeyup="PF('tabelaFacilitador').filter()" style="width: 150px"
-							placeholder="pesquisar" />
-					</p:outputPanel>
-				</f:facet>
+					<f:facet name="header">
+						<p:outputPanel style="align: right">
+							<h:outputText value="Buscar: " />
+							<p:inputText id="globalFilter"
+								onkeyup="PF('tabelaFacilitador').filter()" style="width: 150px"
+								placeholder="pesquisar" />
+						</p:outputPanel>
+					</f:facet>
 
-				<p:ajax event="rowEdit" listener="#{facilitadorBean.onRowEdit}"
-					update=":facilitador:msgs" />
-				<p:ajax event="rowEditCancel"
-					listener="#{facilitadorBean.onRowCancel}"
-					update=":facilitador:msgs" />
+					<p:ajax event="rowEdit" listener="#{facilitadorBean.onRowEdit}"
+						update=":facilitador:msgs" />
+					<p:ajax event="rowEditCancel"
+						listener="#{facilitadorBean.onRowCancel}"
+						update=":facilitador:msgs" />
 
-				<p:column filterBy="#{facilitador.cpf}"
-					filterStyle="display: none; hidden: true;" headerText="CPF"
-					sortBy="#{facilitador.cpf}">
-					<p:outputLabel value="#{facilitador.cpf}" />
-				</p:column>
+					<p:column filterBy="#{facilitador.cpf}"
+						filterStyle="display: none; hidden: true;" headerText="CPF"
+						sortBy="#{facilitador.cpf}">
+						<p:outputLabel value="#{facilitador.cpf}" />
+					</p:column>
 
-				<p:column filterBy="#{facilitador.nome}"
-					filterStyle="display: none; hidden: true;" headerText="Nome"
-					sortBy="#{facilitador.nome}">
-					<p:cellEditor>
-						<f:facet name="input">
-							<p:inputText value="#{facilitador.nome}" />
-						</f:facet>
-						<f:facet name="output">
-							<p:outputLabel value="#{facilitador.nome}" />
-						</f:facet>
-					</p:cellEditor>
-				</p:column>
+					<p:column filterBy="#{facilitador.nome}"
+						filterStyle="display: none; hidden: true;" headerText="Nome"
+						sortBy="#{facilitador.nome}">
+						<p:cellEditor>
+							<f:facet name="input">
+								<p:inputText value="#{facilitador.nome}" />
+							</f:facet>
+							<f:facet name="output">
+								<p:outputLabel value="#{facilitador.nome}" />
+							</f:facet>
+						</p:cellEditor>
+					</p:column>
 
-				<p:column filterBy="#{facilitador.telefone}"
-					filterStyle="display: none; hidden: true;" headerText="Telefone"
-					sortBy="#{facilitador.telefone}">
-					<p:cellEditor>
-						<f:facet name="input">
-							<p:inputMask mask="(99) 9999-9999"
-								value="#{facilitador.telefone}" />
-						</f:facet>
-						<f:facet name="output">
-							<p:outputLabel value="#{facilitador.telefone}" />
-						</f:facet>
-					</p:cellEditor>
-				</p:column>
+					<p:column filterBy="#{facilitador.telefone}"
+						filterStyle="display: none; hidden: true;" headerText="Telefone"
+						sortBy="#{facilitador.telefone}">
+						<p:cellEditor>
+							<f:facet name="input">
+								<p:inputMask mask="(99) 9999-9999"
+									value="#{facilitador.telefone}" />
+							</f:facet>
+							<f:facet name="output">
+								<p:outputLabel value="#{facilitador.telefone}" />
+							</f:facet>
+						</p:cellEditor>
+					</p:column>
 
-				<p:column filterBy="#{facilitador.cidade}"
-					filterStyle="display: none; hidden: true;" headerText="Cidade"
-					sortBy="#{facilitador.cidade}">
-					<p:cellEditor>
-						<f:facet name="input">
-							<p:inputText value="#{facilitador.cidade}" />
-						</f:facet>
-						<f:facet name="output">
-							<p:outputLabel value="#{facilitador.cidade}" />
-						</f:facet>
-					</p:cellEditor>
-				</p:column>
+					<p:column filterBy="#{facilitador.cidade}"
+						filterStyle="display: none; hidden: true;" headerText="Cidade"
+						sortBy="#{facilitador.cidade}">
+						<p:cellEditor>
+							<f:facet name="input">
+								<p:inputText value="#{facilitador.cidade}" />
+							</f:facet>
+							<f:facet name="output">
+								<p:outputLabel value="#{facilitador.cidade}" />
+							</f:facet>
+						</p:cellEditor>
+					</p:column>
 
-				<p:column filterBy="#{facilitador.uf}"
-					filterStyle="display: none; hidden: true;" headerText="Estado"
-					sortBy="#{facilitador.uf}">
-					<p:cellEditor>
-						<f:facet name="input">
-							<p:inputMask mask="aa" value="#{facilitador.uf}" />
-						</f:facet>
-						<f:facet name="output">
-							<p:outputLabel value="#{facilitador.uf}" />
-						</f:facet>
-					</p:cellEditor>
-				</p:column>
+					<p:column filterBy="#{facilitador.uf}"
+						filterStyle="display: none; hidden: true;" headerText="Estado"
+						sortBy="#{facilitador.uf}">
+						<p:cellEditor>
+							<f:facet name="input">
+								<p:inputMask mask="aa" value="#{facilitador.uf}" />
+							</f:facet>
+							<f:facet name="output">
+								<p:outputLabel value="#{facilitador.uf}" />
+							</f:facet>
+						</p:cellEditor>
+					</p:column>
 
-				<p:column headerText="Alterar"
-					style="width:42px; text-align: center">
-					<p:rowEditor />
-				</p:column>
-				<p:column headerText="Excluir"
-					style="width: 40px; text-align: center">
-					<p:commandButton oncomplete="PF('dlgRemove').show()"
-						icon="ui-icon-trash" title="Excluir">
-						<f:setPropertyActionListener
-							target="#{facilitadorBean.facilitador}" value="#{facilitador}" />
-					</p:commandButton>
-				</p:column>
-			</p:dataTable>
+					<p:column headerText="Alterar"
+						style="width:42px; text-align: center">
+						<p:rowEditor />
+					</p:column>
+					<p:column headerText="Excluir"
+						style="width: 40px; text-align: center">
+						<p:commandButton oncomplete="PF('dlgRemove').show()"
+							icon="ui-icon-trash" title="Excluir">
+							<f:setPropertyActionListener
+								target="#{facilitadorBean.facilitador}" value="#{facilitador}" />
+						</p:commandButton>
+					</p:column>
+				</p:dataTable>
+			</p:panel>
 		</h:form>
 
 		<p:confirmDialog id="dlgRemove" header="Excluir Facilitador"

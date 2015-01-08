@@ -17,7 +17,7 @@ public class Instituicao implements Serializable {
 	private String cnpj;
 	@Column(length = 100)
 	private String razaoSocial;
-	@Column(length = 16)
+	@Column(length = 14)
 	private String telefone;
 	@Column(length = 30)
 	private String email;
@@ -27,7 +27,7 @@ public class Instituicao implements Serializable {
 	private String numero;
 	@Column(length = 10)
 	private String complemento;
-	@Column(length = 8)
+	@Column(length = 10)
 	private String cep;
 	@Column(length = 20)
 	private String cidade;

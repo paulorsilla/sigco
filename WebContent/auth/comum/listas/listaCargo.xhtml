@@ -9,67 +9,70 @@
 
 	<ui:define name="corpo">
 		<h:form>
-			<h:panelGrid columns="1" cellpadding="5">
-				<p:commandButton value="Adicionar Cargo"
-					action="/auth/admin/cadastros/cadCargo.jsf?faces-redirect=true"
-					immediate="true" />
-			</h:panelGrid>
+			<p:toolbar styleClass="toolbar">
+				<f:facet name="left">
+					<p:commandButton value="Adicionar Cargo"
+						action="/auth/admin/cadastros/cadCargo.jsf?faces-redirect=true"
+						immediate="true" />
+				</f:facet>
+			</p:toolbar>
 		</h:form>
-
-		<p:spacer height="10px" />
 
 		<!-- Tabela com lista de cargos cadastrados no sistema -->
 
 		<h:form id="cargos">
 			<p:growl id="msgs" showDetail="true" />
 
-			<p:dataTable id="listaCargos" var="cargos" widgetVar="tabelaCargos"
-				editable="true" paginator="true" paginatorPosition="bottom"
-				rowsPerPageTemplate="15,20,25,30" rows="15" resizableColumns="true"
-				value="#{cargoBean.listaCargo}" style="margin-bottom: 10px"
-				rowKey="#{cargos.descricao}" emptyMessage="Nada encontrado!!"
-				filteredValue="#{cargoBean.filtroCargo}">
+			<p:panel header="Lista de Cargos Cadastrados">
+				<p:dataTable id="listaCargos" var="cargos" widgetVar="tabelaCargos"
+					editable="true" paginator="true" paginatorPosition="bottom"
+					rowsPerPageTemplate="15,20,25,30" rows="15" resizableColumns="true"
+					value="#{cargoBean.listaCargo}" style="margin-bottom: 10px"
+					rowKey="#{cargos.descricao}" emptyMessage="Nada encontrado!!"
+					filteredValue="#{cargoBean.filtroCargo}">
 
-				<f:facet name="header">
-					<p:outputPanel style="align: right">
-						<h:outputText value="Buscar: " />
-						<p:inputText id="globalFilter"
-							onkeyup="PF('tabelaCargos').filter()" style="width: 150px"
-							placeholder="pesquisar" />
-					</p:outputPanel>
-				</f:facet>
+					<f:facet name="header">
+						<p:outputPanel style="align: right">
+							<h:outputText value="Buscar: " />
+							<p:inputText id="globalFilter"
+								onkeyup="PF('tabelaCargos').filter()" style="width: 150px"
+								placeholder="pesquisar" />
+						</p:outputPanel>
+					</f:facet>
 
-				<p:ajax event="rowEdit" listener="#{cargoBean.onRowEdit}"
-					update=":cargos:msgs" />
-				<p:ajax event="rowEditCancel" listener="#{cargoBean.onRowCancel}"
-					update=":cargos:msgs" />
+					<p:ajax event="rowEdit" listener="#{cargoBean.onRowEdit}"
+						update=":cargos:msgs" />
+					<p:ajax event="rowEditCancel" listener="#{cargoBean.onRowCancel}"
+						update=":cargos:msgs" />
 
-				<p:column filterBy="#{cargos.descricao}"
-					filterStyle="display: none; hidden: true;" headerText="Cargos"
-					sortBy="#{cargos.descricao}">
-					<p:cellEditor>
-						<f:facet name="input">
-							<p:inputText value="#{cargos.descricao}" />
-						</f:facet>
-						<f:facet name="output">
-							<p:outputLabel value="#{cargos.descricao}" />
-						</f:facet>
-					</p:cellEditor>
-				</p:column>
+					<p:column filterBy="#{cargos.descricao}"
+						filterStyle="display: none; hidden: true;" headerText="Cargos"
+						sortBy="#{cargos.descricao}">
+						<p:cellEditor>
+							<f:facet name="input">
+								<p:inputText value="#{cargos.descricao}" />
+							</f:facet>
+							<f:facet name="output">
+								<p:outputLabel value="#{cargos.descricao}" />
+							</f:facet>
+						</p:cellEditor>
+					</p:column>
 
-				<p:column headerText="Alterar"
-					style="width:42px; text-align: center">
-					<p:rowEditor />
-				</p:column>
-				<p:column headerText="Excluir"
-					style="width: 40px; text-align: center">
-					<p:commandButton oncomplete="PF('dlgRemove').show()"
-						icon="ui-icon-trash" title="Excluir">
-						<f:setPropertyActionListener target="#{cargoBean.cargo}"
-							value="#{cargos}" />
-					</p:commandButton>
-				</p:column>
-			</p:dataTable>
+					<p:column headerText="Alterar"
+						style="width:42px; text-align: center">
+						<p:rowEditor />
+					</p:column>
+					<p:column headerText="Excluir"
+						style="width: 40px; text-align: center">
+						<p:commandButton oncomplete="PF('dlgRemove').show()"
+							icon="ui-icon-trash" title="Excluir">
+							<f:setPropertyActionListener target="#{cargoBean.cargo}"
+								value="#{cargos}" />
+						</p:commandButton>
+					</p:column>
+				</p:dataTable>
+			</p:panel>
+
 		</h:form>
 
 		<p:confirmDialog id="dlgRemove" header="Excluir Cargo"

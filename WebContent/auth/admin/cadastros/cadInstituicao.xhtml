@@ -5,10 +5,81 @@
 	xmlns:p="http://primefaces.org/ui">
 
 <ui:composition template="/comuns/layout.xhtml">
-	<ui:define name="pageTitle">Cadastro de Áreas</ui:define>
+	<ui:define name="pageTitle">Cadastro de Instituição</ui:define>
 
 	<ui:define name="corpo">
+		<!-- Janela para inserção de novo instituição -->
 
+		<h:form>
+			<p:toolbar styleClass="toolbar">
+				<f:facet name="left">
+					<p:commandButton
+						action="#{instituicaoBean.salvar(instituicaoBean.instituicao)}"
+						value="Salvar" icon="ui-icon-check" update="@form @this" />
+					<p:commandButton value="Salvar e Fechar" icon="ui-icon-close"
+						update="@form @this"
+						action="#{instituicaoBean.salvar(instituicaoBean.instituicao)}" />
+				</f:facet>
+				<f:facet name="right">
+					<p:commandButton value="Cancelar" immediate="true"
+						action="/auth/comum/listas/listaInstituicao.jsf?faces-redirect=true" />
+				</f:facet>
+			</p:toolbar>
+
+			<p:panel header="Cadastro de Instituição">
+				<p:panelGrid columns="2" styleClass="semBorda">
+					<p:outputLabel for="cnpj" value="CNPJ: " />
+					<p:inputMask mask="99.999.999/9999-99" id="cnpj" required="true"
+						value="#{instituicaoBean.instituicao.cnpj}" />
+
+					<p:outputLabel for="razaoSocial" value="Razão Social: " />
+					<p:inputMask id="razaoSocial" required="true"
+						value="#{instituicaoBean.instituicao.razaoSocial}" />
+
+					<p:outputLabel for="email" value="Email: " />
+					<p:inputText id="email" required="true"
+						validatorMessage="Email inválido"
+						value="#{instituicaoBean.instituicao.email}">
+						<f:validateRegex
+							pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
+
+					</p:inputText>
+
+					<p:outputLabel for="telefone" value="Telefone: " />
+					<p:inputMask mask="(99) 9999-9999" id="telefone" required="true"
+						value="#{instituicaoBean.instituicao.telefone}" />
+
+					<p:outputLabel for="logradouro" value="Logradouro: " />
+					<p:inputText id="logradouro" required="true"
+						value="#{instituicaoBean.instituicao.logradouro}" />
+
+					<p:outputLabel for="numero" value="Número: " />
+					<p:inputText id="numero" required="true"
+						value="#{instituicaoBean.instituicao.numero}" />
+
+					<p:outputLabel for="complemento" value="Complemento: " />
+					<p:inputText id="complemento"
+						value="#{instituicaoBean.instituicao.complemento}" />
+
+					<p:outputLabel for="cep" value="CEP: " />
+					<p:inputMask mask="99.999-999" id="cep" required="true"
+						value="#{instituicaoBean.instituicao.cep}" />
+
+					<p:outputLabel for="cidade" value="Cidade: " />
+					<p:inputText id="cidade" required="true"
+						value="#{instituicaoBean.instituicao.cidade}" />
+
+					<p:outputLabel for="uf" value="UF: " />
+					<p:selectOneMenu label="uf"
+						value="#{instituicaoBean.instituicao.uf}"
+						converter="entityConverter" required="true" id="uf">
+						<f:selectItem itemLabel="--Selecione--" noSelectionOption="true" />
+						<f:selectItems value="#{estadosBean.listaEstados()}" var="uf"
+							itemLabel="#{uf.uf}" />
+					</p:selectOneMenu>
+				</p:panelGrid>
+			</p:panel>
+		</h:form>
 	</ui:define>
 </ui:composition>
 </html>

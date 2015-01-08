@@ -5,10 +5,33 @@
 	xmlns:p="http://primefaces.org/ui">
 
 <ui:composition template="/comuns/layout.xhtml">
-	<ui:define name="pageTitle">Cadastro de Áreas</ui:define>
+	<ui:define name="pageTitle">Cadastro de Subarea de Atuação</ui:define>
 
 	<ui:define name="corpo">
+		<h:form>
+			<p:toolbar styleClass="toolbar">
+				<f:facet name="left">
+					<p:commandButton type="button"
+						action="#{subareaAtuacaoBean.salvar(subareaAtuacaoBean.subarea)}"
+						value="Salvar" icon="ui-icon-check" update="@form @this" />
+					<p:commandButton value="Salvar e Fechar" icon="ui-icon-close"
+						update="@form @this"
+						action="#{subareaAtuacaoBean.salvar(subareaAtuacaoBean.subarea)}" />
+				</f:facet>
+				<f:facet name="right">
+					<p:commandButton value="Cancelar" immediate="true"
+						action="/auth/comum/listas/listaSubareaAtuacao.jsf?faces-redirect=true" />
+				</f:facet>
+			</p:toolbar>
 
+			<p:panel header="Cadastro de Subarea de Atuação">
+				<p:panelGrid columns="2" styleClass="semBorda">
+					<p:outputLabel for="descricao" value="Descrição: " />
+					<p:inputText id="descricao" required="true"
+						value="#{subareaAtuacaoBean.subarea.descricao}" />
+				</p:panelGrid>
+			</p:panel>
+		</h:form>
 	</ui:define>
 </ui:composition>
 </html>

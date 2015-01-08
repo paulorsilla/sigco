@@ -9,11 +9,13 @@
 
 	<ui:define name="corpo">
 		<h:form>
-			<h:panelGrid columns="1" cellpadding="5">
-				<p:commandButton value="Adicionar Sublotação" type="button"
-					action="/auth/admin/cadastros/cadSublotacao.jsf?faces-redirect=true"
-					immediate="true" />
-			</h:panelGrid>
+			<p:toolbar styleClass="toolbar">
+				<f:facet name="left">
+					<p:commandButton value="Adicionar Sublotação"
+						action="/auth/admin/cadastros/cadSublotacao.jsf?faces-redirect=true"
+						immediate="true" />
+				</f:facet>
+			</p:toolbar>
 		</h:form>
 
 		<p:spacer height="10px" />
@@ -22,69 +24,70 @@
 
 		<h:form id="sublotacao">
 			<p:growl id="msgs" showDetail="true" />
+			<p:panel header="Lista de Sulotações Cadastradas">
+				<p:dataTable id="listaSublotacoa" var="sublotacao"
+					widgetVar="tabelaSublotacao" editable="true" paginator="true"
+					paginatorPosition="bottom" rowsPerPageTemplate="15,20,25,30"
+					rows="15" resizableColumns="true"
+					value="#{sublotacaoBean.listaSublotacao}"
+					style="margin-bottom: 10px" rowKey="#{sublotacao.descricao}"
+					emptyMessage="Nada encontrado!!"
+					filteredValue="#{sublotacaoBean.filtroSublotacao}">
 
-			<p:dataTable id="listaSublotacoa" var="sublotacao"
-				widgetVar="tabelaSublotacao" editable="true" paginator="true"
-				paginatorPosition="bottom" rowsPerPageTemplate="15,20,25,30"
-				rows="15" resizableColumns="true"
-				value="#{sublotacaoBean.listaSublotacao}"
-				style="margin-bottom: 10px" rowKey="#{sublotacao.descricao}"
-				emptyMessage="Nada encontrado!!"
-				filteredValue="#{sublotacaoBean.filtroSublotacao}">
+					<f:facet name="header">
+						<p:outputPanel style="align: right">
+							<h:outputText value="Buscar: " />
+							<p:inputText id="globalFilter"
+								onkeyup="PF('tabelaSublotacao').filter()" style="width: 150px"
+								placeholder="pesquisar" />
+						</p:outputPanel>
+					</f:facet>
 
-				<f:facet name="header">
-					<p:outputPanel style="align: right">
-						<h:outputText value="Buscar: " />
-						<p:inputText id="globalFilter"
-							onkeyup="PF('tabelaSublotacao').filter()" style="width: 150px"
-							placeholder="pesquisar" />
-					</p:outputPanel>
-				</f:facet>
+					<p:ajax event="rowEdit" listener="#{sublotacaoBean.onRowEdit}"
+						update=":sublotacao:msgs" />
+					<p:ajax event="rowEditCancel"
+						listener="#{sublotacaoBean.onRowCancel}" update=":sublotacao:msgs" />
 
-				<p:ajax event="rowEdit" listener="#{sublotacaoBean.onRowEdit}"
-					update=":sublotacao:msgs" />
-				<p:ajax event="rowEditCancel"
-					listener="#{sublotacaoBean.onRowCancel}" update=":sublotacao:msgs" />
+					<p:column filterBy="#{sublotacao.descricao}"
+						filterStyle="display: none; hidden: true;" headerText="Sublotação"
+						sortBy="#{sublotacao.descricao}">
+						<p:cellEditor>
+							<f:facet name="input">
+								<p:inputText value="#{sublotacao.descricao}" />
+							</f:facet>
+							<f:facet name="output">
+								<p:outputLabel value="#{sublotacao.descricao}" />
+							</f:facet>
+						</p:cellEditor>
+					</p:column>
 
-				<p:column filterBy="#{sublotacao.descricao}"
-					filterStyle="display: none; hidden: true;" headerText="Sublotação"
-					sortBy="#{sublotacao.descricao}">
-					<p:cellEditor>
-						<f:facet name="input">
-							<p:inputText value="#{sublotacao.descricao}" />
-						</f:facet>
-						<f:facet name="output">
-							<p:outputLabel value="#{sublotacao.descricao}" />
-						</f:facet>
-					</p:cellEditor>
-				</p:column>
+					<p:column filterBy="#{sublotacao.sigla}"
+						filterStyle="display: none; hidden: true;" headerText="Sigla"
+						sortBy="#{sublotacao.sigla}">
+						<p:cellEditor>
+							<f:facet name="input">
+								<p:inputText value="#{sublotacao.sigla}" />
+							</f:facet>
+							<f:facet name="output">
+								<p:outputLabel value="#{sublotacao.sigla}" />
+							</f:facet>
+						</p:cellEditor>
+					</p:column>
 
-				<p:column filterBy="#{sublotacao.sigla}"
-					filterStyle="display: none; hidden: true;" headerText="Sigla"
-					sortBy="#{sublotacao.sigla}">
-					<p:cellEditor>
-						<f:facet name="input">
-							<p:inputText value="#{sublotacao.sigla}" />
-						</f:facet>
-						<f:facet name="output">
-							<p:outputLabel value="#{sublotacao.sigla}" />
-						</f:facet>
-					</p:cellEditor>
-				</p:column>
-
-				<p:column headerText="Alterar"
-					style="width:42px; text-align: center">
-					<p:rowEditor />
-				</p:column>
-				<p:column headerText="Excluir"
-					style="width: 40px; text-align: center">
-					<p:commandButton oncomplete="PF('dlgRemove').show()"
-						icon="ui-icon-trash" title="Excluir">
-						<f:setPropertyActionListener target="#{sublotacaoBean.sublotacao}"
-							value="#{sublotacao}" />
-					</p:commandButton>
-				</p:column>
-			</p:dataTable>
+					<p:column headerText="Alterar"
+						style="width:42px; text-align: center">
+						<p:rowEditor />
+					</p:column>
+					<p:column headerText="Excluir"
+						style="width: 40px; text-align: center">
+						<p:commandButton oncomplete="PF('dlgRemove').show()"
+							icon="ui-icon-trash" title="Excluir">
+							<f:setPropertyActionListener
+								target="#{sublotacaoBean.sublotacao}" value="#{sublotacao}" />
+						</p:commandButton>
+					</p:column>
+				</p:dataTable>
+			</p:panel>
 		</h:form>
 
 		<p:confirmDialog id="dlgRemove" header="Excluir Sublotação"

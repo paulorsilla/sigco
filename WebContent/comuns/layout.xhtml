@@ -25,15 +25,10 @@
 					value="./index.xhtml" />
 			</h:link>
 		</div>
-<!-- 		<div style="float: right; margin-right: 110px"> -->
-<!-- 			<span -->
-<!-- 				style="float: left; height: 33px; line-height: 30px; margin-right: 60px"> -->
-<!-- 				Olá usuário!<p:spacer height="20px" /> <p:outputLabel -->
-<!-- 					onclick="#{facesContext.externalContext.requestContextPath}/j_spring_security_logout" -->
-<!-- 					value="Sair" /> -->
-<!-- 			</span> -->
-<!-- 		</div> -->
-		</header>
+		<!-- 		<div style="float: right; margin-right: 110px"> --> <!-- 			<span -->
+		<!-- 				style="float: left; height: 33px; line-height: 30px; margin-right: 60px"> -->
+		<!-- 				Olá usuário!<p:spacer height="20px" /> <p:outputLabel --> <!-- 					onclick="#{facesContext.externalContext.requestContextPath}/j_spring_security_logout" -->
+		<!-- 					value="Sair" /> --> <!-- 			</span> --> <!-- 		</div> --> </header>
 
 		<!-- Fim Cabeçalho -->
 
@@ -44,8 +39,6 @@
 				<h:form>
 					<p:panelMenu style="height: 100px;" styleClass="menu-sistema">
 						<p:submenu styleClass="menu-sistema" label="Cadastros">
-							<p:menuitem value="Usuários"
-								outcome="/auth/comum/listas/listaUsuarios.jsf" />
 							<p:menuitem value="Área de atuação"
 								outcome="/auth/comum/listas/listaAreaAtuacao.jsf" />
 							<p:menuitem value="Subárea de atuação"
@@ -67,6 +60,10 @@
 								outcome="/auth/comum/listas/listaLocalizacao.jsf" />
 							<p:menuitem value="Escolaridade"
 								outcome="/auth/comum/listas/listaEscolaridade.jsf" />
+						</p:submenu>
+						<p:submenu styleClass="menu-sistema" label="Configurações">
+							<p:menuitem value="Usuários"
+								outcome="/auth/comum/listas/listaUsuarios.jsf" />
 						</p:submenu>
 
 						<p:menuitem value="Sair"

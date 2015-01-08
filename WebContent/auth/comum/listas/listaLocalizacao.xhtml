@@ -9,67 +9,69 @@
 
 	<ui:define name="corpo">
 		<h:form>
-			<h:panelGrid columns="1" cellpadding="5">
-				<p:commandButton value="Adicionar Localização" type="button"
-					action="/auth/admin/cadastros/cadLocalizacao.jsf?faces-redirect=true"
-					immediate="true" />
-			</h:panelGrid>
+			<p:toolbar styleClass="toolbar">
+				<f:facet name="left">
+					<p:commandButton value="Adicionar Localização"
+						action="/auth/admin/cadastros/cadLocalizacao.jsf?faces-redirect=true"
+						immediate="true" />
+				</f:facet>
+			</p:toolbar>
 		</h:form>
-
-		<p:spacer height="10px" />
 
 		<!-- Tabela com lista de localizações cadastrados no sistema -->
 
 		<h:form id="local">
 			<p:growl id="msgs" showDetail="true" />
 
-			<p:dataTable id="listaLocal" var="local" widgetVar="tabelaLocal"
-				editable="true" paginator="true" paginatorPosition="bottom"
-				rowsPerPageTemplate="15,20,25,30" rows="15" resizableColumns="true"
-				value="#{localBean.listaLocal}" style="margin-bottom: 10px"
-				rowKey="#{local.descricao}" emptyMessage="Nada encontrado!!"
-				filteredValue="#{localBean.filtroLocal}">
+			<p:panel header="Lista de Localizações Cadastradas">
+				<p:dataTable id="listaLocal" var="local" widgetVar="tabelaLocal"
+					editable="true" paginator="true" paginatorPosition="bottom"
+					rowsPerPageTemplate="15,20,25,30" rows="15" resizableColumns="true"
+					value="#{localBean.listaLocal}" style="margin-bottom: 10px"
+					rowKey="#{local.descricao}" emptyMessage="Nada encontrado!!"
+					filteredValue="#{localBean.filtroLocal}">
 
-				<f:facet name="header">
-					<p:outputPanel style="align: right">
-						<h:outputText value="Buscar: " />
-						<p:inputText id="globalFilter"
-							onkeyup="PF('tabelaLocal').filter()" style="width: 150px"
-							placeholder="pesquisar" />
-					</p:outputPanel>
-				</f:facet>
+					<f:facet name="header">
+						<p:outputPanel style="align: right">
+							<h:outputText value="Buscar: " />
+							<p:inputText id="globalFilter"
+								onkeyup="PF('tabelaLocal').filter()" style="width: 150px"
+								placeholder="pesquisar" />
+						</p:outputPanel>
+					</f:facet>
 
-				<p:ajax event="rowEdit" listener="#{localBean.onRowEdit}"
-					update=":local:msgs" />
-				<p:ajax event="rowEditCancel" listener="#{localBean.onRowCancel}"
-					update=":local:msgs" />
+					<p:ajax event="rowEdit" listener="#{localBean.onRowEdit}"
+						update=":local:msgs" />
+					<p:ajax event="rowEditCancel" listener="#{localBean.onRowCancel}"
+						update=":local:msgs" />
 
-				<p:column filterBy="#{local.descricao}"
-					filterStyle="display: none; hidden: true;" headerText="Localização"
-					sortBy="#{local.descricao}">
-					<p:cellEditor>
-						<f:facet name="input">
-							<p:inputText value="#{local.descricao}" />
-						</f:facet>
-						<f:facet name="output">
-							<p:outputLabel value="#{local.descricao}" />
-						</f:facet>
-					</p:cellEditor>
-				</p:column>
+					<p:column filterBy="#{local.descricao}"
+						filterStyle="display: none; hidden: true;"
+						headerText="Localização" sortBy="#{local.descricao}">
+						<p:cellEditor>
+							<f:facet name="input">
+								<p:inputText value="#{local.descricao}" />
+							</f:facet>
+							<f:facet name="output">
+								<p:outputLabel value="#{local.descricao}" />
+							</f:facet>
+						</p:cellEditor>
+					</p:column>
 
-				<p:column headerText="Alterar"
-					style="width:42px; text-align: center">
-					<p:rowEditor />
-				</p:column>
-				<p:column headerText="Excluir"
-					style="width: 40px; text-align: center">
-					<p:commandButton oncomplete="PF('dlgRemove').show()"
-						icon="ui-icon-trash" title="Excluir">
-						<f:setPropertyActionListener target="#{localBean.local}"
-							value="#{local}" />
-					</p:commandButton>
-				</p:column>
-			</p:dataTable>
+					<p:column headerText="Alterar"
+						style="width:42px; text-align: center">
+						<p:rowEditor />
+					</p:column>
+					<p:column headerText="Excluir"
+						style="width: 40px; text-align: center">
+						<p:commandButton oncomplete="PF('dlgRemove').show()"
+							icon="ui-icon-trash" title="Excluir">
+							<f:setPropertyActionListener target="#{localBean.local}"
+								value="#{local}" />
+						</p:commandButton>
+					</p:column>
+				</p:dataTable>
+			</p:panel>
 		</h:form>
 
 		<p:confirmDialog id="dlgRemove" header="Excluir Localização"

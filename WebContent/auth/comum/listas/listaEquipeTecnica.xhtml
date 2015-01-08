@@ -9,71 +9,73 @@
 
 	<ui:define name="corpo">
 		<h:form>
-			<h:panelGrid columns="1" cellpadding="5">
-				<p:commandButton value="Adicionar Equipe Técnica" type="button"
-					action="/auth/admin/cadastros/cadEquipeTecnica.jsf?faces-redirect=true"
-					immediate="true" />
-			</h:panelGrid>
+			<p:toolbar styleClass="toolbar">
+				<f:facet name="left">
+					<p:commandButton value="Adicionar Equipe Técnica"
+						action="/auth/admin/cadastros/cadEquipeTecnica.jsf?faces-redirect=true"
+						immediate="true" />
+				</f:facet>
+			</p:toolbar>
 		</h:form>
-
-		<p:spacer height="10px" />
 
 		<!-- Tabela com lista de equipes técnicas cadastrados no sistema -->
 
 		<h:form id="equipetecnica">
 			<p:growl id="msgs" showDetail="true" />
 
-			<p:dataTable id="listaEquipeTecnica" var="equipetecnica"
-				widgetVar="tabelaEquipeTecnica" editable="true" paginator="true"
-				paginatorPosition="bottom" rowsPerPageTemplate="15,20,25,30"
-				rows="15" resizableColumns="true"
-				value="#{equipeTecnicaBean.listaEquipeTecnica}"
-				style="margin-bottom: 10px" rowKey="#{equipetecnica.descricao}"
-				emptyMessage="Nada encontrado!!"
-				filteredValue="#{equipeTecnicaBean.filtroEquipeTecnica}">
+			<p:panel header="Lista de Equipe Técnica Cadastradas">
+				<p:dataTable id="listaEquipeTecnica" var="equipetecnica"
+					widgetVar="tabelaEquipeTecnica" editable="true" paginator="true"
+					paginatorPosition="bottom" rowsPerPageTemplate="15,20,25,30"
+					rows="15" resizableColumns="true"
+					value="#{equipeTecnicaBean.listaEquipeTecnica}"
+					style="margin-bottom: 10px" rowKey="#{equipetecnica.descricao}"
+					emptyMessage="Nada encontrado!!"
+					filteredValue="#{equipeTecnicaBean.filtroEquipeTecnica}">
 
-				<f:facet name="header">
-					<p:outputPanel style="align: right">
-						<h:outputText value="Buscar: " />
-						<p:inputText id="globalFilter"
-							onkeyup="PF('tabelaEquipeTecnica').filter()" style="width: 150px"
-							placeholder="pesquisar" />
-					</p:outputPanel>
-				</f:facet>
+					<f:facet name="header">
+						<p:outputPanel style="align: right">
+							<h:outputText value="Buscar: " />
+							<p:inputText id="globalFilter"
+								onkeyup="PF('tabelaEquipeTecnica').filter()"
+								style="width: 150px" placeholder="pesquisar" />
+						</p:outputPanel>
+					</f:facet>
 
-				<p:ajax event="rowEdit" listener="#{equipeTecnicaBean.onRowEdit}"
-					update=":equipetecnica:msgs" />
-				<p:ajax event="rowEditCancel"
-					listener="#{equipeTecnicaBean.onRowCancel}"
-					update=":equipetecnica:msgs" />
+					<p:ajax event="rowEdit" listener="#{equipeTecnicaBean.onRowEdit}"
+						update=":equipetecnica:msgs" />
+					<p:ajax event="rowEditCancel"
+						listener="#{equipeTecnicaBean.onRowCancel}"
+						update=":equipetecnica:msgs" />
 
-				<p:column filterBy="#{equipetecnica.descricao}"
-					filterStyle="display: none; hidden: true;"
-					headerText="Equipe Técnica" sortBy="#{equipetecnica.descricao}">
-					<p:cellEditor>
-						<f:facet name="input">
-							<p:inputText value="#{equipetecnica.descricao}" />
-						</f:facet>
-						<f:facet name="output">
-							<p:outputLabel value="#{equipetecnica.descricao}" />
-						</f:facet>
-					</p:cellEditor>
-				</p:column>
+					<p:column filterBy="#{equipetecnica.descricao}"
+						filterStyle="display: none; hidden: true;"
+						headerText="Equipe Técnica" sortBy="#{equipetecnica.descricao}">
+						<p:cellEditor>
+							<f:facet name="input">
+								<p:inputText value="#{equipetecnica.descricao}" />
+							</f:facet>
+							<f:facet name="output">
+								<p:outputLabel value="#{equipetecnica.descricao}" />
+							</f:facet>
+						</p:cellEditor>
+					</p:column>
 
-				<p:column headerText="Alterar"
-					style="width:42px; text-align: center">
-					<p:rowEditor />
-				</p:column>
-				<p:column headerText="Excluir"
-					style="width: 40px; text-align: center">
-					<p:commandButton oncomplete="PF('dlgRemove').show()"
-						icon="ui-icon-trash" title="Excluir">
-						<f:setPropertyActionListener
-							target="#{equipeTecnicaBean.equipetecnica}"
-							value="#{equipetecnica}" />
-					</p:commandButton>
-				</p:column>
-			</p:dataTable>
+					<p:column headerText="Alterar"
+						style="width:42px; text-align: center">
+						<p:rowEditor />
+					</p:column>
+					<p:column headerText="Excluir"
+						style="width: 40px; text-align: center">
+						<p:commandButton oncomplete="PF('dlgRemove').show()"
+							icon="ui-icon-trash" title="Excluir">
+							<f:setPropertyActionListener
+								target="#{equipeTecnicaBean.equipetecnica}"
+								value="#{equipetecnica}" />
+						</p:commandButton>
+					</p:column>
+				</p:dataTable>
+			</p:panel>
 		</h:form>
 
 		<p:confirmDialog id="dlgRemove" header="Excluir Equipe Técnica"

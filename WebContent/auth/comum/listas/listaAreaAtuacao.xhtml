@@ -9,66 +9,69 @@
 
 	<ui:define name="corpo">
 		<h:form>
-			<h:panelGrid columns="1" cellpadding="5">
-				<p:commandButton value="Adicionar Área de Atuação"
-					action="/auth/admin/cadastros/cadAreaAtuacao.jsf?faces-redirect=true"
-					immediate="true" />
-			</h:panelGrid>
+			<p:toolbar styleClass="toolbar">
+				<f:facet name="left">
+					<p:commandButton value="Adicionar Área de Atuação"
+						action="/auth/admin/cadastros/cadAreaAtuacao.jsf?faces-redirect=true"
+						immediate="true" />
+				</f:facet>
+			</p:toolbar>
 		</h:form>
-
-		<p:spacer height="10px" />
 
 		<!-- Tabela com lista de áreas cadastrados no sistema -->
 
 		<h:form id="area">
 			<p:growl id="msgs" showDetail="true" />
 
-			<p:dataTable id="listaArea" var="area" widgetVar="tabelaArea"
-				editable="true" paginator="true" paginatorPosition="bottom"
-				rowsPerPageTemplate="15,20,25,30" rows="15" resizableColumns="true"
-				value="#{areaAtuacaoBean.listaArea}" style="margin-bottom: 10px"
-				rowKey="#{area.descricao}" emptyMessage="Nada encontrado!!"
-				filteredValue="#{areaAtuacaoBean.filtroArea}">
+			<p:panel header="Lista de Áreas de Atuação Cadastradas">
+				<p:dataTable id="listaArea" var="area" widgetVar="tabelaArea"
+					editable="true" paginator="true" paginatorPosition="bottom"
+					rowsPerPageTemplate="15,20,25,30" rows="15" resizableColumns="true"
+					value="#{areaAtuacaoBean.listaArea}" style="margin-bottom: 10px"
+					rowKey="#{area.descricao}" emptyMessage="Nada encontrado!!"
+					filteredValue="#{areaAtuacaoBean.filtroArea}">
 
-				<f:facet name="header">
-					<p:outputPanel style="align: right">
-						<h:outputText value="Buscar: " />
-						<p:inputText id="globalFilter" onkeyup="PF('tabelaArea').filter()"
-							style="width: 150px" placeholder="pesquisar" />
-					</p:outputPanel>
-				</f:facet>
+					<f:facet name="header">
+						<p:outputPanel style="align: right">
+							<h:outputText value="Buscar: " />
+							<p:inputText id="globalFilter"
+								onkeyup="PF('tabelaArea').filter()" style="width: 150px"
+								placeholder="pesquisar" />
+						</p:outputPanel>
+					</f:facet>
 
-				<p:ajax event="rowEdit" listener="#{areaAtuacaoBean.onRowEdit}"
-					update=":area:msgs" />
-				<p:ajax event="rowEditCancel"
-					listener="#{areaAtuacaoBean.onRowCancel}" update=":area:msgs" />
+					<p:ajax event="rowEdit" listener="#{areaAtuacaoBean.onRowEdit}"
+						update=":area:msgs" />
+					<p:ajax event="rowEditCancel"
+						listener="#{areaAtuacaoBean.onRowCancel}" update=":area:msgs" />
 
-				<p:column filterBy="#{area.descricao}"
-					filterStyle="display: none; hidden: true;"
-					headerText="Área de Atuação" sortBy="#{area.descricao}">
-					<p:cellEditor>
-						<f:facet name="input">
-							<p:inputText value="#{area.descricao}" />
-						</f:facet>
-						<f:facet name="output">
-							<p:outputLabel value="#{area.descricao}" />
-						</f:facet>
-					</p:cellEditor>
-				</p:column>
+					<p:column filterBy="#{area.descricao}"
+						filterStyle="display: none; hidden: true;"
+						headerText="Área de Atuação" sortBy="#{area.descricao}">
+						<p:cellEditor>
+							<f:facet name="input">
+								<p:inputText value="#{area.descricao}" />
+							</f:facet>
+							<f:facet name="output">
+								<p:outputLabel value="#{area.descricao}" />
+							</f:facet>
+						</p:cellEditor>
+					</p:column>
 
-				<p:column headerText="Alterar"
-					style="width:42px; text-align: center">
-					<p:rowEditor />
-				</p:column>
-				<p:column headerText="Excluir"
-					style="width: 40px; text-align: center">
-					<p:commandButton oncomplete="PF('dlgRemove').show()"
-						icon="ui-icon-trash" title="Excluir">
-						<f:setPropertyActionListener target="#{areaAtuacaoBean.area}"
-							value="#{area}" />
-					</p:commandButton>
-				</p:column>
-			</p:dataTable>
+					<p:column headerText="Alterar"
+						style="width:42px; text-align: center">
+						<p:rowEditor />
+					</p:column>
+					<p:column headerText="Excluir"
+						style="width: 40px; text-align: center">
+						<p:commandButton oncomplete="PF('dlgRemove').show()"
+							icon="ui-icon-trash" title="Excluir">
+							<f:setPropertyActionListener target="#{areaAtuacaoBean.area}"
+								value="#{area}" />
+						</p:commandButton>
+					</p:column>
+				</p:dataTable>
+			</p:panel>
 		</h:form>
 
 		<p:confirmDialog id="dlgRemove" header="Excluir Área"

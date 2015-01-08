@@ -5,10 +5,31 @@
 	xmlns:p="http://primefaces.org/ui">
 
 <ui:composition template="/comuns/layout.xhtml">
-	<ui:define name="pageTitle">Cadastro de Áreas</ui:define>
+	<ui:define name="pageTitle">Cadastro de Escolaridade</ui:define>
 
 	<ui:define name="corpo">
+		<h:form>
+			<p:toolbar styleClass="toolbar">
+				<f:facet name="left">
+					<p:commandButton type="button"
+						action="#{escolaridadeBean.salvar(escolaridadeBean.escolaridade)}"
+						value="Salvar" icon="ui-icon-check" update="@form @this" />
+					<p:commandButton value="Salvar e Fechar" icon="ui-icon-close"
+						update="@form @this"
+						action="#{escolaridadeBean.salvar(escolaridadeBean.escolaridade)}" />
+				</f:facet>
+				<f:facet name="right">
+					<p:commandButton value="Cancelar" immediate="true"
+						action="/auth/comum/listas/listaEscolaridade.jsf?faces-redirect=true" />
+				</f:facet>
+			</p:toolbar>
 
+			<p:panel header="Cadastro de Escolaridade">
+				<p:panelGrid columns="2" styleClass="semBorda">
+
+				</p:panelGrid>
+			</p:panel>
+		</h:form>
 	</ui:define>
 </ui:composition>
 </html>

@@ -9,11 +9,13 @@
 
 	<ui:define name="corpo">
 		<h:form>
-			<h:panelGrid columns="1" cellpadding="5">
-				<p:commandButton value="Adicionar Função" type="button"
-					action="/auth/admin/cadastros/cadFuncao.jsf?faces-redirect=true"
-					immediate="true" />
-			</h:panelGrid>
+			<p:toolbar styleClass="toolbar">
+				<f:facet name="left">
+					<p:commandButton value="Adicionar Função"
+						action="/auth/admin/cadastros/cadFuncao.jsf?faces-redirect=true"
+						immediate="true" />
+				</f:facet>
+			</p:toolbar>
 		</h:form>
 
 		<p:spacer height="10px" />
@@ -23,53 +25,55 @@
 		<h:form id="funcao">
 			<p:growl id="msgs" showDetail="true" />
 
-			<p:dataTable id="listaFuncao" var="funcao" widgetVar="tabelaFuncao"
-				editable="true" paginator="true" paginatorPosition="bottom"
-				rowsPerPageTemplate="15,20,25,30" rows="15" resizableColumns="true"
-				value="#{funcaoBean.listaFuncao}" style="margin-bottom: 10px"
-				rowKey="#{funcao.descricao}" emptyMessage="Nada encontrado!!"
-				filteredValue="#{funcaoBean.filtroFuncao}">
+			<p:panel header="Lista de Funções Cadastradas">
+				<p:dataTable id="listaFuncao" var="funcao" widgetVar="tabelaFuncao"
+					editable="true" paginator="true" paginatorPosition="bottom"
+					rowsPerPageTemplate="15,20,25,30" rows="15" resizableColumns="true"
+					value="#{funcaoBean.listaFuncao}" style="margin-bottom: 10px"
+					rowKey="#{funcao.descricao}" emptyMessage="Nada encontrado!!"
+					filteredValue="#{funcaoBean.filtroFuncao}">
 
-				<f:facet name="header">
-					<p:outputPanel style="align: right">
-						<h:outputText value="Buscar: " />
-						<p:inputText id="globalFilter"
-							onkeyup="PF('tabelaFuncao').filter()" style="width: 150px"
-							placeholder="pesquisar" />
-					</p:outputPanel>
-				</f:facet>
+					<f:facet name="header">
+						<p:outputPanel style="align: right">
+							<h:outputText value="Buscar: " />
+							<p:inputText id="globalFilter"
+								onkeyup="PF('tabelaFuncao').filter()" style="width: 150px"
+								placeholder="pesquisar" />
+						</p:outputPanel>
+					</f:facet>
 
-				<p:ajax event="rowEdit" listener="#{funcaoBean.onRowEdit}"
-					update=":funcao:msgs" />
-				<p:ajax event="rowEditCancel" listener="#{funcaoBean.onRowCancel}"
-					update=":funcao:msgs" />
+					<p:ajax event="rowEdit" listener="#{funcaoBean.onRowEdit}"
+						update=":funcao:msgs" />
+					<p:ajax event="rowEditCancel" listener="#{funcaoBean.onRowCancel}"
+						update=":funcao:msgs" />
 
-				<p:column filterBy="#{funcao.descricao}"
-					filterStyle="display: none; hidden: true;" headerText="Função"
-					sortBy="#{funcao.descricao}">
-					<p:cellEditor>
-						<f:facet name="input">
-							<p:inputText value="#{funcao.descricao}" />
-						</f:facet>
-						<f:facet name="output">
-							<p:outputLabel value="#{funcao.descricao}" />
-						</f:facet>
-					</p:cellEditor>
-				</p:column>
+					<p:column filterBy="#{funcao.descricao}"
+						filterStyle="display: none; hidden: true;" headerText="Função"
+						sortBy="#{funcao.descricao}">
+						<p:cellEditor>
+							<f:facet name="input">
+								<p:inputText value="#{funcao.descricao}" />
+							</f:facet>
+							<f:facet name="output">
+								<p:outputLabel value="#{funcao.descricao}" />
+							</f:facet>
+						</p:cellEditor>
+					</p:column>
 
-				<p:column headerText="Alterar"
-					style="width:42px; text-align: center">
-					<p:rowEditor />
-				</p:column>
-				<p:column headerText="Excluir"
-					style="width: 40px; text-align: center">
-					<p:commandButton oncomplete="PF('dlgRemove').show()"
-						icon="ui-icon-trash" title="Excluir">
-						<f:setPropertyActionListener target="#{funcaoBean.funcao}"
-							value="#{funcao}" />
-					</p:commandButton>
-				</p:column>
-			</p:dataTable>
+					<p:column headerText="Alterar"
+						style="width:42px; text-align: center">
+						<p:rowEditor />
+					</p:column>
+					<p:column headerText="Excluir"
+						style="width: 40px; text-align: center">
+						<p:commandButton oncomplete="PF('dlgRemove').show()"
+							icon="ui-icon-trash" title="Excluir">
+							<f:setPropertyActionListener target="#{funcaoBean.funcao}"
+								value="#{funcao}" />
+						</p:commandButton>
+					</p:column>
+				</p:dataTable>
+			</p:panel>
 		</h:form>
 
 		<p:confirmDialog id="dlgRemove" header="Excluir Função"

@@ -9,87 +9,89 @@
 
 	<ui:define name="corpo">
 		<h:form>
-			<h:panelGrid columns="1" cellpadding="5">
-				<p:commandButton value="Adicionar Subárea de Atuação" type="button"
-					action="/auth/admin/cadastros/cadSubareaAtuacao.jsf?faces-redirect=true"
-					immediate="true" />
-			</h:panelGrid>
+			<p:toolbar styleClass="toolbar">
+				<f:facet name="left">
+					<p:commandButton value="Adicionar Subárea de Atuação"
+						action="/auth/admin/cadastros/cadSubareaAtuacao.jsf?faces-redirect=true"
+						immediate="true" />
+				</f:facet>
+			</p:toolbar>
 		</h:form>
-
-		<p:spacer height="10px" />
 
 		<!-- Tabela com lista de subareas cadastrados no sistema -->
 
 		<h:form id="subarea">
 
 			<p:growl id="msgs" showDetail="true" />
+			<p:panel header="Lista de Subareas de Atuação Cadastradas">
+				<p:dataTable id="listaSubarea" var="subarea"
+					widgetVar="tabelaSubarea" editable="true" paginator="true"
+					paginatorPosition="bottom" rowsPerPageTemplate="15,20,25,30"
+					rows="15" resizableColumns="true"
+					value="#{subareaAtuacaoBean.listaSubarea}"
+					style="margin-bottom: 10px" rowKey="#{subarea.descricao}"
+					emptyMessage="Nada encontrado!!"
+					filteredValue="#{subareaAtuacaoBean.filtroSubarea}">
 
-			<p:dataTable id="listaSubarea" var="subarea"
-				widgetVar="tabelaSubarea" editable="true" paginator="true"
-				paginatorPosition="bottom" rowsPerPageTemplate="15,20,25,30"
-				rows="15" resizableColumns="true"
-				value="#{subareaAtuacaoBean.listaSubarea}"
-				style="margin-bottom: 10px" rowKey="#{subarea.descricao}"
-				emptyMessage="Nada encontrado!!"
-				filteredValue="#{subareaAtuacaoBean.filtroSubarea}">
+					<f:facet name="header">
+						<p:outputPanel style="align: right">
+							<h:outputText value="Buscar: " />
+							<p:inputText id="globalFilter"
+								onkeyup="PF('tabelaSubarea').filter()" style="width: 150px"
+								placeholder="pesquisar" />
+						</p:outputPanel>
+					</f:facet>
 
-				<f:facet name="header">
-					<p:outputPanel style="align: right">
-						<h:outputText value="Buscar: " />
-						<p:inputText id="globalFilter"
-							onkeyup="PF('tabelaSubarea').filter()" style="width: 150px"
-							placeholder="pesquisar" />
-					</p:outputPanel>
-				</f:facet>
+					<p:ajax event="rowEdit" listener="#{subareaAtuacaoBean.onRowEdit}"
+						update=":subarea:msgs" />
+					<p:ajax event="rowEditCancel"
+						listener="#{subareaAtuacaoBean.onRowCancel}"
+						update=":subarea:msgs" />
 
-				<p:ajax event="rowEdit" listener="#{subareaAtuacaoBean.onRowEdit}"
-					update=":subarea:msgs" />
-				<p:ajax event="rowEditCancel"
-					listener="#{subareaAtuacaoBean.onRowCancel}" update=":subarea:msgs" />
+					<p:column filterBy="#{subarea.descricao}"
+						filterStyle="display: none; hidden: true;"
+						headerText="Subárea de Atuação" sortBy="#{subarea.descricao}">
+						<p:cellEditor>
+							<f:facet name="input">
+								<p:inputText value="#{subarea.descricao}" />
+							</f:facet>
+							<f:facet name="output">
+								<p:outputLabel value="#{subarea.descricao}" />
+							</f:facet>
+						</p:cellEditor>
+					</p:column>
 
-				<p:column filterBy="#{subarea.descricao}"
-					filterStyle="display: none; hidden: true;"
-					headerText="Subárea de Atuação" sortBy="#{subarea.descricao}">
-					<p:cellEditor>
-						<f:facet name="input">
-							<p:inputText value="#{subarea.descricao}" />
-						</f:facet>
-						<f:facet name="output">
-							<p:outputLabel value="#{subarea.descricao}" />
-						</f:facet>
-					</p:cellEditor>
-				</p:column>
+					<p:column filterBy="#{subarea.area.descricao}"
+						filterStyle="display: none;" headerText="Área"
+						sortBy="#{subarea.area}">
+						<p:cellEditor>
+							<f:facet name="input">
+								<p:selectOneMenu value="#{subarea.area}"
+									converter="areaConverter" style="width: 38%">
+									<f:selectItems value="#{subareaAtuacaoBean.listaArea()}"
+										var="area" itemLabel="#{area.descricao}" id="area" />
+								</p:selectOneMenu>
+							</f:facet>
+							<f:facet name="output">
+								<p:outputLabel value="#{subarea.area}" />
+							</f:facet>
+						</p:cellEditor>
+					</p:column>
 
-				<p:column filterBy="#{subarea.area.descricao}"
-					filterStyle="display: none;" headerText="Área"
-					sortBy="#{subarea.area}">
-					<p:cellEditor>
-						<f:facet name="input">
-							<p:selectOneMenu value="#{subarea.area}"
-								converter="areaConverter" style="width: 38%">
-								<f:selectItems value="#{subareaAtuacaoBean.listaArea()}"
-									var="area" itemLabel="#{area.descricao}" id="area" />
-							</p:selectOneMenu>
-						</f:facet>
-						<f:facet name="output">
-							<p:outputLabel value="#{subarea.area}" />
-						</f:facet>
-					</p:cellEditor>
-				</p:column>
-
-				<p:column headerText="Alterar"
-					style="width:42px; text-align: center">
-					<p:rowEditor />
-				</p:column>
-				<p:column headerText="Excluir"
-					style="width: 40px; text-align: center">
-					<p:commandButton oncomplete="PF('dlgRemove').show()"
-						icon="ui-icon-trash" title="Excluir">
-						<f:setPropertyActionListener
-							target="#{subareaAtuacaoBean.subarea}" value="#{subarea}" />
-					</p:commandButton>
-				</p:column>
-			</p:dataTable>
+					<p:column headerText="Alterar"
+						style="width:42px; text-align: center">
+						<p:rowEditor />
+					</p:column>
+					<p:column headerText="Excluir"
+						style="width: 40px; text-align: center">
+						<p:commandButton oncomplete="PF('dlgRemove').show()"
+							icon="ui-icon-trash" title="Excluir">
+							<f:setPropertyActionListener
+								target="#{subareaAtuacaoBean.subarea}" value="#{subarea}" />
+						</p:commandButton>
+					</p:column>
+				</p:dataTable>
+			</p:panel>
 		</h:form>
 
 		<p:confirmDialog id="dlgRemove" header="Excluir Subárea"
