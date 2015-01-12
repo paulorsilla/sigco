@@ -27,7 +27,7 @@
 			</p:toolbar>
 
 			<p:panel header="Cadastro de Instituição">
-				<p:panelGrid columns="2" styleClass="semBorda">
+				<p:panelGrid columns="4" styleClass="semBorda">
 					<p:outputLabel for="cnpj" value="CNPJ: " />
 					<p:inputMask mask="99.999.999/9999-99" id="cnpj" required="true"
 						value="#{instituicaoBean.instituicao.cnpj}" />
@@ -35,15 +35,15 @@
 					<p:outputLabel for="razaoSocial" value="Razão Social: " />
 					<p:inputMask id="razaoSocial" required="true"
 						value="#{instituicaoBean.instituicao.razaoSocial}" />
-						
+
 					<p:outputLabel for="contato1" value="Contato: " />
 					<p:inputMask id="contato1" required="true"
 						value="#{instituicaoBean.instituicao.contato1}" />
-						
+
 					<p:outputLabel for="contato2" value="Contato: " />
 					<p:inputMask id="contato2" required="false"
 						value="#{instituicaoBean.instituicao.contato2}" />
-						
+
 
 					<p:outputLabel for="email" value="Email: " />
 					<p:inputText id="email" required="true"
@@ -57,6 +57,11 @@
 					<p:outputLabel for="telefone" value="Telefone: " />
 					<p:inputMask mask="(99) 9999-9999" id="telefone" required="true"
 						value="#{instituicaoBean.instituicao.telefone}" />
+
+					<h4>Endereço</h4>
+					<p:spacer />
+					<p:spacer />
+					<p:spacer />
 
 					<p:outputLabel for="logradouro" value="Logradouro: " />
 					<p:inputText id="logradouro" required="true"
@@ -86,7 +91,27 @@
 						<f:selectItems value="#{estadosBean.listaEstados()}" var="uf"
 							itemLabel="#{uf.uf}" />
 					</p:selectOneMenu>
+
+					<h4>Facilitadores</h4>
+					<p:spacer />
+					<p:spacer />
+					<p:spacer />
+					<p:outputLabel for="facilitador" value="Nome: " />
+					<p:inputText id="facilitador" value="" />
+					<p:commandButton value="Adicionar" />
 				</p:panelGrid>
+
+				<p:dataTable >
+					<f:facet name="header">Facilitadores cadastrados</f:facet>
+					<p:column headerText="Nome">
+						<h:outputText value="Facilitador 1" />
+					</p:column>
+
+					<p:column headerText="Opções">
+						<p:commandButton value="Remover" />
+					</p:column>
+				</p:dataTable>
+
 			</p:panel>
 		</h:form>
 	</ui:define>
