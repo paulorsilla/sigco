@@ -26,7 +26,8 @@
 				</f:facet>
 			</p:toolbar>
 
-			<p:panel header="Cadastro de Instituição">
+			<p:panel header="Cadastro de Instituição"
+				style="background: #F5F5F5">
 				<p:panelGrid columns="4" styleClass="semBorda">
 					<p:outputLabel for="cnpj" value="CNPJ: " />
 					<p:inputMask mask="99.999.999/9999-99" id="cnpj" required="true"
@@ -101,7 +102,7 @@
 					<p:commandButton value="Adicionar" />
 				</p:panelGrid>
 
-				<p:dataTable >
+				<p:dataTable>
 					<f:facet name="header">Facilitadores cadastrados</f:facet>
 					<p:column headerText="Nome">
 						<h:outputText value="Facilitador 1" />

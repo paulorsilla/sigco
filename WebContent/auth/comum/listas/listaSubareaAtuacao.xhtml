@@ -66,14 +66,13 @@
 						sortBy="#{subarea.area}">
 						<p:cellEditor>
 							<f:facet name="input">
-							
 								<p:selectOneMenu value="#{subarea.area}"
-									style="width: 38%" converter="entityConverter">
+									style="width: 38%" converter="areaConverter">
 									<f:selectItems value="#{areaAtuacaoBean.listaArea}" var="area"
-										itemLabel="#{area.descricao}" id="area" itemValue="#{area}" />
+										itemLabel="#{area}" id="area" itemValue="#{area}" />
 								</p:selectOneMenu>
-								
 							</f:facet>
+							
 							<f:facet name="output">
 								<p:outputLabel
 									value="#{subarea.area.descricao}" />
