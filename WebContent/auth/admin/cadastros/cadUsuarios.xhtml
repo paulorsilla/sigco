@@ -22,6 +22,7 @@
 						action="#{usuarioBean.salvar(usuarioBean.usuario)}" />
 				</f:facet>
 				<f:facet name="right">
+					<p:commandButton value="E-mail"	action="#{enviaEmailBean.enviar}" process="@this" />
 					<p:commandButton value="Cancelar" immediate="true"
 						action="/auth/comum/listas/listaUsuarios.jsf?faces-redirect=true" />
 				</f:facet>
