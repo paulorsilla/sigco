@@ -15,6 +15,11 @@
 						action="/auth/admin/cadastros/cadUsuarios.jsf?faces-redirect=true"
 						immediate="true" />
 				</f:facet>
+
+				<f:facet name="right">
+
+				</f:facet>
+
 			</p:toolbar>
 		</h:form>
 
@@ -108,6 +113,10 @@
 						</p:commandButton>
 					</p:column>
 				</p:dataTable>
+				<h:commandLink>
+					<p:graphicImage url="/resources/img/icones/pdf2.png" width="25" />
+					<p:dataExporter type="xls" target="listaUsuarios" fileName="users" />
+				</h:commandLink>
 			</p:panel>
 		</h:form>
 
