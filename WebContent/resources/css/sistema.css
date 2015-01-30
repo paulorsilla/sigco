@@ -14,47 +14,56 @@ article, aside, details, figcaption, figure, footer, header, hgroup,
 	display: block;
 }
 
-body {
-	font-size: 12px;
-	font-family: Arial, Helvetica, sans-serif;
-	margin: 0px;
-	font-weight: normal;
-	height: 100%;
-	width: 100%;
-	background-color: #ffffff;
-}
-
 .wrapper {
-	width: 100%;
-	margin: 0 auto;
+	min-width: 100%;
 	min-height: 100%;
 	height: auto !important;
-	height: 100%;
 }
 
 /* header */
 header {
+	position: fixed;
+	width: 100%;
 	padding: 5px 0px;
-	margin-bottom: 0px;
-	height: 30px;
-	background-color: #545454;
+	margin-bottom: 100px;
+	height: 35px;
+	background-color: #059EFF;
 	color: #fff;
 	box-shadow: 0px 2px 2px #ccc;
 	top: 0;
 	left: 0;
-	right: 0;
+	z-index: 100;
 }
 
 header>div {
 	margin-left: 8px;
 }
 
+body {
+	font-size: 12px;
+	font-family: Arial, Helvetica, sans-serif;
+	font-weight: normal;
+	margin: 0;
+	padding: 45px 0 0;
+	background-color: ghostwhite;
+}
+
+
+/* Footer */
+footer {
+	clear: both;
+	padding: 5px 8px;
+	margin-bottom: 0px;
+	position: fixed;
+	bottom: 0;
+	text-align: center;
+	width: 100%;
+	background-color: #059EFF;
+	color: #fff;
+}
+
 /* Middle */
 
-/*#conteudo {
-	padding: 0px 8px
-}
-*/
 .middle {
 	width: 100%;
 	padding: 0 0 50px;
@@ -67,30 +76,26 @@ header>div {
 }
 
 .container {
-	padding: 0 0.2% 0 12%;
+	padding: 0 0.2% 0 10.3%;
 }
 
 /* Left Sidebar */
 .left-sidebar {
-	float: left;
-	width: 165px;
+	width: 10%;
 	height: 100%;
 	position: absolute;
-	background-color: gray;
-	color: gray;
+	background-color: transparent;
 }
 
-/* Footer */
-footer {
-	clear: both;
-	padding: 5px 8px;
-	margin-bottom: 0px;
-	position: fixed;
-	bottom: 0;
-	text-align: center;
-	width: 100%;
-	background-color: #545454;
+.ui-menuitem-link:hover {
+	background-color: #059EFF;
 	color: #fff;
+}
+
+.left-sidebar .ui-panelmenu-header a {
+	background-color: #059EFF;
+	color: #fff;
+	font-weight: bold;
 }
 
 h1 {
@@ -177,24 +182,6 @@ h1 {
 }
 )
 no-repeat
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 ;
 }
 /* Menu sistema fim */
@@ -218,3 +205,13 @@ no-repeat
 	margin-bottom: 4px;
 }
 
+
+a.button {
+    display: inline-block;
+    background: lightgray;
+    border: 2px outset lightgray;
+    cursor: default;
+}
+a.button:active {
+    border-style: inset;
+}

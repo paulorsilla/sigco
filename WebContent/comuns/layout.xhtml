@@ -12,31 +12,35 @@
 </h:head>
 <h:body>
 
+
+	<!-- Cabeçalho -->
+
+	<header class="header">
+	<div style="float: left">
+		<h:link outcome="/index">
+			<h:graphicImage url="/resources/img/logo-embrapa2.png"
+				value="./index.xhtml" />
+		</h:link>
+	</div>
+	</header>
+
+	<!-- Fim Cabeçalho -->
+
 	<!-- Wrapper -->
-
 	<div class="wrapper">
-
-		<!-- Cabeçalho -->
-
-		<header class="header">
-		<div style="float: left">
-			<h:link outcome="/index">
-				<h:graphicImage url="/resources/img/logo-embrapa2.png"
-					value="./index.xhtml" />
-			</h:link>
-		</div>
-		<!-- 		<div style="float: right; margin-right: 110px"> --> <!-- 			<span -->
-		<!-- 				style="float: left; height: 33px; line-height: 30px; margin-right: 60px"> -->
-		<!-- 				Olá usuário!<p:spacer height="20px" /> <p:outputLabel --> <!-- 					onclick="#{facesContext.externalContext.requestContextPath}/j_spring_security_logout" -->
-		<!-- 					value="Sair" /> --> <!-- 			</span> --> <!-- 		</div> --> </header>
-
-		<!-- Fim Cabeçalho -->
 
 		<!-- Menu Lateral -->
 
 		<ui:insert name="menuLateral">
 			<div class="left-sidebar">
 				<h:form>
+					
+					<p:breadCrumb>
+						<p:menuitem url="/index.jsf" />
+						<p:menuitem type="button" url="/sigco/j_spring_security_logout"
+							icon="ui-icon-power" />
+					</p:breadCrumb>
+
 					<p:panelMenu style="height: 100px;" styleClass="menu-sistema">
 						<p:submenu styleClass="menu-sistema" label="Cadastros">
 							<p:menuitem value="Área de atuação"

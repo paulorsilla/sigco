@@ -4,20 +4,19 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:p="http://primefaces.org/ui">
 
+
 <ui:composition template="/comuns/layout.xhtml">
+
 	<ui:define name="pageTitle">Cadastro de Usuários</ui:define>
 
 	<ui:define name="corpo">
+
 		<h:form>
 			<p:toolbar styleClass="toolbar">
 				<f:facet name="left">
 					<p:commandButton id="novoUsuario" value="Novo Usuário"
 						action="/auth/admin/cadastros/cadUsuarios.jsf?faces-redirect=true"
 						immediate="true" />
-				</f:facet>
-
-				<f:facet name="right">
-
 				</f:facet>
 
 			</p:toolbar>
@@ -29,9 +28,9 @@
 
 			<p:panel header="Lista de Usuários Cadastrados">
 				<p:dataTable id="listaUsuarios" var="usuario"
-					widgetVar="tabelaUsuarios" editable="true" paginator="true"
+					widgetVar="tabelaUsuarios" editable="false" paginator="true"
 					paginatorPosition="bottom" rowsPerPageTemplate="15,20,25,30"
-					rows="15" resizableColumns="true"
+					rows="15" resizableColumns="false"
 					value="#{usuarioBean.listaUsuarios}" style="margin-bottom: 10px"
 					rowKey="#{usuario.login}" emptyMessage="Nada encontrado!!"
 					filteredValue="#{usuarioBean.filtroUsuarios}">
@@ -40,7 +39,7 @@
 						<p:outputPanel style="align: right">
 							<h:outputText value="Buscar: " />
 							<p:inputText id="globalFilter"
-								onkeyup="PF('tabelaUsuarios').filter()" style="width: 150px"
+								onkeyup="PF('tabelaUsuarios').filter()" style="width: 250px"
 								placeholder="pesquisar" />
 						</p:outputPanel>
 					</f:facet>
@@ -87,7 +86,9 @@
 					</p:column>
 
 					<p:column filterBy="#{usuario.enable}" filterStyle="display: none;"
-						headerText="Ativo" sortBy="#{usuario.enable}">
+						headerText="Ativo" sortBy="#{usuario.enable}"
+						style="width:60px; 
+						text-align: center">
 						<p:cellEditor>
 							<f:facet name="output">
 								<p:selectBooleanCheckbox value="#{usuario.enable}"
@@ -100,23 +101,19 @@
 						</p:cellEditor>
 					</p:column>
 
-					<p:column headerText="Alterar"
-						style="width:42px; text-align: center">
-						<p:rowEditor />
-					</p:column>
-					<p:column headerText="Excluir"
-						style="width: 40px; text-align: center">
+					<p:column headerText="Opções" exportable="false"
+						style="width:80px; text-align: center">
+						<p:commandButton icon="ui-icon-pencil" title="Alterar" />
+
 						<p:commandButton onclick="PF('dlgRemove').show()"
 							icon="ui-icon-trash" title="Excluir">
 							<f:setPropertyActionListener target="#{usuarioBean.usuario}"
 								value="#{usuario}" />
 						</p:commandButton>
 					</p:column>
+
 				</p:dataTable>
-				<h:commandLink>
-					<p:graphicImage url="/resources/img/icones/pdf2.png" width="25" />
-					<p:dataExporter type="xls" target="listaUsuarios" fileName="users" />
-				</h:commandLink>
+
 			</p:panel>
 		</h:form>
 

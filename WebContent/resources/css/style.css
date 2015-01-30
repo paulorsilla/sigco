@@ -19,6 +19,9 @@ article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section
 
 body {
 	line-height: 1;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 13px;
+	color: #333;
 }
 
 ol,ul {
@@ -37,12 +40,6 @@ blockquote:before,blockquote:after,q:before,q:after {
 table {
 	border-collapse: collapse;
 	border-spacing: 0;
-}
-
-body {
-	font-family: Verdana, Arial, Helvetica, sans-serif;
-	font-size: 13px;
-	color: #333
 }
 
 p {
