@@ -52,11 +52,7 @@
   <managed-bean-class>br.embrapa.cnpso.sigco.controller.LocalBean</managed-bean-class>
   <managed-bean-scope>view</managed-bean-scope>
  </managed-bean>
- <managed-bean>
-  <managed-bean-name>loginLogoutBean</managed-bean-name>
-  <managed-bean-class>br.embrapa.cnpso.sigco.controller.LoginLogoutBean</managed-bean-class>
-  <managed-bean-scope>request</managed-bean-scope>
- </managed-bean>
+
  <application>
   <el-resolver>org.springframework.web.jsf.el.SpringBeanFacesELResolver</el-resolver>
  </application>
