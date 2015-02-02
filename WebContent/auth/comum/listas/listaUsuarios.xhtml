@@ -103,7 +103,9 @@
 
 					<p:column headerText="Opções" exportable="false"
 						style="width:80px; text-align: center">
-						<p:commandButton icon="ui-icon-pencil" title="Alterar" />
+						
+						<p:commandButton id="alterarUsuario" icon="ui-icon-pencil" title="Alterar"
+						action="/auth/admin/cadastros/cadUsuarios.jsf"/>
 
 						<p:commandButton onclick="PF('dlgRemove').show()"
 							icon="ui-icon-trash" title="Excluir">

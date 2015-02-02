@@ -86,7 +86,7 @@ public class UsuarioBean implements Serializable {
 				.getName();
 		return login;
 	}
-
+	
 	public void salvar(Usuario usr) {
 
 		try {
