@@ -8,32 +8,31 @@ import javax.faces.convert.Converter;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-import br.embrapa.cnpso.sigco.model.AreaAtuacao;
+import br.embrapa.cnpso.sigco.model.Usuario;
 
 @ManagedBean
 @RequestScoped
-public class AreaConverter implements Converter {
-
+public class UsuarioConverter implements Converter {
+	
 	@PersistenceContext
 	private EntityManager em;
-
-	@Override
-	public String getAsString(FacesContext context, UIComponent component,
-			Object object) {
-		AreaAtuacao area = (AreaAtuacao) object;
-		if (area == null || area.getDescricao() == null)
-			return null;
-		return String.valueOf(area.getDescricao());
-	}
 
 	@Override
 	public Object getAsObject(FacesContext context, UIComponent component,
 			String string) {
 		if (string == null || string.isEmpty())
 			return null;
-		Long id = new Long(string);
-		AreaAtuacao area = em.find(AreaAtuacao.class, id);
-		return area;
+		Usuario usuario = em.find(Usuario.class, string);
+		return usuario;
 	}
 
+	@Override
+	public String getAsString(FacesContext context, UIComponent component,
+			Object value) {
+		if(value != null) {
+			Usuario usuario = (Usuario) value;
+			return usuario.getLogin() == null ? null : usuario.getLogin();
+		}
+ 		return "";
+	}
 }

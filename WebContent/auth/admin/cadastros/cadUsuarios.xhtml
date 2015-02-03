@@ -8,6 +8,10 @@
 	<ui:define name="pageTitle">Cadastro de Usuário</ui:define>
 
 	<ui:define name="corpo">
+	
+		<f:metadata> 
+ 			<f:viewParam converter="#{usuarioConverter}" name="usuario" value="#{usuarioBean.usuario}" /> 
+ 		</f:metadata>
 
 		<!-- Janela para inserção de novo usuário -->
 

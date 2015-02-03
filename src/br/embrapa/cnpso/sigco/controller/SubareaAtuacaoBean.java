@@ -52,6 +52,9 @@ public class SubareaAtuacaoBean implements Serializable {
 
 	public void setSubarea(SubareaAtuacao subarea) {
 		this.subarea = subarea;
+		if(this.subarea != null) {
+			this.area = this.subarea.getArea();
+		}
 	}
 
 	public AreaAtuacao getArea() {

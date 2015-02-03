@@ -58,6 +58,10 @@ public class AreaAtuacaoBean implements Serializable {
 
 	public void setSubarea(SubareaAtuacao subarea) {
 		this.subarea = subarea;
+		
+		if(this.subarea != null) {
+			this.area = this.subarea.getArea();
+		}
 	}
 
 	public Collection<AreaAtuacao> getListaArea() {

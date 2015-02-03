@@ -8,6 +8,11 @@
 	<ui:define name="pageTitle">Cadastro de Áreas</ui:define>
 
 	<ui:define name="corpo">
+	
+		<f:metadata> 
+ 			<f:viewParam converter="#{areaConverter}" name="area" value="#{areaAtuacaoBean.area}" /> 
+ 		</f:metadata>
+	
 		<!-- Janela para inserção de nova área de atuação -->
 
 		<h:form>

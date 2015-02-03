@@ -8,6 +8,11 @@
 	<ui:define name="pageTitle">Cadastro de Subarea de Atuação</ui:define>
 
 	<ui:define name="corpo">
+	
+		<f:metadata> 
+ 			<f:viewParam converter="#{subareaConverter}" name="subarea" value="#{subareaAtuacaoBean.subarea}" />
+ 		</f:metadata>
+	
 		<h:form>
 			<p:toolbar styleClass="toolbar">
 				<f:facet name="left">
@@ -30,10 +35,9 @@
 					<p:inputText id="descricao" required="true"
 						value="#{subareaAtuacaoBean.subarea.descricao}" />
 
-					<p:outputLabel for="area" value="Área " />
-					<p:selectOneMenu label="area" converter="entityConverter"
-						value="#{subareaAtuacaoBean.subarea.area}" required="true"
-						id="area">
+					<p:outputLabel for="area" value="Área" />
+					<p:selectOneMenu label="area" value="#{subareaAtuacaoBean.subarea.area}" 
+					    required="true" id="area">
 						<f:selectItem itemLabel="--Selecione--" noSelectionOption="true" />
 						<f:selectItems value="#{areaAtuacaoBean.listaArea}" var="area"
 							itemLabel="#{area.descricao}" />

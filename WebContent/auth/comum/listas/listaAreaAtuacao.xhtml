@@ -40,30 +40,18 @@
 						</p:outputPanel>
 					</f:facet>
 
-					<p:ajax event="rowEdit" listener="#{areaAtuacaoBean.onRowEdit}"
-						update=":area:msgs" />
-					<p:ajax event="rowEditCancel"
-						listener="#{areaAtuacaoBean.onRowCancel}" update=":area:msgs" />
-
-					<p:column filterBy="#{area.descricao}"
-						filterStyle="display: none; hidden: true;"
+					<p:column filterBy="#{area.descricao}" resizable="false"
+						filterStyle="display: none;"
 						headerText="Área de Atuação" sortBy="#{area.descricao}">
-						<p:cellEditor>
-							<f:facet name="input">
-								<p:inputText value="#{area.descricao}" />
-							</f:facet>
-							<f:facet name="output">
-								<p:outputLabel value="#{area.descricao}" />
-							</f:facet>
-						</p:cellEditor>
+						<p:outputLabel value="#{area.descricao}" />
 					</p:column>
-
-					<p:column headerText="Alterar"
-						style="width:42px; text-align: center">
-						<p:rowEditor />
-					</p:column>
-					<p:column headerText="Excluir"
-						style="width: 40px; text-align: center">
+					
+					<p:column headerText="Opções" exportable="false" 
+						style="width:80px; text-align: center">
+						<p:button id="alterarAreaAtuacao" icon="ui-icon-pencil" title="Alterar"
+						outcome="/auth/admin/cadastros/cadAreaAtuacao.jsf" > 
+							<f:param name="area" value="#{area.id}" />
+						</p:button>						
 						<p:commandButton oncomplete="PF('dlgRemove').show()"
 							icon="ui-icon-trash" title="Excluir">
 							<f:setPropertyActionListener target="#{areaAtuacaoBean.area}"

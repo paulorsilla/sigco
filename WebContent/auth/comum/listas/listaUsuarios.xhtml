@@ -57,55 +57,32 @@
 					<p:column filterBy="#{usuario.nomeCompleto}"
 						filterStyle="display: none;" headerText="Nome Completo"
 						sortBy="#{usuario.nomeCompleto}">
-						<p:cellEditor>
-							<f:facet name="input">
-								<p:inputText id="nomeCompleto" value="#{usuario.nomeCompleto}" />
-							</f:facet>
-							<f:facet name="output">
-								<p:outputLabel value="#{usuario.nomeCompleto}" />
-							</f:facet>
-						</p:cellEditor>
+						<p:outputLabel value="#{usuario.nomeCompleto}" />
 					</p:column>
 
 					<p:column filterBy="#{usuario.autorizacao.nome}"
 						filterStyle="display: none;" headerText="Autorização"
 						sortBy="#{usuario.autorizacao.nome}">
-						<p:cellEditor>
-							<f:facet name="input">
-								<p:selectOneMenu value="#{usuario.autorizacao}"
-									converter="entityConverter" style="width: 38%">
-									<f:selectItems value="#{autorizacaoBean.listaAutorizacoes()}"
-										var="autorizacao" itemLabel="#{autorizacao.nome}"
-										id="autorizacao" />
-								</p:selectOneMenu>
-							</f:facet>
-							<f:facet name="output">
-								<p:outputLabel value="#{usuario.autorizacao}" />
-							</f:facet>
-						</p:cellEditor>
+						<p:outputLabel value="#{usuario.autorizacao}" />
 					</p:column>
 
 					<p:column filterBy="#{usuario.enable}" filterStyle="display: none;"
 						headerText="Ativo" sortBy="#{usuario.enable}"
 						style="width:60px; 
 						text-align: center">
-						<p:cellEditor>
-							<f:facet name="output">
-								<p:selectBooleanCheckbox value="#{usuario.enable}"
+						<p:selectBooleanCheckbox value="#{usuario.enable}"
 									disabled="true" style="width: auto" />
-							</f:facet>
-							<f:facet name="input">
-								<p:selectBooleanCheckbox value="#{usuario.enable}"
-									style="float: center" />
-							</f:facet>
-						</p:cellEditor>
+	
 					</p:column>
 
 					<p:column headerText="Opções" exportable="false"
 						style="width:80px; text-align: center">
 						
-						<p:commandButton id="alterarUsuario" icon="ui-icon-pencil" title="Alterar"
-						action="/auth/admin/cadastros/cadUsuarios.jsf"/>
+						<p:button id="alterarUsuario" icon="ui-icon-pencil" title="Alterar"
+						outcome="/auth/admin/cadastros/cadUsuarios.jsf" > 
+							<f:param name="usuario" value="#{usuario.login}" />
+						
+						</p:button>						
 
 						<p:commandButton onclick="PF('dlgRemove').show()"
 							icon="ui-icon-trash" title="Excluir">

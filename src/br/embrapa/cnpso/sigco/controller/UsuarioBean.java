@@ -39,11 +39,7 @@ public class UsuarioBean implements Serializable {
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public void init() {
 		this.usuario = new Usuario();
-		//
-		// Query query = em
-		// .createQuery("SELECT u FROM Usuario u ORDER BY u.login");
-		// this.listaUsuarios = query.getResultList();
-
+	
 		CriteriaQuery cQ = em.getCriteriaBuilder().createQuery();
 		cQ.select(cQ.from(Usuario.class));
 
