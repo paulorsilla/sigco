@@ -44,11 +44,6 @@
 						</p:outputPanel>
 					</f:facet>
 
-					<p:ajax event="rowEdit" listener="#{usuarioBean.onRowEdit}"
-						update=":cadastro:msgs" />
-					<p:ajax event="rowEditCancel" listener="#{usuarioBean.onRowCancel}"
-						update=":cadastro:msgs" />
-
 					<p:column filterBy="#{usuario.login}" filterStyle="display: none;"
 						headerText="Login" sortBy="#{usuario.login}">
 						<p:outputLabel value="#{usuario.login}" />
@@ -98,7 +93,7 @@
 
 		<p:confirmDialog id="dlgRemove" header="Excluir Usuário"
 			widgetVar="dlgRemove" appendTo="@(body)"
-			message="Deseja realmente excluir o usuário selecionado ?"
+			message="Deseja realmente excluir o usuário selecionado?"
 			severity="alert">
 			<h:form>
 				<p:focus for="cancelar" />
