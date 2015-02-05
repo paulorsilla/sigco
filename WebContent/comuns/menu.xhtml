@@ -20,14 +20,11 @@
 			<p:submenu label="Cadastros" icon="ui-icon-save"
 				rendered="#{facesContext.externalContext.isUserInRole('Administrador')}">
 				<p:menuitem value="Usuários" url="/auth/admin/listaUsuarios.jsf" />
-				<p:menuitem value="Área de atuação" url="/auth/admin/listaAreaAtuacao.jsf" />
+				<p:menuitem value="Área de atuação"
+					url="/auth/admin/listaAreaAtuacao.jsf" />
 				<p:menuitem value="Subárea de atuação"
 					url="/auth/admin/listaSubareaAtuacao.jsf" />
 				<p:menuitem value="Cargo" url="/auth/admin/listaCargo.jsf" />
-				<p:menuitem value="Instituição"
-					url="/auth/admin/listaInstituicao.jsf" />
-				<p:menuitem value="Facilitador"
-					url="/auth/admin/listaFacilitador.jsf" />
 				<p:menuitem value="Sublotação" url="/auth/admin/listaSublotacao.jsf" />
 				<p:menuitem value="Equipe Técnica"
 					url="/auth/admin/listaEquipeTecnica.jsf" />
@@ -41,7 +38,6 @@
 				<p:menuitem value="Escolaridade"
 					url="/auth/admin/cadastros/listaEscolaridade.jsf" />
 			</p:submenu>
-
 
 			<f:facet name="options">
 				<h:outputText value="Bem vindo, #{usuarioBean.validaAuth()}" />
