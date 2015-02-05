@@ -8,6 +8,12 @@
 	<ui:define name="pageTitle">Cadastro de Escolaridade</ui:define>
 
 	<ui:define name="corpo">
+
+	<f:metadata>
+		<f:viewParam converter="#{escolaridadeConverter}" name="escolaridade"
+			value="#{escolaridadeBean.escolaridade}" />
+	</f:metadata>
+
 		<h:form>
 			<p:toolbar styleClass="toolbar">
 				<f:facet name="left">
@@ -26,6 +32,13 @@
 
 			<p:panel header="Cadastro de Escolaridade">
 				<p:panelGrid columns="2" styleClass="semBorda">
+					<p:outputLabel for="descricao" value="Descrição:" />
+					<p:inputText id="descricao" required="true"
+						value="#{escolaridadeBean.escolaridade.descricao}" />
+
+					<p:outputLabel for="ordem" value="Ordem:" />
+					<p:inputText id="ordem" required="true"
+						value="#{escolaridadeBean.escolaridade.ordem}" />
 
 				</p:panelGrid>
 			</p:panel>

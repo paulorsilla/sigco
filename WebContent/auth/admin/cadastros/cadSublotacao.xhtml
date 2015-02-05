@@ -8,6 +8,12 @@
 	<ui:define name="pageTitle">Cadastro de Sublotação</ui:define>
 
 	<ui:define name="corpo">
+	
+		<f:metadata> 
+ 			<f:viewParam converter="#{sublotacaoConverter}" name="sublotacao" value="#{sublotacaoBean.sublotacao}" /> 
+ 		</f:metadata>
+	
+	
 		<!-- Janela para inserção de novo sublotacao -->
 
 		<h:form>

@@ -14,8 +14,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.criteria.CriteriaQuery;
 
-import org.primefaces.event.RowEditEvent;
-
 import br.embrapa.cnpso.sigco.model.Facilitador;
 
 @Named
@@ -90,27 +88,6 @@ public class FacilitadorBean implements Serializable {
 		} finally {
 			this.init();
 		}
-	}
-
-	public void onRowEdit(RowEditEvent event) {
-		this.facilitador = (Facilitador) event.getObject();
-
-		FacesMessage msg = new FacesMessage("Facilitador Editado",
-				facilitador.getNome());
-		FacesContext.getCurrentInstance().addMessage(null, msg);
-
-		try {
-			this.em.merge(facilitador);
-			this.em.flush();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
-	public void onRowCancel(RowEditEvent event) {
-		FacesMessage msg = new FacesMessage("Facilitador Cancelado",
-				((Facilitador) event.getObject()).getNome());
-		FacesContext.getCurrentInstance().addMessage(null, msg);
 	}
 
 	public void removeMessage() {

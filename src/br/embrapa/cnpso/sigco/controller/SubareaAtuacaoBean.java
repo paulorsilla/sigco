@@ -15,8 +15,6 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaQuery;
 
-import org.primefaces.event.RowEditEvent;
-
 import br.embrapa.cnpso.sigco.model.AreaAtuacao;
 import br.embrapa.cnpso.sigco.model.SubareaAtuacao;
 
@@ -90,11 +88,12 @@ public class SubareaAtuacaoBean implements Serializable {
 	}
 
 	public void salvar(SubareaAtuacao subarea) {
-
-		System.out.println("-> " + subarea.getDescricao());
-
 		try {
-			this.em.persist(subarea);
+			if (this.subarea.getId() != null) {
+				this.em.merge(subarea);
+			} else {
+				this.em.persist(subarea);
+			}
 			this.em.flush();
 			FacesContext
 					.getCurrentInstance()
@@ -106,7 +105,6 @@ public class SubareaAtuacaoBean implements Serializable {
 		} finally {
 			this.init();
 		}
-
 	}
 
 	public void excluir(SubareaAtuacao subarea) {
@@ -121,28 +119,6 @@ public class SubareaAtuacaoBean implements Serializable {
 		} finally {
 			this.init();
 		}
-	}
-
-	public void onRowEdit(RowEditEvent event) {
-
-		this.subarea = (SubareaAtuacao) event.getObject();
-
-		FacesMessage msg = new FacesMessage("Subárea Editado",
-				subarea.getDescricao());
-		FacesContext.getCurrentInstance().addMessage(null, msg);
-
-		try {
-			em.merge(subarea);
-			em.flush();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
-	public void onRowCancel(RowEditEvent event) {
-		FacesMessage msg = new FacesMessage("Subárea Cancelado",
-				((AreaAtuacao) event.getObject()).getDescricao());
-		FacesContext.getCurrentInstance().addMessage(null, msg);
 	}
 
 	public void removeMessage() {

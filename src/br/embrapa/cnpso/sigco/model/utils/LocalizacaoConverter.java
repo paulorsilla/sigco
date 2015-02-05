@@ -8,22 +8,23 @@ import javax.faces.convert.Converter;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-import br.embrapa.cnpso.sigco.model.AreaAtuacao;
+import br.embrapa.cnpso.sigco.model.Localizacao;
+
 
 @ManagedBean
 @RequestScoped
-public class AreaConverter implements Converter {
+public class LocalizacaoConverter implements Converter{
 
 	@PersistenceContext
 	private EntityManager em;
-
+	
 	@Override
 	public String getAsString(FacesContext context, UIComponent component,
 			Object object) {
-		AreaAtuacao area = (AreaAtuacao) object;
-		if (area == null || area.getDescricao() == null)
+		Localizacao localizacao = (Localizacao) object;
+		if (localizacao == null || localizacao.getDescricao() == null)
 			return null;
-		return String.valueOf(area.getId());
+		return String.valueOf(localizacao.getId());
 	}
 
 	@Override
@@ -31,8 +32,9 @@ public class AreaConverter implements Converter {
 			String string) {
 		if (string == null || string.isEmpty())
 			return null;
-		AreaAtuacao area = em.find(AreaAtuacao.class, Long.parseLong(string));
-		return area;
+		Long id = new Long(string);
+		Localizacao localizacao = em.find(Localizacao.class, id);
+		return localizacao;
 	}
-
+	
 }

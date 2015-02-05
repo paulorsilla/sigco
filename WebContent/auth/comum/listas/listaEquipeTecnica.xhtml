@@ -23,7 +23,7 @@
 		<h:form id="equipetecnica">
 			<p:growl id="msgs" showDetail="true" />
 
-			<p:panel header="Lista de Equipe Técnica Cadastradas">
+			<p:panel header="Lista de Equipes Técnicas Cadastradas">
 				<p:dataTable id="listaEquipeTecnica" var="equipetecnica"
 					widgetVar="tabelaEquipeTecnica" editable="true" paginator="true"
 					paginatorPosition="bottom" rowsPerPageTemplate="15,20,25,30"
@@ -42,31 +42,21 @@
 						</p:outputPanel>
 					</f:facet>
 
-					<p:ajax event="rowEdit" listener="#{equipeTecnicaBean.onRowEdit}"
-						update=":equipetecnica:msgs" />
-					<p:ajax event="rowEditCancel"
-						listener="#{equipeTecnicaBean.onRowCancel}"
-						update=":equipetecnica:msgs" />
-
-					<p:column filterBy="#{equipetecnica.descricao}"
+					<p:column filterBy="#{equipetecnica.descricao}" resizable="false"
 						filterStyle="display: none; hidden: true;"
 						headerText="Equipe Técnica" sortBy="#{equipetecnica.descricao}">
-						<p:cellEditor>
-							<f:facet name="input">
-								<p:inputText value="#{equipetecnica.descricao}" />
-							</f:facet>
-							<f:facet name="output">
-								<p:outputLabel value="#{equipetecnica.descricao}" />
-							</f:facet>
-						</p:cellEditor>
+						<p:outputLabel value="#{equipetecnica.descricao}" />
 					</p:column>
 
-					<p:column headerText="Alterar"
-						style="width:42px; text-align: center">
-						<p:rowEditor />
-					</p:column>
-					<p:column headerText="Excluir"
-						style="width: 40px; text-align: center">
+					<p:column headerText="Opções" exportable="false"
+						style="width:80px; text-align: center">
+						
+						<p:button id="alterarUsuario" icon="ui-icon-pencil" title="Alterar"
+						outcome="/auth/admin/cadastros/cadEquipeTecnica.jsf" > 
+							<f:param name="equipeTecnica" value="#{equipetecnica.id}" />
+						
+						</p:button>						
+
 						<p:commandButton oncomplete="PF('dlgRemove').show()"
 							icon="ui-icon-trash" title="Excluir">
 							<f:setPropertyActionListener
@@ -74,13 +64,14 @@
 								value="#{equipetecnica}" />
 						</p:commandButton>
 					</p:column>
+
 				</p:dataTable>
 			</p:panel>
 		</h:form>
 
 		<p:confirmDialog id="dlgRemove" header="Excluir Equipe Técnica"
 			widgetVar="dlgRemove" appendTo="@(body)"
-			message="Deseja realmente excluir a equipe técnica selecionada ?"
+			message="Deseja realmente excluir a equipe técnica selecionada?"
 			severity="alert">
 			<h:form>
 
@@ -93,32 +84,6 @@
 
 			</h:form>
 		</p:confirmDialog>
-
-		<!-- Janela para inserção de nova equipe técnica -->
-
-		<p:dialog id="dlgNewEquipeTecnica" header="Adicionando Equipe Técnica"
-			widgetVar="dlgNewEquipeTecnica" modal="true" resizable="false"
-			appendTo="@(body)" draggable="false" styleClass="semBorda">
-			<h:form>
-				<p:panelGrid columns="2">
-					<p:outputLabel for="equipetecnica" value="Equipe Técnica: " />
-					<p:inputText id="equipetecnica" required="true"
-						value="#{equipeTecnicaBean.equipetecnica.descricao}" />
-				</p:panelGrid>
-
-				<p:commandButton
-					action="#{equipeTecnicaBean.salvar(equipeTecnicaBean.equipetecnica)}"
-					value="Salvar" icon="ui-icon-check"
-					oncomplete="PF('dlgNewEquipeTecnica').show()"
-					update="@form :equipetecnica @this" />
-				<p:spacer width="5px" />
-				<p:commandButton value="Salvar e Fechar" icon="ui-icon-close"
-					onclick="@dlgNewEquipeTecnica"
-					action="#{equipeTecnicaBean.salvar(equipeTecnicaBean.equipetecnica)}"
-					update="@form :equipetecnica @this" />
-			</h:form>
-
-		</p:dialog>
 
 	</ui:define>
 </ui:composition>

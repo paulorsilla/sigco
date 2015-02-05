@@ -35,14 +35,13 @@
 					<p:inputText id="descricao" required="true"
 						value="#{subareaAtuacaoBean.subarea.descricao}" />
 
-					<p:outputLabel for="area" value="Área" />
+					<p:outputLabel for="area" value="Área:" />
 					<p:selectOneMenu label="area" value="#{subareaAtuacaoBean.subarea.area}" 
-					    required="true" id="area">
+					    converter="entityConverter" required="true" id="area">
 						<f:selectItem itemLabel="--Selecione--" noSelectionOption="true" />
 						<f:selectItems value="#{areaAtuacaoBean.listaArea}" var="area"
 							itemLabel="#{area.descricao}" />
 					</p:selectOneMenu>
-
 				</p:panelGrid>
 			</p:panel>
 		</h:form>

@@ -11,6 +11,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
+import org.hibernate.validator.constraints.NotBlank;
 
 @Entity
 @SequenceGenerator(name = "seqIDAa", sequenceName = "seqIDAa")
@@ -21,33 +25,60 @@ public class AreaAtuacao implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seqIDAa")
 	private Long id;
-
-	@Column(length = 100)
+	
+	@NotNull
+	@NotBlank @Size(max=100)
+	@Column(nullable = false, length = 100)
 	private String descricao;
 
 	@OneToMany(mappedBy = "area", cascade = CascadeType.ALL)
 	private Collection<SubareaAtuacao> subarea;
 
-	public long getId() {
+	/**
+	 * @return the id
+	 */
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(Long id) {
 		this.id = id;
 	}
 
+	/**
+	 * @return the descricao
+	 */
 	public String getDescricao() {
 		return descricao;
 	}
 
+	/**
+	 * @param descricao the descricao to set
+	 */
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
 	}
 
+	/**
+	 * @return the subarea
+	 */
 	public Collection<SubareaAtuacao> getSubarea() {
 		return subarea;
 	}
 
+	/**
+	 * @param subarea the subarea to set
+	 */
+	public void setSubarea(Collection<SubareaAtuacao> subarea) {
+		this.subarea = subarea;
+	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#hashCode()
+	 */
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -59,6 +90,9 @@ public class AreaAtuacao implements Serializable {
 		return result;
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -85,5 +119,7 @@ public class AreaAtuacao implements Serializable {
 			return false;
 		return true;
 	}
+
+
 
 }

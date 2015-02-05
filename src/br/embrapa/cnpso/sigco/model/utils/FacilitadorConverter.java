@@ -8,11 +8,11 @@ import javax.faces.convert.Converter;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-import br.embrapa.cnpso.sigco.model.AreaAtuacao;
+import br.embrapa.cnpso.sigco.model.Facilitador;
 
 @ManagedBean
 @RequestScoped
-public class AreaConverter implements Converter {
+public class FacilitadorConverter implements Converter {
 
 	@PersistenceContext
 	private EntityManager em;
@@ -20,19 +20,18 @@ public class AreaConverter implements Converter {
 	@Override
 	public String getAsString(FacesContext context, UIComponent component,
 			Object object) {
-		AreaAtuacao area = (AreaAtuacao) object;
-		if (area == null || area.getDescricao() == null)
+		Facilitador facilitador = (Facilitador) object;
+		if (facilitador == null || facilitador.getNome() == null)
 			return null;
-		return String.valueOf(area.getId());
+		return String.valueOf(facilitador.getNome());
 	}
 
 	@Override
 	public Object getAsObject(FacesContext context, UIComponent component,
-			String string) {
-		if (string == null || string.isEmpty())
+			String cpf) {
+		if (cpf == null || cpf.isEmpty())
 			return null;
-		AreaAtuacao area = em.find(AreaAtuacao.class, Long.parseLong(string));
-		return area;
+		Facilitador facilitador = em.find(Facilitador.class, cpf);
+		return facilitador;
 	}
-
 }

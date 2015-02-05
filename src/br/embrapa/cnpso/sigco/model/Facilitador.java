@@ -13,11 +13,11 @@ public class Facilitador implements Serializable {
 
 	@Id
 	private String cpf;
-	@Column(length = 30)
+	@Column(length = 100)
 	private String nome;
-	@Column(length = 12)
+	@Column(length = 18)
 	private String telefone;
-	@Column(length = 20)
+	@Column(length = 100)
 	private String cidade;
 	@Column(length = 2)
 	private String uf;

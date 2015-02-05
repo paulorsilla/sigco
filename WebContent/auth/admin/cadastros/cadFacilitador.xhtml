@@ -10,6 +10,11 @@
 	<ui:define name="corpo">
 		<!-- Janela para inserção de novo usuário -->
 
+		<f:metadata>
+			<f:viewParam converter="#{facilitadorConverter}" name="facilitador"
+				value="#{facilitadorBean.facilitador}" />
+		</f:metadata>
+
 		<h:form>
 			<p:toolbar styleClass="toolbar">
 				<f:facet name="left">
@@ -26,9 +31,27 @@
 				</f:facet>
 			</p:toolbar>
 
-			<p:panel header="Cadastro de Faciltiador">
+			<p:panel header="Cadastro de Facilitador">
 				<p:panelGrid columns="2" styleClass="semBorda">
+					<p:outputLabel for="cpf" value="CPF: " />
+					<p:inputMask mask="999.999.999-99" id="cpf" required="true"
+						value="#{facilitadorBean.facilitador.cpf}" />
 
+					<p:outputLabel for="nome" value="Nome: " />
+					<p:inputText id="nome" required="true"
+						value="#{facilitadorBean.facilitador.nome}" />
+
+					<p:outputLabel for="telefone" value="Telefone: " />
+					<p:inputMask mask="(99) 9999-9999" id="telefone" required="true"
+						value="#{facilitadorBean.facilitador.telefone}" />
+
+					<p:outputLabel for="cidade" value="Cidade: " />
+					<p:inputText id="cidade" required="true"
+						value="#{facilitadorBean.facilitador.cidade}" />
+
+					<p:outputLabel for="estado" value="Estado: " />
+					<p:inputText id="estado" required="true"
+						value="#{facilitadorBean.facilitador.uf}" />
 				</p:panelGrid>
 			</p:panel>
 		</h:form>

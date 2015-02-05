@@ -42,77 +42,44 @@
 						</p:outputPanel>
 					</f:facet>
 
-					<p:ajax event="rowEdit" listener="#{facilitadorBean.onRowEdit}"
-						update=":facilitador:msgs" />
-					<p:ajax event="rowEditCancel"
-						listener="#{facilitadorBean.onRowCancel}"
-						update=":facilitador:msgs" />
-
-					<p:column filterBy="#{facilitador.cpf}"
+					<p:column filterBy="#{facilitador.cpf}" resizable="false"
 						filterStyle="display: none; hidden: true;" headerText="CPF"
 						sortBy="#{facilitador.cpf}">
 						<p:outputLabel value="#{facilitador.cpf}" />
 					</p:column>
 
-					<p:column filterBy="#{facilitador.nome}"
+					<p:column filterBy="#{facilitador.nome}" resizable="false"
 						filterStyle="display: none; hidden: true;" headerText="Nome"
 						sortBy="#{facilitador.nome}">
-						<p:cellEditor>
-							<f:facet name="input">
-								<p:inputText value="#{facilitador.nome}" />
-							</f:facet>
-							<f:facet name="output">
-								<p:outputLabel value="#{facilitador.nome}" />
-							</f:facet>
-						</p:cellEditor>
+						<p:outputLabel value="#{facilitador.nome}" />
 					</p:column>
 
-					<p:column filterBy="#{facilitador.telefone}"
+					<p:column filterBy="#{facilitador.telefone}" resizable="false"
 						filterStyle="display: none; hidden: true;" headerText="Telefone"
 						sortBy="#{facilitador.telefone}">
-						<p:cellEditor>
-							<f:facet name="input">
-								<p:inputMask mask="(99) 9999-9999"
-									value="#{facilitador.telefone}" />
-							</f:facet>
-							<f:facet name="output">
-								<p:outputLabel value="#{facilitador.telefone}" />
-							</f:facet>
-						</p:cellEditor>
+						<p:outputLabel value="#{facilitador.telefone}" />
 					</p:column>
 
-					<p:column filterBy="#{facilitador.cidade}"
+					<p:column filterBy="#{facilitador.cidade}" resizable="false"
 						filterStyle="display: none; hidden: true;" headerText="Cidade"
 						sortBy="#{facilitador.cidade}">
-						<p:cellEditor>
-							<f:facet name="input">
-								<p:inputText value="#{facilitador.cidade}" />
-							</f:facet>
-							<f:facet name="output">
-								<p:outputLabel value="#{facilitador.cidade}" />
-							</f:facet>
-						</p:cellEditor>
+						<p:outputLabel value="#{facilitador.cidade}" />
 					</p:column>
 
-					<p:column filterBy="#{facilitador.uf}"
+					<p:column filterBy="#{facilitador.uf}" resizable="false"
 						filterStyle="display: none; hidden: true;" headerText="Estado"
 						sortBy="#{facilitador.uf}">
-						<p:cellEditor>
-							<f:facet name="input">
-								<p:inputMask mask="aa" value="#{facilitador.uf}" />
-							</f:facet>
-							<f:facet name="output">
-								<p:outputLabel value="#{facilitador.uf}" />
-							</f:facet>
-						</p:cellEditor>
+						<p:outputLabel value="#{facilitador.uf}" />
 					</p:column>
 
-					<p:column headerText="Alterar"
-						style="width:42px; text-align: center">
-						<p:rowEditor />
-					</p:column>
-					<p:column headerText="Excluir"
-						style="width: 40px; text-align: center">
+					<p:column headerText="Opções" exportable="false"
+						style="width:80px; text-align: center">
+						
+						<p:button id="alterarFacilitador" icon="ui-icon-pencil" title="Alterar"
+						outcome="/auth/admin/cadastros/cadFacilitador.jsf" > 
+							<f:param name="facilitador" value="#{facilitador.cpf}" />
+						</p:button>						
+
 						<p:commandButton oncomplete="PF('dlgRemove').show()"
 							icon="ui-icon-trash" title="Excluir">
 							<f:setPropertyActionListener
@@ -125,7 +92,7 @@
 
 		<p:confirmDialog id="dlgRemove" header="Excluir Facilitador"
 			widgetVar="dlgRemove" appendTo="@(body)"
-			message="Deseja realmente excluir o facilitador selecionado ? "
+			message="Deseja realmente excluir o facilitador selecionado? "
 			severity="alert">
 			<h:form>
 
@@ -138,48 +105,6 @@
 
 			</h:form>
 		</p:confirmDialog>
-
-		<!-- Janela para inserção de facilitador -->
-
-		<p:dialog id="dlgNewFacilitador" header="Adicionando Facilitador"
-			widgetVar="dlgNewFacilitador" modal="true" resizable="false"
-			appendTo="@(body)" draggable="false" styleClass="semBorda">
-			<h:form>
-				<p:panelGrid columns="2">
-					<p:outputLabel for="cpf" value="CPF: " />
-					<p:inputMask mask="999.999.999-99" id="cpf" required="true"
-						value="#{facilitadorBean.facilitador.cpf}" />
-
-					<p:outputLabel for="nome" value="Nome: " />
-					<p:inputText id="nome" required="true"
-						value="#{facilitadorBean.facilitador.nome}" />
-
-					<p:outputLabel for="telefone" value="Telefone: " />
-					<p:inputMask mask="(99) 9999-9999" id="telefone" required="true"
-						value="#{facilitadorBean.facilitador.telefone}" />
-
-					<p:outputLabel for="cidade" value="Cidade: " />
-					<p:inputText id="cidade" required="true"
-						value="#{facilitadorBean.facilitador.cidade}" />
-
-					<p:outputLabel for="estado" value="Estado: " />
-					<p:inputText id="estado" required="true"
-						value="#{facilitadorBean.facilitador.uf}" />
-				</p:panelGrid>
-
-				<p:commandButton
-					action="#{facilitadorBean.salvar(facilitadorBean.facilitador)}"
-					value="Salvar" icon="ui-icon-check"
-					oncomplete="PF('dlgNewFacilitador').show()"
-					update="@form :facilitador @this" />
-				<p:spacer width="5px" />
-				<p:commandButton value="Salvar e Fechar" icon="ui-icon-close"
-					onclick="@dlgNewFacilitador"
-					action="#{facilitadorBean.salvar(facilitadorBean.facilitador)}"
-					update="@form :facilitador @this" />
-			</h:form>
-
-		</p:dialog>
 
 	</ui:define>
 </ui:composition>

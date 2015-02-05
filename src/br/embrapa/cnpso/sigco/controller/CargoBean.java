@@ -15,8 +15,6 @@ import javax.persistence.PersistenceContext;
 //import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaQuery;
 
-import org.primefaces.event.RowEditEvent;
-
 import br.embrapa.cnpso.sigco.model.Cargo;
 
 @Named
@@ -70,7 +68,11 @@ public class CargoBean implements Serializable {
 
 	public void salvar(Cargo cargo) {
 		try {
-			this.em.persist(cargo);
+			if (this.cargo.getId() != null) {
+				this.em.merge(cargo);
+			} else {
+				this.em.persist(cargo);
+			}
 			this.em.flush();
 			FacesContext.getCurrentInstance().getExternalContext()
 					.redirect("/sigco/auth/comum/listas/listaCargo.jsf");
@@ -91,27 +93,6 @@ public class CargoBean implements Serializable {
 		} finally {
 			this.init();
 		}
-	}
-
-	public void onRowEdit(RowEditEvent event) {
-		this.cargo = (Cargo) event.getObject();
-
-		FacesMessage msg = new FacesMessage("Cargo Editado",
-				cargo.getDescricao());
-		FacesContext.getCurrentInstance().addMessage(null, msg);
-
-		try {
-			this.em.merge(cargo);
-			this.em.flush();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
-	public void onRowCancel(RowEditEvent event) {
-		FacesMessage msg = new FacesMessage("Cargo Cancelado",
-				((Cargo) event.getObject()).getDescricao());
-		FacesContext.getCurrentInstance().addMessage(null, msg);
 	}
 
 	public void removeMessage() {

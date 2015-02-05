@@ -8,6 +8,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
+import org.hibernate.validator.constraints.NotBlank;
 
 
 @Entity
@@ -18,15 +22,21 @@ public class Sublotacao implements Serializable {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seqIDSL")
-	private int id;
-	@Column(length=100)
+	private Long id;
+
+	@NotNull
+	@NotBlank @Size(max=100)
+	@Column(nullable = false, length = 100)
 	private String descricao;
-	@Column(length=4)
+
+	@Size(max=10)
+	@Column(length=10)
 	private String sigla;
-	public int getId() {
+	
+	public Long getId() {
 		return id;
 	}
-	public void setId(int id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 	public String getDescricao() {
@@ -41,16 +51,23 @@ public class Sublotacao implements Serializable {
 	public void setSigla(String sigla) {
 		this.sigla = sigla;
 	}
+	
+	/* (non-Javadoc)
+	 * @see java.lang.Object#hashCode()
+	 */
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result
 				+ ((descricao == null) ? 0 : descricao.hashCode());
-		result = prime * result + id;
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((sigla == null) ? 0 : sigla.hashCode());
 		return result;
 	}
+	/* (non-Javadoc)
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -65,7 +82,10 @@ public class Sublotacao implements Serializable {
 				return false;
 		} else if (!descricao.equals(other.descricao))
 			return false;
-		if (id != other.id)
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
 			return false;
 		if (sigla == null) {
 			if (other.sigla != null)
@@ -74,5 +94,7 @@ public class Sublotacao implements Serializable {
 			return false;
 		return true;
 	}
-		
+
+	
+	
 }

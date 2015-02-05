@@ -14,63 +14,64 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.criteria.CriteriaQuery;
 
-import org.primefaces.event.RowEditEvent;
-import org.springframework.cglib.core.Local;
-
 import br.embrapa.cnpso.sigco.model.Localizacao;
 
 @Named
 @Stateful
 @ViewScoped
-public class LocalBean implements Serializable {
+public class LocalizacaoBean implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
 	@PersistenceContext
 	private EntityManager em;
 
-	private Localizacao local;
-	private Collection<Localizacao> listaLocal;
-	private List<Localizacao> filtroLocal;
+	private Localizacao localizacao;
+	private Collection<Localizacao> listaLocalizacao;
+	private List<Localizacao> filtroLocalizacao;
 
 	@PostConstruct
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public void init() {
-		this.local = new Localizacao();
+		this.localizacao = new Localizacao();
 
 		CriteriaQuery cQ = em.getCriteriaBuilder().createQuery();
-		cQ.select(cQ.from(Local.class));
+		cQ.select(cQ.from(Localizacao.class));
 
-		listaLocal = em.createQuery(cQ).getResultList();
+		listaLocalizacao = em.createQuery(cQ).getResultList();
 	}
 
-	public Localizacao getLocal() {
-		return local;
+	public Localizacao getLocalizacao() {
+		return localizacao;
 	}
 
-	public void setLocal(Localizacao local) {
-		this.local = local;
+	public void setLocalizacao(Localizacao localizacao) {
+		this.localizacao = localizacao;
 	}
 
-	public Collection<Localizacao> getListaLocal() {
-		return listaLocal;
+	public Collection<Localizacao> getListaLocalizacao() {
+		return listaLocalizacao;
 	}
 
-	public void setListaLocal(Collection<Localizacao> listaLocal) {
-		this.listaLocal = listaLocal;
+	public void setListaLocal(Collection<Localizacao> listaLocalizacao) {
+		this.listaLocalizacao = listaLocalizacao;
 	}
 
-	public List<Localizacao> getFiltroLocal() {
-		return filtroLocal;
+	public List<Localizacao> getFiltroLocalizacao() {
+		return filtroLocalizacao;
 	}
 
-	public void setFiltroLocal(List<Localizacao> filtroLocal) {
-		this.filtroLocal = filtroLocal;
+	public void setFiltroLocal(List<Localizacao> filtroLocalizacao) {
+		this.filtroLocalizacao = filtroLocalizacao;
 	}
 
-	public void salvar(Localizacao local) {
+	public void salvar(Localizacao localizacao) {
 		try {
-			this.em.persist(local);
+			if (this.localizacao.getId() != null) {
+				this.em.merge(localizacao);
+			} else {
+				this.em.persist(localizacao);
+			}
 			this.em.flush();
 			FacesContext.getCurrentInstance().getExternalContext()
 					.redirect("/sigco/auth/comum/listas/listaLocalizacao.jsf");
@@ -94,31 +95,9 @@ public class LocalBean implements Serializable {
 		}
 	}
 
-	public void onRowEdit(RowEditEvent event) {
-
-		this.local = (Localizacao) event.getObject();
-
-		FacesMessage msg = new FacesMessage("Localização Editado",
-				local.getDescricao());
-		FacesContext.getCurrentInstance().addMessage(null, msg);
-
-		try {
-			em.merge(local);
-			em.flush();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
-	public void onRowCancel(RowEditEvent event) {
-		FacesMessage msg = new FacesMessage("Área Cancelado",
-				((Localizacao) event.getObject()).getDescricao());
-		FacesContext.getCurrentInstance().addMessage(null, msg);
-	}
-
 	public void removeMessage() {
 		FacesMessage msg = new FacesMessage("Localização Removido",
-				local.getDescricao());
+				localizacao.getDescricao());
 		FacesContext.getCurrentInstance().addMessage(null, msg);
 	}
 }

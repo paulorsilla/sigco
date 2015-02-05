@@ -5,6 +5,10 @@ import java.lang.Long;
 import java.lang.String;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
+import org.hibernate.validator.constraints.NotBlank;
 
 /**
  * Entity implementation class for Entity: EquipeTecnica
@@ -21,7 +25,9 @@ public class EquipeTecnica implements Serializable {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seqIDET")
 	private Long id;
 
-	@Column(length = 100)
+	@NotNull
+	@NotBlank @Size(max=100)
+	@Column(nullable = false, length = 100)
 	private String descricao;
 
 	public Long getId() {

@@ -85,7 +85,11 @@ public class UsuarioBean implements Serializable {
 	public void salvar(Usuario usr) {
 
 		try {
-			this.em.persist(usr);
+			if (this.usuario.getLogin() != null) {
+				this.em.merge(usr);
+			} else {
+				this.em.persist(usr);
+			}
 			this.em.flush();
 			FacesContext.getCurrentInstance().getExternalContext()
 					.redirect("/sigco/auth/comum/listas/listaUsuarios.jsf");
@@ -108,28 +112,6 @@ public class UsuarioBean implements Serializable {
 		} finally {
 			this.init();
 		}
-	}
-
-	public void onRowEdit(RowEditEvent event) {
-
-		this.usuario = (Usuario) event.getObject();
-
-		FacesMessage msg = new FacesMessage("Usuario Editado",
-				usuario.getLogin());
-		FacesContext.getCurrentInstance().addMessage(null, msg);
-
-		try {
-			em.merge(usuario);
-			em.flush();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
-	public void onRowCancel(RowEditEvent event) {
-		FacesMessage msg = new FacesMessage("Usuario Cancelado",
-				((Usuario) event.getObject()).getLogin());
-		FacesContext.getCurrentInstance().addMessage(null, msg);
 	}
 
 	public void removeMessage() {

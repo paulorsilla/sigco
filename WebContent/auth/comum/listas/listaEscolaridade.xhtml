@@ -26,10 +26,10 @@
 
 			<p:panel header="Lista de Escolaridades Cadastradas">
 				<p:dataTable id="listaEscolaridade" var="escolaridade"
-					widgetVar="tabelaEscolaridade" editable="true" paginator="true"
-					paginatorPosition="bottom" rowsPerPageTemplate="15,20,25,30"
-					rows="15" resizableColumns="true"
-					value="#{escolaridadeBeanBean.listaEscolaridade}"
+					sortOrder="ascending" widgetVar="tabelaEscolaridade"
+					editable="true" paginator="true" paginatorPosition="bottom"
+					rowsPerPageTemplate="15,20,25,30" rows="15" resizableColumns="true"
+					value="#{escolaridadeBean.listaEscolaridade}"
 					style="margin-bottom: 10px" rowKey="#{escolaridade.descricao}"
 					emptyMessage="Nada encontrado!!"
 					filteredValue="#{escolaridadeBean.filtroEscolaridade}">
@@ -43,45 +43,28 @@
 						</p:outputPanel>
 					</f:facet>
 
-					<p:ajax event="rowEdit" listener="#{escolaridadeBean.onRowEdit}"
-						update=":escolaridade:msgs" />
-					<p:ajax event="rowEditCancel"
-						listener="#{escolaridadeBean.onRowCancel}"
-						update=":escolaridade:msgs" />
-
 					<p:column filterBy="#{escolaridade.descricao}"
-						filterStyle="display: none; hidden: true;"
+						filterStyle="display: none;" resizable="false"
 						headerText="Escolaridade" sortBy="#{escolaridade.descricao}">
-						<p:cellEditor>
-							<f:facet name="input">
-								<p:inputText value="#{escolaridade.descricao}" />
-							</f:facet>
-							<f:facet name="output">
-								<p:outputLabel value="#{escolaridade.descricao}" />
-							</f:facet>
-						</p:cellEditor>
+						<p:outputLabel value="#{escolaridade.descricao}" />
 					</p:column>
 
 					<p:column filterBy="#{escolaridade.ordem}"
-						filterStyle="display: none; hidden: true;" headerText="Ordem"
+						filterStyle="display: none;" resizable="false" headerText="Ordem"
 						sortBy="#{escolaridade.ordem}">
-						<p:cellEditor>
-							<f:facet name="input">
-								<p:inputText value="#{escolaridade.ordem}" />
-							</f:facet>
-							<f:facet name="output">
-								<p:outputLabel value="#{escolaridade.ordem}" />
-							</f:facet>
-						</p:cellEditor>
+						<p:outputLabel value="#{escolaridade.ordem}" />
 					</p:column>
 
-					<p:column headerText="Alterar"
-						style="width:42px; text-align: center">
-						<p:rowEditor />
-					</p:column>
-					<p:column headerText="Excluir"
-						style="width: 40px; text-align: center">
-						<p:commandButton oncomplete="PF('dlgRemove').show()"
+					<p:column headerText="Opções" exportable="false"
+						style="width:80px; text-align: center">
+
+						<p:button id="alterarEscolaridade" icon="ui-icon-pencil"
+							title="Alterar"
+							outcome="/auth/admin/cadastros/cadEscolaridade.jsf">
+							<f:param name="escolaridade" value="#{escolaridade.id}" />
+						</p:button>
+
+						<p:commandButton onclick="PF('dlgRemove').show()"
 							icon="ui-icon-trash" title="Excluir">
 							<f:setPropertyActionListener
 								target="#{escolaridadeBean.escolaridade}"
@@ -92,9 +75,9 @@
 			</p:panel>
 		</h:form>
 
-		<p:confirmDialog id="dlgRemove" header="Excluir Função"
+		<p:confirmDialog id="dlgRemove" header="Excluir Escolaridade"
 			widgetVar="dlgRemove" appendTo="@(body)"
-			message="Deseja realmente excluir a escolaridade selecionada ?"
+			message="Deseja realmente excluir a escolaridade selecionada?"
 			severity="alert">
 			<h:form>
 

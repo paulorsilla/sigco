@@ -14,8 +14,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.criteria.CriteriaQuery;
 
-import org.primefaces.event.RowEditEvent;
-
 import br.embrapa.cnpso.sigco.model.EquipeTecnica;
 
 @Named
@@ -70,7 +68,11 @@ public class EquipeTecnicaBean implements Serializable {
 	public void salvar(EquipeTecnica equipetecnica) {
 
 		try {
-			this.em.persist(equipetecnica);
+			if (this.equipetecnica.getId() != null) {
+				this.em.merge(equipetecnica);
+			} else {
+				this.em.persist(equipetecnica);
+			}
 			this.em.flush();
 			FacesContext
 					.getCurrentInstance()
@@ -95,28 +97,6 @@ public class EquipeTecnicaBean implements Serializable {
 		} finally {
 			this.init();
 		}
-	}
-
-	public void onRowEdit(RowEditEvent event) {
-
-		this.equipetecnica = (EquipeTecnica) event.getObject();
-
-		FacesMessage msg = new FacesMessage("Equipe Técnica Editado",
-				equipetecnica.getDescricao());
-		FacesContext.getCurrentInstance().addMessage(null, msg);
-
-		try {
-			em.merge(equipetecnica);
-			em.flush();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
-	public void onRowCancel(RowEditEvent event) {
-		FacesMessage msg = new FacesMessage("Equipe Técnica Cancelado",
-				((EquipeTecnica) event.getObject()).getDescricao());
-		FacesContext.getCurrentInstance().addMessage(null, msg);
 	}
 
 	public void removeMessage() {

@@ -82,7 +82,11 @@ public class AreaAtuacaoBean implements Serializable {
 
 	public void salvar(AreaAtuacao area) {
 		try {
-			this.em.persist(area);
+			if (this.area.getId() != null) {
+				this.em.merge(area);
+			} else {
+				this.em.persist(area);
+			}
 			this.em.flush();
 			FacesContext.getCurrentInstance().getExternalContext()
 					.redirect("/sigco/auth/comum/listas/listaAreaAtuacao.jsf");
@@ -104,27 +108,6 @@ public class AreaAtuacaoBean implements Serializable {
 		} finally {
 			this.init();
 		}
-	}
-
-	public void onRowEdit(RowEditEvent event) {
-
-		this.area = (AreaAtuacao) event.getObject();
-
-		FacesMessage msg = new FacesMessage("Área Editado", area.getDescricao());
-		FacesContext.getCurrentInstance().addMessage(null, msg);
-
-		try {
-			em.merge(area);
-			em.flush();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
-	public void onRowCancel(RowEditEvent event) {
-		FacesMessage msg = new FacesMessage("Área Cancelado",
-				((AreaAtuacao) event.getObject()).getDescricao());
-		FacesContext.getCurrentInstance().addMessage(null, msg);
 	}
 
 	public void removeMessage() {

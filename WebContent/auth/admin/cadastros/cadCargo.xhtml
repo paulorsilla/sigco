@@ -8,6 +8,12 @@
 	<ui:define name="pageTitle">Cadastro de Cargo</ui:define>
 
 	<ui:define name="corpo">
+	
+		<f:metadata> 
+ 			<f:viewParam converter="#{cargoConverter}" name="cargo" value="#{cargoBean.cargo}" />
+ 		</f:metadata>
+	
+	
 		<!-- Janela para inserção de novo cargo -->
 
 		<h:form>
@@ -30,7 +36,6 @@
 					<p:outputLabel for="descricao" value="Descrição: " />
 					<p:inputText id="descricao" required="true"
 						value="#{cargoBean.cargo.descricao}" />
-
 				</p:panelGrid>
 			</p:panel>
 		</h:form>

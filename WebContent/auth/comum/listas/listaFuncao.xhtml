@@ -18,8 +18,6 @@
 			</p:toolbar>
 		</h:form>
 
-		<p:spacer height="10px" />
-
 		<!-- Tabela com lista de funções cadastrados no sistema -->
 
 		<h:form id="funcao">
@@ -42,30 +40,22 @@
 						</p:outputPanel>
 					</f:facet>
 
-					<p:ajax event="rowEdit" listener="#{funcaoBean.onRowEdit}"
-						update=":funcao:msgs" />
-					<p:ajax event="rowEditCancel" listener="#{funcaoBean.onRowCancel}"
-						update=":funcao:msgs" />
-
-					<p:column filterBy="#{funcao.descricao}"
+					<p:column filterBy="#{funcao.descricao}" resizable="false"
 						filterStyle="display: none; hidden: true;" headerText="Função"
 						sortBy="#{funcao.descricao}">
-						<p:cellEditor>
-							<f:facet name="input">
-								<p:inputText value="#{funcao.descricao}" />
-							</f:facet>
-							<f:facet name="output">
-								<p:outputLabel value="#{funcao.descricao}" />
-							</f:facet>
-						</p:cellEditor>
+						<p:outputLabel value="#{funcao.descricao}" />
 					</p:column>
 
-					<p:column headerText="Alterar"
-						style="width:42px; text-align: center">
-						<p:rowEditor />
-					</p:column>
-					<p:column headerText="Excluir"
-						style="width: 40px; text-align: center">
+
+					<p:column headerText="Opções" exportable="false"
+						style="width:80px; text-align: center">
+
+						<p:button id="alterarFuncao" icon="ui-icon-pencil" title="Alterar"
+							outcome="/auth/admin/cadastros/cadFuncao.jsf">
+							<f:param name="funcao" value="#{funcao.id}" />
+
+						</p:button>
+
 						<p:commandButton oncomplete="PF('dlgRemove').show()"
 							icon="ui-icon-trash" title="Excluir">
 							<f:setPropertyActionListener target="#{funcaoBean.funcao}"
@@ -78,7 +68,7 @@
 
 		<p:confirmDialog id="dlgRemove" header="Excluir Função"
 			widgetVar="dlgRemove" appendTo="@(body)"
-			message="Deseja realmente excluir a função selecionada ?"
+			message="Deseja realmente excluir a função selecionada?"
 			severity="alert">
 			<h:form>
 
@@ -91,31 +81,6 @@
 
 			</h:form>
 		</p:confirmDialog>
-
-		<!-- Janela para inserção de nova Função -->
-
-		<p:dialog id="dlgNewFuncao" header="Adicionando Função"
-			widgetVar="dlgNewFuncao" modal="true" resizable="false"
-			appendTo="@(body)" draggable="false" styleClass="semBorda">
-			<h:form>
-				<p:panelGrid columns="2">
-					<p:outputLabel for="funcao" value="Função: " />
-					<p:inputText id="funcao" required="true"
-						value="#{funcaoBean.funcao.descricao}" />
-				</p:panelGrid>
-				<p:commandButton action="#{funcaoBean.salvar(funcaoBean.funcao)}"
-					value="Salvar" icon="ui-icon-check"
-					oncomplete="PF('dlgNewFuncao').show()" update="@form :funcao @this" />
-
-				<p:spacer width="5px" />
-
-				<p:commandButton value="Salvar e Fechar" icon="ui-icon-close"
-					onclick="@dlgNewFuncao"
-					action="#{funcaoBean.salvar(funcaoBean.funcao)}"
-					update="@form :funcao @this" />
-			</h:form>
-
-		</p:dialog>
 
 	</ui:define>
 </ui:composition>

@@ -20,16 +20,18 @@
 
 		<!-- Tabela com lista de localizações cadastrados no sistema -->
 
-		<h:form id="local">
+		<h:form id="localizacao">
 			<p:growl id="msgs" showDetail="true" />
 
 			<p:panel header="Lista de Localizações Cadastradas">
-				<p:dataTable id="listaLocal" var="local" widgetVar="tabelaLocal"
-					editable="true" paginator="true" paginatorPosition="bottom"
-					rowsPerPageTemplate="15,20,25,30" rows="15" resizableColumns="true"
-					value="#{localBean.listaLocal}" style="margin-bottom: 10px"
-					rowKey="#{local.descricao}" emptyMessage="Nada encontrado!!"
-					filteredValue="#{localBean.filtroLocal}">
+				<p:dataTable id="listaLocalizacao" var="localizacao"
+					widgetVar="tabelaLocalizacao" editable="true" paginator="true"
+					paginatorPosition="bottom" rowsPerPageTemplate="15,20,25,30"
+					rows="15" resizableColumns="true"
+					value="#{localizacaoBean.listaLocalizacao}"
+					style="margin-bottom: 10px" rowKey="#{local.descricao}"
+					emptyMessage="Nada encontrado!!"
+					filteredValue="#{localizacaoBean.filtroLocalizacao}">
 
 					<f:facet name="header">
 						<p:outputPanel style="align: right">
@@ -40,80 +42,46 @@
 						</p:outputPanel>
 					</f:facet>
 
-					<p:ajax event="rowEdit" listener="#{localBean.onRowEdit}"
-						update=":local:msgs" />
-					<p:ajax event="rowEditCancel" listener="#{localBean.onRowCancel}"
-						update=":local:msgs" />
-
-					<p:column filterBy="#{local.descricao}"
+					<p:column filterBy="#{localizacao.descricao}" resizable="false"
 						filterStyle="display: none; hidden: true;"
-						headerText="Localização" sortBy="#{local.descricao}">
-						<p:cellEditor>
-							<f:facet name="input">
-								<p:inputText value="#{local.descricao}" />
-							</f:facet>
-							<f:facet name="output">
-								<p:outputLabel value="#{local.descricao}" />
-							</f:facet>
-						</p:cellEditor>
+						headerText="Localização" sortBy="#{localizacao.descricao}">
+						<p:outputLabel value="#{localizacao.descricao}" />
 					</p:column>
 
-					<p:column headerText="Alterar"
-						style="width:42px; text-align: center">
-						<p:rowEditor />
-					</p:column>
-					<p:column headerText="Excluir"
-						style="width: 40px; text-align: center">
+					<p:column headerText="Opções" exportable="false"
+						style="width:80px; text-align: center">
+						
+						<p:button id="alterarLocalizacao" icon="ui-icon-pencil" title="Alterar"
+						outcome="/auth/admin/cadastros/cadLocalizacao.jsf" > 
+							<f:param name="localizacao" value="#{localizacao.id}" />
+						</p:button>						
+
 						<p:commandButton oncomplete="PF('dlgRemove').show()"
 							icon="ui-icon-trash" title="Excluir">
-							<f:setPropertyActionListener target="#{localBean.local}"
-								value="#{local}" />
+							<f:setPropertyActionListener
+								target="#{localizacaoBean.localizacao}" value="#{localizacao}" />
 						</p:commandButton>
 					</p:column>
+
 				</p:dataTable>
 			</p:panel>
 		</h:form>
 
 		<p:confirmDialog id="dlgRemove" header="Excluir Localização"
 			widgetVar="dlgRemove" appendTo="@(body)"
-			message="Deseja realmente excluir a árealocalização selecionada ?"
+			message="Deseja realmente excluir a árealocalização selecionada?"
 			severity="alert">
 			<h:form>
 
 				<p:commandButton value="Sim"
-					action="#{localBean.excluir(localBean.local)}"
-					onclick="@dlgRemove.hide()" update="@form :local" />
+					action="#{localizacaoBean.excluir(localizacaoBean.localizacao)}"
+					onclick="@dlgRemove.hide()" update="@form :localizacao" />
 
 				<p:commandButton value="Cancelar" onclick="@dlgRemove"
-					update="@form :local" />
+					update="@form :localizacao" />
 
 			</h:form>
 		</p:confirmDialog>
-
-		<!-- Janela para inserção de nova localização -->
-
-		<p:dialog id="dlgNewLocal" header="Adicionando Localização"
-			widgetVar="dlgNewLocal" modal="true" resizable="false"
-			appendTo="@(body)" draggable="false" styleClass="semBorda">
-			<h:form>
-				<p:panelGrid columns="2">
-					<p:outputLabel for="local" value="Localização: " />
-					<p:inputText id="local" required="true"
-						value="#{localBean.local.descricao}" />
-				</p:panelGrid>
-
-				<p:commandButton action="#{localBean.salvar(localBean.local)}"
-					value="Salvar" icon="ui-icon-check"
-					oncomplete="PF('dlgNewLocal').show()" update="@form :local @this" />
-				<p:spacer width="5px" />
-				<p:commandButton value="Salvar e Fechar" icon="ui-icon-close"
-					onclick="@dlgNewLocal"
-					action="#{localBean.salvar(localBean.local)}"
-					update="@form :local @this" />
-			</h:form>
-
-		</p:dialog>
-
 	</ui:define>
 </ui:composition>
 

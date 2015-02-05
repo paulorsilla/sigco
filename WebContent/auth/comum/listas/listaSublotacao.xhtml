@@ -18,13 +18,11 @@
 			</p:toolbar>
 		</h:form>
 
-		<p:spacer height="10px" />
-
 		<!-- Tabela com lista de sublotações cadastrados no sistema -->
 
 		<h:form id="sublotacao">
 			<p:growl id="msgs" showDetail="true" />
-			<p:panel header="Lista de Sulotações Cadastradas">
+			<p:panel header="Lista de Sublotações Cadastradas">
 				<p:dataTable id="listaSublotacoa" var="sublotacao"
 					widgetVar="tabelaSublotacao" editable="true" paginator="true"
 					paginatorPosition="bottom" rowsPerPageTemplate="15,20,25,30"
@@ -43,56 +41,40 @@
 						</p:outputPanel>
 					</f:facet>
 
-					<p:ajax event="rowEdit" listener="#{sublotacaoBean.onRowEdit}"
-						update=":sublotacao:msgs" />
-					<p:ajax event="rowEditCancel"
-						listener="#{sublotacaoBean.onRowCancel}" update=":sublotacao:msgs" />
-
-					<p:column filterBy="#{sublotacao.descricao}"
+					<p:column filterBy="#{sublotacao.descricao}" resizable="false"
 						filterStyle="display: none; hidden: true;" headerText="Sublotação"
 						sortBy="#{sublotacao.descricao}">
-						<p:cellEditor>
-							<f:facet name="input">
-								<p:inputText value="#{sublotacao.descricao}" />
-							</f:facet>
-							<f:facet name="output">
-								<p:outputLabel value="#{sublotacao.descricao}" />
-							</f:facet>
-						</p:cellEditor>
+						<p:outputLabel value="#{sublotacao.descricao}" />
 					</p:column>
 
-					<p:column filterBy="#{sublotacao.sigla}"
+					<p:column filterBy="#{sublotacao.sigla}" resizable="false"
 						filterStyle="display: none; hidden: true;" headerText="Sigla"
 						sortBy="#{sublotacao.sigla}">
-						<p:cellEditor>
-							<f:facet name="input">
-								<p:inputText value="#{sublotacao.sigla}" />
-							</f:facet>
-							<f:facet name="output">
-								<p:outputLabel value="#{sublotacao.sigla}" />
-							</f:facet>
-						</p:cellEditor>
+						<p:outputLabel value="#{sublotacao.sigla}" />
 					</p:column>
 
-					<p:column headerText="Alterar"
-						style="width:42px; text-align: center">
-						<p:rowEditor />
-					</p:column>
-					<p:column headerText="Excluir"
-						style="width: 40px; text-align: center">
+					<p:column headerText="Opções" exportable="false"
+						style="width:80px; text-align: center">
+						
+						<p:button id="alterarSublotacao" icon="ui-icon-pencil" title="Alterar"
+						outcome="/auth/admin/cadastros/cadSublotacao.jsf" > 
+							<f:param name="sublotacao" value="#{sublotacao.id}" />
+						</p:button>						
+
 						<p:commandButton oncomplete="PF('dlgRemove').show()"
 							icon="ui-icon-trash" title="Excluir">
 							<f:setPropertyActionListener
 								target="#{sublotacaoBean.sublotacao}" value="#{sublotacao}" />
 						</p:commandButton>
 					</p:column>
+					
 				</p:dataTable>
 			</p:panel>
 		</h:form>
 
 		<p:confirmDialog id="dlgRemove" header="Excluir Sublotação"
 			widgetVar="dlgRemove" appendTo="@(body)"
-			message="Deseja realmente excluir a sublotação selecionada ? "
+			message="Deseja realmente excluir a sublotação selecionada? "
 			severity="alert">
 			<h:form>
 
@@ -105,37 +87,6 @@
 
 			</h:form>
 		</p:confirmDialog>
-
-		<!-- Janela para inserção de nova sublotacao -->
-
-		<p:dialog id="dlgNewSublotacao" header="Adicionando Sublotação"
-			widgetVar="dlgNewSublotacao" modal="true" resizable="false"
-			appendTo="@(body)" draggable="false" styleClass="semBorda">
-			<h:form>
-				<p:panelGrid columns="2">
-					<p:outputLabel for="descricao" value="Sublotação: " />
-					<p:inputText id="descricao" required="true"
-						value="#{sublotacaoBean.sublotacao.descricao}" />
-
-					<p:outputLabel for="sigla" value="Sigla: " />
-					<p:inputText id="sigla" required="true"
-						value="#{sublotacaoBean.sublotacao.sigla}" />
-				</p:panelGrid>
-
-				<p:commandButton
-					action="#{sublotacaoBean.salvar(sublotacaoBean.sublotacao)}"
-					value="Salvar" icon="ui-icon-check"
-					oncomplete="PF('dlgNewSublotacao').show()"
-					update="@form :sublotacao @this" />
-				<p:spacer width="5px" />
-				<p:commandButton value="Salvar e Fechar" icon="ui-icon-close"
-					onclick="@dlgNewSublotacao"
-					action="#{sublotacaoBean.salvar(sublotacaoBean.sublotacao)}"
-					update="@form :sublotacao @this" />
-			</h:form>
-
-		</p:dialog>
-
 	</ui:define>
 </ui:composition>
 

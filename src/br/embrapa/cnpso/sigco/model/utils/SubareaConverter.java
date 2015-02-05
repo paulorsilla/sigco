@@ -23,7 +23,7 @@ public class SubareaConverter implements Converter {
 		SubareaAtuacao subarea = (SubareaAtuacao) object;
 		if (subarea == null || subarea.getDescricao() == null)
 			return null;
-		return String.valueOf(subarea.getDescricao());
+		return String.valueOf(subarea.getId());
 	}
 
 	@Override
@@ -33,7 +33,6 @@ public class SubareaConverter implements Converter {
 			return null;
 		Long id = new Long(string);
 		SubareaAtuacao subarea = em.find(SubareaAtuacao.class, id);
-		System.out.println("TESTE "+subarea.getArea().getDescricao());
 		return subarea;
 	}
 }

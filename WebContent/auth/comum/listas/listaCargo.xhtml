@@ -45,7 +45,7 @@
 					<p:ajax event="rowEditCancel" listener="#{cargoBean.onRowCancel}"
 						update=":cargos:msgs" />
 
-					<p:column filterBy="#{cargos.descricao}"
+					<p:column filterBy="#{cargos.descricao}" resizable="false"
 						filterStyle="display: none; hidden: true;" headerText="Cargos"
 						sortBy="#{cargos.descricao}">
 						<p:cellEditor>
@@ -57,19 +57,22 @@
 							</f:facet>
 						</p:cellEditor>
 					</p:column>
+					
+					<p:column headerText="Opções" exportable="false"
+						style="width:80px; text-align: center">
+						
+						<p:button id="alterarCargo" icon="ui-icon-pencil" title="Alterar"
+						outcome="/auth/admin/cadastros/cadCargo.jsf" > 
+							<f:param name="cargo" value="#{cargos.id}" />
+						</p:button>						
 
-					<p:column headerText="Alterar"
-						style="width:42px; text-align: center">
-						<p:rowEditor />
-					</p:column>
-					<p:column headerText="Excluir"
-						style="width: 40px; text-align: center">
 						<p:commandButton oncomplete="PF('dlgRemove').show()"
 							icon="ui-icon-trash" title="Excluir">
-							<f:setPropertyActionListener target="#{cargoBean.cargo}"
-								value="#{cargos}" />
+							<f:setPropertyActionListener
+								target="#{cargoBean.cargo}" value="#{cargos}" />
 						</p:commandButton>
 					</p:column>
+					
 				</p:dataTable>
 			</p:panel>
 
@@ -77,7 +80,7 @@
 
 		<p:confirmDialog id="dlgRemove" header="Excluir Cargo"
 			widgetVar="dlgRemove" appendTo="@(body)"
-			message="Deseja realmente excluir o cargo selecionada ?"
+			message="Deseja realmente excluir o cargo selecionado?"
 			severity="alert">
 			<h:form>
 

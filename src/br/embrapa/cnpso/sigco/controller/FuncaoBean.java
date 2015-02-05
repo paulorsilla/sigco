@@ -14,8 +14,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.criteria.CriteriaQuery;
 
-import org.primefaces.event.RowEditEvent;
-
 import br.embrapa.cnpso.sigco.model.Funcao;
 
 @Named
@@ -68,7 +66,11 @@ public class FuncaoBean implements Serializable {
 
 	public void salvar(Funcao funcao) {
 		try {
-			this.em.persist(funcao);
+			if (this.funcao.getId() != null) {
+				this.em.merge(funcao);
+			} else {
+				this.em.persist(funcao);
+			}
 			this.em.flush();
 			FacesContext.getCurrentInstance().getExternalContext()
 					.redirect("/sigco/auth/comum/listas/listaFuncao.jsf");
@@ -90,28 +92,6 @@ public class FuncaoBean implements Serializable {
 		} finally {
 			this.init();
 		}
-	}
-
-	public void onRowEdit(RowEditEvent event) {
-
-		this.funcao = (Funcao) event.getObject();
-
-		FacesMessage msg = new FacesMessage("Função Editado",
-				funcao.getDescricao());
-		FacesContext.getCurrentInstance().addMessage(null, msg);
-
-		try {
-			em.merge(funcao);
-			em.flush();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
-	public void onRowCancel(RowEditEvent event) {
-		FacesMessage msg = new FacesMessage("Função Cancelado",
-				((Funcao) event.getObject()).getDescricao());
-		FacesContext.getCurrentInstance().addMessage(null, msg);
 	}
 
 	public void removeMessage() {

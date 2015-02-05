@@ -68,7 +68,11 @@ public class SublotacaoBean implements Serializable {
 
 	public void salvar(Sublotacao sublotacao) {
 		try {
-			this.em.persist(sublotacao);
+			if (this.sublotacao.getId() != null) {
+				this.em.merge(sublotacao);
+			} else {
+				this.em.persist(sublotacao);
+			}
 			this.em.flush();
 			FacesContext.getCurrentInstance().getExternalContext()
 					.redirect("/sigco/auth/comum/listas/listaSublotacao.jsf");

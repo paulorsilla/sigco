@@ -9,6 +9,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
+import org.hibernate.validator.constraints.NotBlank;
 
 @Entity
 @SequenceGenerator(name = "seqIDSA", sequenceName = "seqIDSA")
@@ -19,18 +23,21 @@ public class SubareaAtuacao implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seqIDSA")
 	private Long id;
-
-	@Column(length = 100)
+	
+	@NotNull
+	@NotBlank @Size(max=100)
+	@Column(nullable = false, length = 100)
 	private String descricao;
 
+	@NotNull
 	@ManyToOne
 	private AreaAtuacao area;
 
-	public long getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 

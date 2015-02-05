@@ -13,8 +13,7 @@ import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.criteria.CriteriaQuery;
-
-import org.primefaces.event.RowEditEvent;
+import javax.persistence.criteria.Root;
 
 import br.embrapa.cnpso.sigco.model.Escolaridade;
 
@@ -32,12 +31,11 @@ public class EscolaridadeBean implements Serializable {
 	private List<Escolaridade> filtroEscolaridade;
 
 	@PostConstruct
-	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public void init() {
 		this.escolaridade = new Escolaridade();
-		CriteriaQuery cQ = em.getCriteriaBuilder().createQuery();
-		cQ.select(cQ.from(Escolaridade.class));
-
+		CriteriaQuery<Escolaridade> cQ = em.getCriteriaBuilder().createQuery(Escolaridade.class);
+		Root<Escolaridade> from = cQ.from(Escolaridade.class);
+		cQ.orderBy(em.getCriteriaBuilder().asc(from.get("ordem")));
 		listaEscolaridade = em.createQuery(cQ).getResultList();
 	}
 
@@ -67,7 +65,11 @@ public class EscolaridadeBean implements Serializable {
 
 	public void salvar(Escolaridade escolaridade) {
 		try {
-			this.em.persist(escolaridade);
+			if (this.escolaridade.getId() != null) {
+				this.em.merge(escolaridade);
+			} else {
+				this.em.persist(escolaridade);
+			}
 			this.em.flush();
 			FacesContext.getCurrentInstance().getExternalContext()
 					.redirect("/sigco/auth/comum/listas/listaEscolaridade.jsf");
@@ -90,28 +92,6 @@ public class EscolaridadeBean implements Serializable {
 		} finally {
 			this.init();
 		}
-	}
-
-	public void onRowEdit(RowEditEvent event) {
-
-		this.escolaridade = (Escolaridade) event.getObject();
-
-		FacesMessage msg = new FacesMessage("Escolaridade Editado",
-				escolaridade.getDescricao());
-		FacesContext.getCurrentInstance().addMessage(null, msg);
-
-		try {
-			em.merge(escolaridade);
-			em.flush();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
-	public void onRowCancel(RowEditEvent event) {
-		FacesMessage msg = new FacesMessage("Escolaridade Cancelado",
-				((Escolaridade) event.getObject()).getDescricao());
-		FacesContext.getCurrentInstance().addMessage(null, msg);
 	}
 
 	public void removeMessage() {

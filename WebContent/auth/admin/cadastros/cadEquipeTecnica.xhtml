@@ -8,6 +8,12 @@
 	<ui:define name="pageTitle">Cadastro de Equipe Técnica</ui:define>
 
 	<ui:define name="corpo">
+
+		<f:metadata>
+			<f:viewParam converter="#{equipeTecnicaConverter}" name="equipeTecnica"
+				value="#{equipeTecnicaBean.equipetecnica}" />
+		</f:metadata>
+
 		<!-- Janela para inserção de novo equipe técnica -->
 
 		<h:form>
@@ -29,7 +35,7 @@
 			<p:panel header="Cadastro de Equipe Técnica">
 				<p:panelGrid columns="2" styleClass="semBorda">
 					<p:outputLabel for="descricao" value="Descrição: " />
-					<p:inputText id="descricao" required="true"
+					<p:inputText id="descricao" required="true" 
 						value="#{equipeTecnicaBean.equipetecnica.descricao}" />
 
 				</p:panelGrid>

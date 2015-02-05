@@ -8,16 +8,22 @@
 	<ui:define name="pageTitle">Cadastro de Localização</ui:define>
 
 	<ui:define name="corpo">
+
+		<f:metadata>
+			<f:viewParam converter="#{localizacaoConverter}" name="localizacao"
+				value="#{localizacaoBean.localizacao}" />
+		</f:metadata>
+
 		<!-- Janela para inserção de novo usuário -->
 
 		<h:form>
 			<p:toolbar styleClass="toolbar">
 				<f:facet name="left">
 					<p:commandButton type="button"
-						action="#{localBean.salvar(localBean.local)}" value="Salvar"
+						action="#{localizacaoBean.salvar(localizacaoBean.localizacao)}" value="Salvar"
 						icon="ui-icon-check" update="@form @this" />
 					<p:commandButton value="Salvar e Fechar" icon="ui-icon-close"
-						update="@form @this" action="#{localBean.salvar(localBean.local)}" />
+						update="@form @this" action="#{localizacaoBean.salvar(localizacaoBean.localizacao)}" />
 				</f:facet>
 				<f:facet name="right">
 					<p:commandButton value="Cancelar" immediate="true"
@@ -29,7 +35,7 @@
 				<p:panelGrid columns="2" styleClass="semBorda">
 					<p:outputLabel for="descricao" value="Descrição: " />
 					<p:inputText id="descricao" required="true"
-						value="#{localBean.local.descricao}" />
+						value="#{localizacaoBean.localizacao.descricao}" />
 				</p:panelGrid>
 			</p:panel>
 		</h:form>
