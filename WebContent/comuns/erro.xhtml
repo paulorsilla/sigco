@@ -1,0 +1,23 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/comuns/layout.xhtml">
+	<ui:define name="pageTitle">Erro</ui:define>
+
+	<ui:define name="corpo">
+	
+		<!-- Janela para inserção de novo cargo -->
+
+		<h:form>
+			<p:toolbar styleClass="toolbar" />
+
+			<p:panel header="Erro">
+				<p:outputLabel>Erro ao processar sua requisição.</p:outputLabel>
+			</p:panel>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>
