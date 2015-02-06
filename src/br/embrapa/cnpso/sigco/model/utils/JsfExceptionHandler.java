@@ -33,11 +33,14 @@ public class JsfExceptionHandler extends ExceptionHandlerWrapper{
 			ExceptionQueuedEventContext context = (ExceptionQueuedEventContext) event.getSource();
 			Throwable exception = context.getException();
 			
+			NegocioException negocioException = getNegocioException(exception); 
 			boolean handled = false;
 			try {
 				handled = true;
 				if(exception instanceof ViewExpiredException) {
 					redirect("/");
+				} else if (negocioException != null) {
+					FacesUtil.addErrorMessage(negocioException.getMessage());
 				} else {
 					redirect("/Erro.xhtml");
 				}
@@ -49,6 +52,15 @@ public class JsfExceptionHandler extends ExceptionHandlerWrapper{
 		}
 		getWrapped().handle();
 		
+	}
+	
+	private NegocioException getNegocioException(Throwable exception) {
+		if(exception instanceof NegocioException) {
+			return (NegocioException) exception;
+		} else if (exception.getCause() != null) {
+			return getNegocioException(exception.getCause());
+		}
+		return null;
 	}
 	
 	private void redirect(String page) {

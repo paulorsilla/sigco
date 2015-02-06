@@ -8,7 +8,9 @@
 	<ui:define name="pageTitle">#{localizacaoBean.Editando()}</ui:define>
 
 	<ui:define name="corpo">
-
+	
+		<p:messages id="messages" showDetail="false" autoUpdate="true" closable="true"  />
+	
 		<f:metadata>
 			<f:viewParam converter="#{localizacaoConverter}" name="localizacao"
 				value="#{localizacaoBean.localizacao}" />

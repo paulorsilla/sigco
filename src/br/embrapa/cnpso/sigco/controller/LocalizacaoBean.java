@@ -16,6 +16,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.criteria.CriteriaQuery;
 
 import br.embrapa.cnpso.sigco.model.Localizacao;
+import br.embrapa.cnpso.sigco.model.utils.NegocioException;
 
 @Named
 @Stateful
@@ -70,8 +71,7 @@ public class LocalizacaoBean implements Serializable {
 		try {
 			FacesContext context = FacesContext.getCurrentInstance();
 			String id = UIComponent.getCurrentComponent(context).getId();
-			System.out.println(id);
-
+			
 			if (this.localizacao.getId() != null) {
 				this.em.merge(localizacao);
 			} else {
