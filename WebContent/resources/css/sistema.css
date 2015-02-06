@@ -48,7 +48,6 @@ body {
 	background-color: ghostwhite;
 }
 
-
 /* Footer */
 footer {
 	clear: both;
@@ -63,7 +62,6 @@ footer {
 }
 
 /* Middle */
-
 .middle {
 	width: 100%;
 	padding: 0 0 50px;
@@ -85,6 +83,15 @@ footer {
 	height: 100%;
 	position: absolute;
 	background-color: transparent;
+}
+
+.left-sidebar .ui-button {
+	width: 100%;
+}
+
+.left-sidebar .ui-button .ui-button-text {
+	text-align: left;
+	font-weight: bold;
 }
 
 .ui-menuitem-link:hover {
@@ -182,6 +189,20 @@ h1 {
 }
 )
 no-repeat
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ;
 }
 /* Menu sistema fim */
@@ -205,13 +226,13 @@ no-repeat
 	margin-bottom: 4px;
 }
 
-
 a.button {
-    display: inline-block;
-    background: lightgray;
-    border: 2px outset lightgray;
-    cursor: default;
+	display: inline-block;
+	background: lightgray;
+	border: 2px outset lightgray;
+	cursor: default;
 }
+
 a.button:active {
-    border-style: inset;
+	border-style: inset;
 }

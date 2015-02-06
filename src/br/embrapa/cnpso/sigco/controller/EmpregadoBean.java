@@ -17,6 +17,7 @@ import javax.persistence.criteria.CriteriaQuery;
 import org.primefaces.event.RowEditEvent;
 
 import br.embrapa.cnpso.sigco.model.Empregado;
+import br.embrapa.cnpso.sigco.model.utils.MessagesAlert;
 
 @ViewScoped
 @Stateful
@@ -80,6 +81,8 @@ public class EmpregadoBean implements Serializable {
 						.getExternalContext()
 						.redirect("/sigco/auth/comum/listas/listaEmpregado.jsf");
 			}
+			MessagesAlert alert = new MessagesAlert();
+			alert.save();
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {

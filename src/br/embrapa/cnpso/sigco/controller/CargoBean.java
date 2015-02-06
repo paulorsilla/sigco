@@ -17,6 +17,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.criteria.CriteriaQuery;
 
 import br.embrapa.cnpso.sigco.model.Cargo;
+import br.embrapa.cnpso.sigco.model.utils.MessagesAlert;
 
 @Named
 @Stateful
@@ -83,6 +84,8 @@ public class CargoBean implements Serializable {
 				FacesContext.getCurrentInstance().getExternalContext()
 						.redirect("/sigco/auth/comum/listas/listaCargo.jsf");
 			}
+			MessagesAlert alert = new MessagesAlert();
+			alert.save();
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {

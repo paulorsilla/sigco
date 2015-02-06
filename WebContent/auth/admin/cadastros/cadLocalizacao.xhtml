@@ -8,7 +8,7 @@
 	<ui:define name="pageTitle">#{localizacaoBean.Editando()}</ui:define>
 
 	<ui:define name="corpo">
-	
+
 		<f:metadata>
 			<f:viewParam converter="#{localizacaoConverter}" name="localizacao"
 				value="#{localizacaoBean.localizacao}" />
@@ -20,11 +20,13 @@
 			<p:toolbar styleClass="toolbar">
 				<f:facet name="left">
 					<p:commandButton id="salvar"
-						oncomplete="$(function(){PrimeFaces.focus('geral:descricao');});"
+						oncomplete="$(function(){PrimeFaces.focus('geral:descricao');});
+						setTimeout(function() { $('#messages').hide(100); }, 2000);"
 						action="#{localizacaoBean.salvar(localizacaoBean.localizacao)}"
 						value="Salvar" icon="ui-icon-check" update="@form @this" />
 					<p:commandButton value="Salvar e Fechar" icon="ui-icon-close"
 						update="@form @this" id="salvarfechar"
+						oncomplete="setTimeout(function() { $('#messages').hide(100); }, 2000);"
 						action="#{localizacaoBean.salvar(localizacaoBean.localizacao)}" />
 				</f:facet>
 				<f:facet name="right">

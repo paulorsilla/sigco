@@ -17,6 +17,7 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
 import br.embrapa.cnpso.sigco.model.Escolaridade;
+import br.embrapa.cnpso.sigco.model.utils.MessagesAlert;
 
 @Named
 @Stateful
@@ -84,6 +85,8 @@ public class EscolaridadeBean implements Serializable {
 						.redirect(
 								"/sigco/auth/comum/listas/listaEscolaridade.jsf");
 			}
+			MessagesAlert alert = new MessagesAlert();
+			alert.save();
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {

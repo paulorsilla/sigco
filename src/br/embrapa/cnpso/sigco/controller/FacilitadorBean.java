@@ -16,6 +16,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.criteria.CriteriaQuery;
 
 import br.embrapa.cnpso.sigco.model.Facilitador;
+import br.embrapa.cnpso.sigco.model.utils.MessagesAlert;
 
 @Named
 @Stateful
@@ -80,6 +81,8 @@ public class FacilitadorBean implements Serializable {
 						.redirect(
 								"/sigco/auth/comum/listas/listaFacilitador.jsf");
 			}
+			MessagesAlert alert = new MessagesAlert();
+			alert.save();
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {

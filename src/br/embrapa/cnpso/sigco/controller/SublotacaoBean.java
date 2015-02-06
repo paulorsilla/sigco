@@ -16,6 +16,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.criteria.CriteriaQuery;
 
 import br.embrapa.cnpso.sigco.model.Sublotacao;
+import br.embrapa.cnpso.sigco.model.utils.MessagesAlert;
 
 @Named
 @Stateful
@@ -85,6 +86,8 @@ public class SublotacaoBean implements Serializable {
 						.redirect(
 								"/sigco/auth/comum/listas/listaSublotacao.jsf");
 			}
+			MessagesAlert alert = new MessagesAlert();
+			alert.save();
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {

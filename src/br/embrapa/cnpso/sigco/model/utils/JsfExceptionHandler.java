@@ -12,37 +12,39 @@ import javax.faces.context.FacesContext;
 import javax.faces.event.ExceptionQueuedEvent;
 import javax.faces.event.ExceptionQueuedEventContext;
 
-public class JsfExceptionHandler extends ExceptionHandlerWrapper{
+public class JsfExceptionHandler extends ExceptionHandlerWrapper {
 
 	private ExceptionHandler wrapped;
-	
-	public JsfExceptionHandler (ExceptionHandler wrapped) {
+
+	public JsfExceptionHandler(ExceptionHandler wrapped) {
 		this.wrapped = wrapped;
 	}
-	
+
 	@Override
 	public ExceptionHandler getWrapped() {
 		return this.wrapped;
 	}
-	
+
 	@Override
 	public void handle() throws FacesException {
-		Iterator<ExceptionQueuedEvent> events = getUnhandledExceptionQueuedEvents().iterator();
-		while(events.hasNext()) {
+		Iterator<ExceptionQueuedEvent> events = getUnhandledExceptionQueuedEvents()
+				.iterator();
+		while (events.hasNext()) {
 			ExceptionQueuedEvent event = events.next();
-			ExceptionQueuedEventContext context = (ExceptionQueuedEventContext) event.getSource();
+			ExceptionQueuedEventContext context = (ExceptionQueuedEventContext) event
+					.getSource();
 			Throwable exception = context.getException();
-			
-			NegocioException negocioException = getNegocioException(exception); 
+
+			NegocioException negocioException = getNegocioException(exception);
 			boolean handled = false;
 			try {
 				handled = true;
-				if(exception instanceof ViewExpiredException) {
+				if (exception instanceof ViewExpiredException) {
 					redirect("/");
 				} else if (negocioException != null) {
 					FacesUtil.addErrorMessage(negocioException.getMessage());
 				} else {
-					redirect("/Erro.xhtml");
+					redirect("/erro.xhtml");
 				}
 			} finally {
 				if (handled) {
@@ -51,22 +53,22 @@ public class JsfExceptionHandler extends ExceptionHandlerWrapper{
 			}
 		}
 		getWrapped().handle();
-		
+
 	}
-	
+
 	private NegocioException getNegocioException(Throwable exception) {
-		if(exception instanceof NegocioException) {
+		if (exception instanceof NegocioException) {
 			return (NegocioException) exception;
 		} else if (exception.getCause() != null) {
 			return getNegocioException(exception.getCause());
 		}
 		return null;
 	}
-	
+
 	private void redirect(String page) {
 		try {
 			FacesContext facesContext = FacesContext.getCurrentInstance();
-			ExternalContext externalContext = facesContext.getExternalContext(); 
+			ExternalContext externalContext = facesContext.getExternalContext();
 			String contextPath = externalContext.getRequestContextPath();
 			externalContext.redirect(contextPath + page);
 			facesContext.responseComplete();

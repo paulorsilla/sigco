@@ -16,6 +16,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.criteria.CriteriaQuery;
 
 import br.embrapa.cnpso.sigco.model.EquipeTecnica;
+import br.embrapa.cnpso.sigco.model.utils.MessagesAlert;
 
 @Named
 @Stateful
@@ -86,6 +87,8 @@ public class EquipeTecnicaBean implements Serializable {
 						.redirect(
 								"/sigco/auth/comum/listas/listaEquipeTecnica.jsf");
 			}
+			MessagesAlert alert = new MessagesAlert();
+			alert.save();
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {

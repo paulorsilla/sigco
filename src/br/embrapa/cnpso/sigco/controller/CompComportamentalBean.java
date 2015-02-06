@@ -17,6 +17,7 @@ import javax.persistence.criteria.CriteriaQuery;
 import org.primefaces.event.RowEditEvent;
 
 import br.embrapa.cnpso.sigco.model.Comportamental;
+import br.embrapa.cnpso.sigco.model.utils.MessagesAlert;
 
 @Named
 @Stateful
@@ -83,6 +84,8 @@ public class CompComportamentalBean implements Serializable {
 						.redirect(
 								"/sigco/auth/comum/listas/listaCompComportamental.jsf");
 			}
+			MessagesAlert alert = new MessagesAlert();
+			alert.save();
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {

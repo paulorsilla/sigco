@@ -18,6 +18,7 @@ import javax.persistence.criteria.CriteriaQuery;
 
 import br.embrapa.cnpso.sigco.model.AreaAtuacao;
 import br.embrapa.cnpso.sigco.model.SubareaAtuacao;
+import br.embrapa.cnpso.sigco.model.utils.MessagesAlert;
 
 @Stateful
 @Named
@@ -107,6 +108,8 @@ public class SubareaAtuacaoBean implements Serializable {
 						.redirect(
 								"/sigco/auth/comum/listas/listaSubareaAtuacao.jsf");
 			}
+			MessagesAlert alert = new MessagesAlert();
+			alert.save();
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {

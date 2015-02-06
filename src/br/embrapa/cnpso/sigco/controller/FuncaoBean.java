@@ -16,6 +16,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.criteria.CriteriaQuery;
 
 import br.embrapa.cnpso.sigco.model.Funcao;
+import br.embrapa.cnpso.sigco.model.utils.MessagesAlert;
 
 @Named
 @Stateful
@@ -81,6 +82,8 @@ public class FuncaoBean implements Serializable {
 				FacesContext.getCurrentInstance().getExternalContext()
 						.redirect("/sigco/auth/comum/listas/listaFuncao.jsf");
 			}
+			MessagesAlert alert = new MessagesAlert();
+			alert.save();
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {

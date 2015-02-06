@@ -35,11 +35,15 @@
 			<div class="left-sidebar">
 				<h:form>
 
-					<p:breadCrumb>
-						<p:menuitem url="/index.jsf" />
-						<p:menuitem type="button" url="/sigco/j_spring_security_logout"
-							icon="ui-icon-power" />
-					</p:breadCrumb>
+					<p:commandButton id="menu" value="#{usuarioBean.validaAuth()}"
+						icon="ui-icon-person" />
+
+					<p:menu trigger="menu" my="left top" at="left bottom"
+						overlay="true">
+						<p:menuitem icon="ui-icon-home" value="Home" url="/index.jsf" />
+						<p:menuitem type="link" icon="ui-icon-power"
+							url="/sigco/j_spring_security_logout" value="Sair" />
+					</p:menu>
 
 					<p:panelMenu style="height: 100px;" styleClass="menu-sistema">
 						<p:submenu styleClass="menu-sistema" label="Cadastros">
@@ -85,10 +89,8 @@
 
 			<div class="container">
 
-
 				<p:messages id="messages" showDetail="false" autoUpdate="true"
-					closable="true" />
-
+					closable="false" />
 
 				<!-- Corpo -->
 

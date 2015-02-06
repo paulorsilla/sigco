@@ -17,6 +17,7 @@ import javax.persistence.criteria.CriteriaQuery;
 import org.primefaces.event.RowEditEvent;
 
 import br.embrapa.cnpso.sigco.model.Tecnica;
+import br.embrapa.cnpso.sigco.model.utils.MessagesAlert;
 
 @Named
 @Stateful
@@ -81,6 +82,8 @@ public class CompTecnicaBean implements Serializable {
 						.redirect(
 								"/sigco/auth/comum/listas/listaCompTecnica.jsf");
 			}
+			MessagesAlert alert = new MessagesAlert();
+			alert.save();
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {

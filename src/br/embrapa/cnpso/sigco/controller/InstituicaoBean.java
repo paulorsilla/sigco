@@ -19,6 +19,7 @@ import org.primefaces.event.RowEditEvent;
 
 import br.embrapa.cnpso.sigco.model.Estados;
 import br.embrapa.cnpso.sigco.model.Instituicao;
+import br.embrapa.cnpso.sigco.model.utils.MessagesAlert;
 
 @Named
 @Stateful
@@ -93,6 +94,8 @@ public class InstituicaoBean implements Serializable {
 						.redirect(
 								"/sigco/auth/comum/listas/listaInstituicao.jsf");
 			}
+			MessagesAlert alert = new MessagesAlert();
+			alert.save();
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {

@@ -19,6 +19,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 
 import br.embrapa.cnpso.sigco.model.Autorizacao;
 import br.embrapa.cnpso.sigco.model.Usuario;
+import br.embrapa.cnpso.sigco.model.utils.MessagesAlert;
 
 @Stateful
 @Named
@@ -99,6 +100,8 @@ public class UsuarioBean implements Serializable {
 				FacesContext.getCurrentInstance().getExternalContext()
 						.redirect("/sigco/auth/comum/listas/listaUsuarios.jsf");
 			}
+			MessagesAlert alert = new MessagesAlert();
+			alert.save();
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {

@@ -21,11 +21,13 @@
 			<p:toolbar styleClass="toolbar">
 				<f:facet name="left">
 					<p:commandButton id="salvar"
-						oncomplete="$(function(){PrimeFaces.focus('geral:descricao');});"
+						oncomplete="$(function(){PrimeFaces.focus('geral:descricao');});
+							setTimeout(function() { $('#messages').hide(100); }, 2000);"
 						action="#{cargoBean.salvar(cargoBean.cargo)}" value="Salvar"
 						icon="ui-icon-check" update="@form @this" />
 					<p:commandButton value="Salvar e Fechar" icon="ui-icon-close"
 						id="salvarfechar" update="@form @this"
+						oncomplete="setTimeout(function() { $('#messages').hide(100); }, 2000);"
 						action="#{cargoBean.salvar(cargoBean.cargo)}" />
 				</f:facet>
 				<f:facet name="right">
