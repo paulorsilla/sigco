@@ -1,0 +1,46 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/comuns/layout.xhtml">
+	<ui:define name="pageTitle">#{}</ui:define>
+
+	<ui:define name="corpo">
+
+		<f:metadata>
+			<f:viewParam converter="#{interessesConverter}" name="interesses"
+				value="#{interessesBean.interesses}" />
+		</f:metadata>
+
+		<!-- Janela para inserção de interesses  -->
+
+		<h:form>
+			<p:toolbar styleClass="toolbar">
+				<f:facet name="left">
+					<p:commandButton type="button"
+						action="#{interessesBean.salvar(interessesBean.interesses)}"
+						value="Salvar" icon="ui-icon-check" update="@form @this" />
+					<p:commandButton value="Salvar e Fechar" icon="ui-icon-close"
+						update="@form @this"
+						action="#{interessesBean.salvar(interessesBean.interesses)}" />
+				</f:facet>
+				<f:facet name="right">
+					<p:commandButton value="Cancelar" immediate="true"
+						action="/auth/comum/listas/listaInteresses.jsf?faces-redirect=true" />
+				</f:facet>
+			</p:toolbar>
+
+			<p:panel header="Cadastro de Interesses">
+				<p:panelGrid columns="2" styleClass="semBorda">
+					<p:outputLabel for="descricao" value="Descrição " />
+					<p:inputText id="descricao" required="true"
+						value="#{interessesBean.interesses.descricao}" />
+				</p:panelGrid>
+			</p:panel>
+
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

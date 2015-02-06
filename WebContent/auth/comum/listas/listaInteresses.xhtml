@@ -1,0 +1,90 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/comuns/layout.xhtml">
+	<ui:define name="pageTitle">Cadastro de Interesses</ui:define>
+
+	<ui:define name="corpo">
+		<h:form>
+			<p:toolbar styleClass="toolbar">
+				<f:facet name="left">
+					<p:commandButton value="Adicionar Interesses"
+						action="/auth/admin/cadastros/cadInteresses.jsf?faces-redirect=true"
+						immediate="true" />
+				</f:facet>
+			</p:toolbar>
+		</h:form>
+
+		<!-- Tabela com lista de interesses cadastrados no sistema -->
+
+		<h:form id="interesses">
+			<p:growl id="msgs" showDetail="true" />
+
+			<p:panel header="Lista de Interesses Cadastrados">
+				<p:dataTable id="listaInteresses" var="interesses"
+					widgetVar="tabelaInteresses" editable="true" paginator="true"
+					paginatorPosition="bottom" rowsPerPageTemplate="15,20,25,30"
+					rows="15" resizableColumns="true"
+					value="#{interessesBean.listaInteresses}"
+					style="margin-bottom: 10px" rowKey="#{interesses.descricao}"
+					emptyMessage="Nada encontrado!!"
+					filteredValue="#{interessesBean.filtroInteresses}">
+
+					<f:facet name="header">
+						<p:outputPanel style="align: right">
+							<h:outputText value="Buscar: " />
+							<p:inputText id="globalFilter"
+								onkeyup="PF('tabelaInteresses').filter()" style="width: 150px"
+								placeholder="pesquisar" />
+						</p:outputPanel>
+					</f:facet>
+
+					<p:column filterBy="#{interesses.descricao}" resizable="false"
+						filterStyle="display: none; hidden: true;" headerText="Descrição"
+						sortBy="#{interesses.descricao}">
+						<p:outputLabel value="#{interesses.descricao}" />
+					</p:column>
+
+
+					<p:column headerText="Opções" exportable="false"
+						style="width:80px; text-align: center">
+
+						<p:button id="alterarInteresses" icon="ui-icon-pencil"
+							title="Alterar" outcome="/auth/admin/cadastros/cadInteresses.jsf">
+							<f:param name="interesses" value="#{interesses.id}" />
+
+						</p:button>
+
+						<p:commandButton oncomplete="PF('dlgRemove').show()"
+							icon="ui-icon-trash" title="Excluir">
+							<f:setPropertyActionListener
+								target="#{interessesBean.interesses}" value="#{interesses}" />
+						</p:commandButton>
+					</p:column>
+				</p:dataTable>
+			</p:panel>
+		</h:form>
+
+		<p:confirmDialog id="dlgRemove" header="Excluir Interesses"
+			widgetVar="dlgRemove" appendTo="@(body)"
+			message="Deseja realmente excluir o registro selecionada?"
+			severity="alert">
+			<h:form>
+
+				<p:commandButton value="Sim"
+					action="#{interessesBean.excluir(interessesBean.interesses)}"
+					onclick="@dlgRemove.hide()" update="@form :interesses" />
+
+				<p:commandButton value="Cancelar" onclick="@dlgRemove"
+					update="@form :interesses" />
+
+			</h:form>
+		</p:confirmDialog>
+
+	</ui:define>
+</ui:composition>
+
+</html>
