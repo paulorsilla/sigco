@@ -7,6 +7,7 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.Stateful;
 import javax.faces.application.FacesMessage;
+import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
@@ -80,14 +81,23 @@ public class AreaAtuacaoBean implements Serializable {
 
 	public void salvar(AreaAtuacao area) {
 		try {
+			FacesContext context = FacesContext.getCurrentInstance();
+			String id = UIComponent.getCurrentComponent(context).getId();
+			System.out.println(id);
+
 			if (this.area.getId() != null) {
 				this.em.merge(area);
 			} else {
 				this.em.persist(area);
 			}
 			this.em.flush();
-			FacesContext.getCurrentInstance().getExternalContext()
-					.redirect("/sigco/auth/comum/listas/listaAreaAtuacao.jsf");
+			if (id.equals("salvarfechar")) {
+				FacesContext
+						.getCurrentInstance()
+						.getExternalContext()
+						.redirect(
+								"/sigco/auth/comum/listas/listaAreaAtuacao.jsf");
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -112,6 +122,14 @@ public class AreaAtuacaoBean implements Serializable {
 		FacesMessage msg = new FacesMessage("Área de Atuação Removido",
 				area.getDescricao());
 		FacesContext.getCurrentInstance().addMessage(null, msg);
+	}
+
+	public String Editando() {
+		if (this.area.getId() != null) {
+			return "Editando Área de Atuação";
+		} else {
+			return "Cadastrando Área de Atuação";
+		}
 	}
 
 }

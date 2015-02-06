@@ -7,7 +7,7 @@
 
 <ui:composition template="/comuns/layout.xhtml">
 
-	<ui:define name="pageTitle">Cadastro de Usuários</ui:define>
+	<ui:define name="pageTitle">Lista de Usuários</ui:define>
 
 	<ui:define name="corpo">
 
@@ -93,7 +93,7 @@
 
 		<p:confirmDialog id="dlgRemove" header="Excluir Usuário"
 			widgetVar="dlgRemove" appendTo="@(body)"
-			message="Deseja realmente excluir o usuário selecionado?"
+			message="Deseja realmente excluir o registro selecionado?"
 			severity="alert">
 			<h:form>
 				<p:focus for="cancelar" />

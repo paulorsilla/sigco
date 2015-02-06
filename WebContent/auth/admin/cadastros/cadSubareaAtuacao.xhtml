@@ -5,22 +5,24 @@
 	xmlns:p="http://primefaces.org/ui">
 
 <ui:composition template="/comuns/layout.xhtml">
-	<ui:define name="pageTitle">Cadastro de Subarea de Atuação</ui:define>
+	<ui:define name="pageTitle">#{}</ui:define>
 
 	<ui:define name="corpo">
-	
-		<f:metadata> 
- 			<f:viewParam converter="#{subareaConverter}" name="subarea" value="#{subareaAtuacaoBean.subarea}" />
- 		</f:metadata>
-	
-		<h:form>
+
+		<f:metadata>
+			<f:viewParam converter="#{subareaConverter}" name="subarea"
+				value="#{subareaAtuacaoBean.subarea}" />
+		</f:metadata>
+
+		<h:form id="geral">
 			<p:toolbar styleClass="toolbar">
 				<f:facet name="left">
-					<p:commandButton
+					<p:commandButton id="salvar"
+						oncomplete="$(function(){PrimeFaces.focus('geral:descricao');});"
 						action="#{subareaAtuacaoBean.salvar(subareaAtuacaoBean.subarea)}"
 						value="Salvar" icon="ui-icon-check" update="@form @this" />
 					<p:commandButton value="Salvar e Fechar" icon="ui-icon-close"
-						update="@form @this"
+						update="@form @this" id="salvarfechar"
 						action="#{subareaAtuacaoBean.salvar(subareaAtuacaoBean.subarea)}" />
 				</f:facet>
 				<f:facet name="right">
@@ -36,8 +38,9 @@
 						value="#{subareaAtuacaoBean.subarea.descricao}" />
 
 					<p:outputLabel for="area" value="Área:" />
-					<p:selectOneMenu label="area" value="#{subareaAtuacaoBean.subarea.area}" 
-					    converter="entityConverter" required="true" id="area">
+					<p:selectOneMenu label="area"
+						value="#{subareaAtuacaoBean.subarea.area}"
+						converter="entityConverter" required="true" id="area">
 						<f:selectItem itemLabel="--Selecione--" noSelectionOption="true" />
 						<f:selectItems value="#{areaAtuacaoBean.listaArea}" var="area"
 							itemLabel="#{area.descricao}" />

@@ -5,7 +5,7 @@
 	xmlns:p="http://primefaces.org/ui">
 
 <ui:composition template="/comuns/layout.xhtml">
-	<ui:define name="pageTitle">Cadastro de Áreas</ui:define>
+	<ui:define name="pageTitle">Lista de Áreas de Atuação</ui:define>
 
 	<ui:define name="corpo">
 		<h:form>
@@ -41,17 +41,18 @@
 					</f:facet>
 
 					<p:column filterBy="#{area.descricao}" resizable="false"
-						filterStyle="display: none;"
-						headerText="Área de Atuação" sortBy="#{area.descricao}">
+						filterStyle="display: none;" headerText="Descrição"
+						sortBy="#{area.descricao}">
 						<p:outputLabel value="#{area.descricao}" />
 					</p:column>
-					
-					<p:column headerText="Opções" exportable="false" 
+
+					<p:column headerText="Opções" exportable="false"
 						style="width:80px; text-align: center">
-						<p:button id="alterarAreaAtuacao" icon="ui-icon-pencil" title="Alterar"
-						outcome="/auth/admin/cadastros/cadAreaAtuacao.jsf" > 
+						<p:button id="alterarAreaAtuacao" icon="ui-icon-pencil"
+							title="Alterar"
+							outcome="/auth/admin/cadastros/cadAreaAtuacao.jsf">
 							<f:param name="area" value="#{area.id}" />
-						</p:button>						
+						</p:button>
 						<p:commandButton oncomplete="PF('dlgRemove').show()"
 							icon="ui-icon-trash" title="Excluir">
 							<f:setPropertyActionListener target="#{areaAtuacaoBean.area}"
@@ -64,7 +65,7 @@
 
 		<p:confirmDialog id="dlgRemove" header="Excluir Área"
 			widgetVar="dlgRemove" appendTo="@(body)"
-			message="Deseja realmente excluir a área de atuação selecionada ? 
+			message="Deseja realmente excluir o registro selecionado? 
 			Obs.: Isto irá causar a exclusão de todas as subáreas de atuação vinculadas a esta área."
 			severity="alert">
 			<h:form>

@@ -5,7 +5,7 @@
 	xmlns:p="http://primefaces.org/ui">
 
 <ui:composition template="/comuns/layout.xhtml">
-	<ui:define name="pageTitle">Cadastro de Subáreas de Atuação</ui:define>
+	<ui:define name="pageTitle">Lista de Subáreas de Atuação</ui:define>
 
 	<ui:define name="corpo">
 		<h:form>
@@ -44,7 +44,7 @@
 
 					<p:column filterBy="#{subarea.descricao}" resizable="false"
 						filterStyle="display: none; hidden: true;"
-						headerText="Subárea de Atuação" sortBy="#{subarea.descricao}">
+						headerText="Descrição" sortBy="#{subarea.descricao}">
 								<p:outputLabel value="#{subarea.descricao}" />
 					</p:column>
 
@@ -74,7 +74,7 @@
 
 		<p:confirmDialog id="dlgRemove" header="Excluir Subárea"
 			widgetVar="dlgRemove" appendTo="@(body)"
-			message="Deseja realmente excluir a subárea de atuação selecionada ?"
+			message="Deseja realmente excluir o registro selecionado ?"
 			severity="alert">
 			<h:form>
 

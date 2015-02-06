@@ -7,6 +7,7 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.Stateful;
 import javax.faces.application.FacesMessage;
+import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
@@ -79,10 +80,19 @@ public class InstituicaoBean implements Serializable {
 
 	public void salvar(Instituicao instituicao) {
 		try {
+			FacesContext context = FacesContext.getCurrentInstance();
+			String id = UIComponent.getCurrentComponent(context).getId();
+			System.out.println(id);
+
 			this.em.persist(instituicao);
 			this.em.flush();
-			FacesContext.getCurrentInstance().getExternalContext()
-					.redirect("/sigco/auth/comum/listas/listaInstituicao.jsf");
+			if (id.equals("salvarfechar")) {
+				FacesContext
+						.getCurrentInstance()
+						.getExternalContext()
+						.redirect(
+								"/sigco/auth/comum/listas/listaInstituicao.jsf");
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -128,6 +138,14 @@ public class InstituicaoBean implements Serializable {
 		FacesMessage msg = new FacesMessage("Instituição Removido",
 				instituicao.getRazaoSocial());
 		FacesContext.getCurrentInstance().addMessage(null, msg);
+	}
+
+	public String Editando() {
+		if (this.instituicao.getCnpj() != null) {
+			return "Editando Instituição";
+		} else {
+			return "Cadastrando Instituição";
+		}
 	}
 
 }

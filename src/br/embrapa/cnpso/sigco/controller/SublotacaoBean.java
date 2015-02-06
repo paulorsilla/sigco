@@ -7,6 +7,7 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.Stateful;
 import javax.faces.application.FacesMessage;
+import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
@@ -14,7 +15,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.criteria.CriteriaQuery;
 
-import org.primefaces.event.RowEditEvent;
 import br.embrapa.cnpso.sigco.model.Sublotacao;
 
 @Named
@@ -68,14 +68,23 @@ public class SublotacaoBean implements Serializable {
 
 	public void salvar(Sublotacao sublotacao) {
 		try {
+			FacesContext context = FacesContext.getCurrentInstance();
+			String id = UIComponent.getCurrentComponent(context).getId();
+			System.out.println(id);
+
 			if (this.sublotacao.getId() != null) {
 				this.em.merge(sublotacao);
 			} else {
 				this.em.persist(sublotacao);
 			}
 			this.em.flush();
-			FacesContext.getCurrentInstance().getExternalContext()
-					.redirect("/sigco/auth/comum/listas/listaSublotacao.jsf");
+			if (id.equals("salvarfechar")) {
+				FacesContext
+						.getCurrentInstance()
+						.getExternalContext()
+						.redirect(
+								"/sigco/auth/comum/listas/listaSublotacao.jsf");
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -96,31 +105,17 @@ public class SublotacaoBean implements Serializable {
 		}
 	}
 
-	public void onRowEdit(RowEditEvent event) {
-		this.sublotacao = (Sublotacao) event.getObject();
-
-		FacesMessage msg = new FacesMessage("Sublotação Editada",
-				sublotacao.getDescricao());
-		FacesContext.getCurrentInstance().addMessage(null, msg);
-
-		try {
-			this.em.merge(sublotacao);
-			this.em.flush();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-	}
-
-	public void onRowCancel(RowEditEvent event) {
-		FacesMessage msg = new FacesMessage("Sublotação Cancelada",
-				((Sublotacao) event.getObject()).getDescricao());
-		FacesContext.getCurrentInstance().addMessage(null, msg);
-	}
-
 	public void removeMessage() {
 		FacesMessage msg = new FacesMessage("Sublotação Removido",
 				sublotacao.getDescricao());
 		FacesContext.getCurrentInstance().addMessage(null, msg);
+	}
+
+	public String Editando() {
+		if (this.sublotacao.getId() != null) {
+			return "Editando Sublotação";
+		} else {
+			return "Cadastrando Sublotação";
+		}
 	}
 }

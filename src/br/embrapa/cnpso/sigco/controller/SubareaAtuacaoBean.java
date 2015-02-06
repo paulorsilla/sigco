@@ -7,6 +7,7 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.Stateful;
 import javax.faces.application.FacesMessage;
+import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
@@ -50,7 +51,7 @@ public class SubareaAtuacaoBean implements Serializable {
 
 	public void setSubarea(SubareaAtuacao subarea) {
 		this.subarea = subarea;
-		if(this.subarea != null) {
+		if (this.subarea != null) {
 			this.area = this.subarea.getArea();
 		}
 	}
@@ -89,17 +90,23 @@ public class SubareaAtuacaoBean implements Serializable {
 
 	public void salvar(SubareaAtuacao subarea) {
 		try {
+			FacesContext context = FacesContext.getCurrentInstance();
+			String id = UIComponent.getCurrentComponent(context).getId();
+			System.out.println(id);
+
 			if (this.subarea.getId() != null) {
 				this.em.merge(subarea);
 			} else {
 				this.em.persist(subarea);
 			}
 			this.em.flush();
-			FacesContext
-					.getCurrentInstance()
-					.getExternalContext()
-					.redirect(
-							"/sigco/auth/comum/listas/listaSubareaAtuacao.jsf");
+			if (id.equals("salvarfechar")) {
+				FacesContext
+						.getCurrentInstance()
+						.getExternalContext()
+						.redirect(
+								"/sigco/auth/comum/listas/listaSubareaAtuacao.jsf");
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -125,6 +132,14 @@ public class SubareaAtuacaoBean implements Serializable {
 		FacesMessage msg = new FacesMessage("Subárea Removido",
 				subarea.getDescricao());
 		FacesContext.getCurrentInstance().addMessage(null, msg);
+	}
+
+	public String Editando() {
+		if (this.subarea.getId() != null) {
+			return "Editando Subarea de Atuação";
+		} else {
+			return "Cadastrando Subarea de Atuação";
+		}
 	}
 
 }

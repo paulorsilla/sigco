@@ -5,7 +5,7 @@
 	xmlns:p="http://primefaces.org/ui">
 
 <ui:composition template="/comuns/layout.xhtml">
-	<ui:define name="pageTitle">Cadastro de Localização</ui:define>
+	<ui:define name="pageTitle">Lista de Localização</ui:define>
 
 	<ui:define name="corpo">
 		<h:form>
@@ -44,7 +44,7 @@
 
 					<p:column filterBy="#{localizacao.descricao}" resizable="false"
 						filterStyle="display: none; hidden: true;"
-						headerText="Localização" sortBy="#{localizacao.descricao}">
+						headerText="Descrição" sortBy="#{localizacao.descricao}">
 						<p:outputLabel value="#{localizacao.descricao}" />
 					</p:column>
 
@@ -69,7 +69,7 @@
 
 		<p:confirmDialog id="dlgRemove" header="Excluir Localização"
 			widgetVar="dlgRemove" appendTo="@(body)"
-			message="Deseja realmente excluir a árealocalização selecionada?"
+			message="Deseja realmente excluir o registro selecionado?"
 			severity="alert">
 			<h:form>
 

@@ -5,7 +5,7 @@
 	xmlns:p="http://primefaces.org/ui">
 
 <ui:composition template="/comuns/layout.xhtml">
-	<ui:define name="pageTitle">Cadastro de Sublotação</ui:define>
+	<ui:define name="pageTitle">Lista de Sublotação</ui:define>
 
 	<ui:define name="corpo">
 		<h:form>
@@ -42,7 +42,7 @@
 					</f:facet>
 
 					<p:column filterBy="#{sublotacao.descricao}" resizable="false"
-						filterStyle="display: none; hidden: true;" headerText="Sublotação"
+						filterStyle="display: none; hidden: true;" headerText="Ddescrição"
 						sortBy="#{sublotacao.descricao}">
 						<p:outputLabel value="#{sublotacao.descricao}" />
 					</p:column>
@@ -74,7 +74,7 @@
 
 		<p:confirmDialog id="dlgRemove" header="Excluir Sublotação"
 			widgetVar="dlgRemove" appendTo="@(body)"
-			message="Deseja realmente excluir a sublotação selecionada? "
+			message="Deseja realmente excluir o registro selecionado? "
 			severity="alert">
 			<h:form>
 

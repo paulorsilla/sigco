@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.ejb.Stateful;
 import javax.faces.application.FacesMessage;
+import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
@@ -69,13 +70,19 @@ public class CompComportamentalBean implements Serializable {
 
 	public void salvar(Comportamental comportamental) {
 		try {
+			FacesContext context = FacesContext.getCurrentInstance();
+			String id = UIComponent.getCurrentComponent(context).getId();
+			System.out.println(id);
+
 			this.em.persist(comportamental);
 			this.em.flush();
-			FacesContext
-					.getCurrentInstance()
-					.getExternalContext()
-					.redirect(
-							"/sigco/auth/comum/listas/listaCompComportamental.jsf");
+			if (id.equals("salvarfechar")) {
+				FacesContext
+						.getCurrentInstance()
+						.getExternalContext()
+						.redirect(
+								"/sigco/auth/comum/listas/listaCompComportamental.jsf");
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -112,18 +119,19 @@ public class CompComportamentalBean implements Serializable {
 		}
 	}
 
-	public void onRowCancel(RowEditEvent event) {
-		FacesMessage msg = new FacesMessage(
-				"Competência Comportamental Cancelado",
-				((Comportamental) event.getObject()).getCompetencia());
-		FacesContext.getCurrentInstance().addMessage(null, msg);
-	}
-
 	public void removeMessage() {
 		FacesMessage msg = new FacesMessage(
 				"Competência Comportamental Removido",
 				comportamental.getCompetencia());
 		FacesContext.getCurrentInstance().addMessage(null, msg);
+	}
+
+	public String Editando() {
+		if (this.comportamental.getId() != null) {
+			return "Editando Comportamental";
+		} else {
+			return "Cadastrando Comportamental";
+		}
 	}
 
 }

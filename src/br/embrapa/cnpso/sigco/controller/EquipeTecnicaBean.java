@@ -7,6 +7,7 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.Stateful;
 import javax.faces.application.FacesMessage;
+import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
@@ -68,16 +69,23 @@ public class EquipeTecnicaBean implements Serializable {
 	public void salvar(EquipeTecnica equipetecnica) {
 
 		try {
+			FacesContext context = FacesContext.getCurrentInstance();
+			String id = UIComponent.getCurrentComponent(context).getId();
+			System.out.println(id);
+
 			if (this.equipetecnica.getId() != null) {
 				this.em.merge(equipetecnica);
 			} else {
 				this.em.persist(equipetecnica);
 			}
 			this.em.flush();
-			FacesContext
-					.getCurrentInstance()
-					.getExternalContext()
-					.redirect("/sigco/auth/comum/listas/listaEquipeTecnica.jsf");
+			if (id.equals("salvarfechar")) {
+				FacesContext
+						.getCurrentInstance()
+						.getExternalContext()
+						.redirect(
+								"/sigco/auth/comum/listas/listaEquipeTecnica.jsf");
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -103,6 +111,14 @@ public class EquipeTecnicaBean implements Serializable {
 		FacesMessage msg = new FacesMessage("Equipe Técnica Removido",
 				equipetecnica.getDescricao());
 		FacesContext.getCurrentInstance().addMessage(null, msg);
+	}
+
+	public String Editando() {
+		if (this.equipetecnica.getId() != null) {
+			return "Editando Equipe Técnica";
+		} else {
+			return "Cadastrando Equipe Técnica";
+		}
 	}
 
 }

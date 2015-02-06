@@ -5,7 +5,7 @@
 	xmlns:p="http://primefaces.org/ui">
 
 <ui:composition template="/comuns/layout.xhtml">
-	<ui:define name="pageTitle">Cadastro de Escolaridade</ui:define>
+	<ui:define name="pageTitle">Lista de Escolaridade</ui:define>
 
 	<ui:define name="corpo">
 
@@ -45,7 +45,7 @@
 
 					<p:column filterBy="#{escolaridade.descricao}"
 						filterStyle="display: none;" resizable="false"
-						headerText="Escolaridade" sortBy="#{escolaridade.descricao}">
+						headerText="Descrição" sortBy="#{escolaridade.descricao}">
 						<p:outputLabel value="#{escolaridade.descricao}" />
 					</p:column>
 
@@ -77,7 +77,7 @@
 
 		<p:confirmDialog id="dlgRemove" header="Excluir Escolaridade"
 			widgetVar="dlgRemove" appendTo="@(body)"
-			message="Deseja realmente excluir a escolaridade selecionada?"
+			message="Deseja realmente excluir o registro selecionado?"
 			severity="alert">
 			<h:form>
 

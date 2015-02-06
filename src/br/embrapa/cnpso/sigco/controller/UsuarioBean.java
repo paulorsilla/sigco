@@ -7,6 +7,7 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.Stateful;
 import javax.faces.application.FacesMessage;
+import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
@@ -84,14 +85,20 @@ public class UsuarioBean implements Serializable {
 	public void salvar(Usuario usr) {
 
 		try {
+			FacesContext context = FacesContext.getCurrentInstance();
+			String id = UIComponent.getCurrentComponent(context).getId();
+			System.out.println(id);
+
 			if (this.usuario.getLogin() != null) {
 				this.em.merge(usr);
 			} else {
 				this.em.persist(usr);
 			}
 			this.em.flush();
-			FacesContext.getCurrentInstance().getExternalContext()
-					.redirect("/sigco/auth/comum/listas/listaUsuarios.jsf");
+			if (id.equals("salvarfechar")) {
+				FacesContext.getCurrentInstance().getExternalContext()
+						.redirect("/sigco/auth/comum/listas/listaUsuarios.jsf");
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -117,5 +124,13 @@ public class UsuarioBean implements Serializable {
 		FacesMessage msg = new FacesMessage("Usuário Removido",
 				usuario.getNomeCompleto());
 		FacesContext.getCurrentInstance().addMessage(null, msg);
+	}
+
+	public String Editando() {
+		if (this.usuario.getLogin() != null) {
+			return "Editando Usuário";
+		} else {
+			return "Cadastrando Usuário";
+		}
 	}
 }

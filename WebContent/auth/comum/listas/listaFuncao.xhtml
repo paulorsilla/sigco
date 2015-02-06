@@ -5,7 +5,7 @@
 	xmlns:p="http://primefaces.org/ui">
 
 <ui:composition template="/comuns/layout.xhtml">
-	<ui:define name="pageTitle">Cadastro de Função</ui:define>
+	<ui:define name="pageTitle">Lista de Função</ui:define>
 
 	<ui:define name="corpo">
 		<h:form>
@@ -41,7 +41,7 @@
 					</f:facet>
 
 					<p:column filterBy="#{funcao.descricao}" resizable="false"
-						filterStyle="display: none; hidden: true;" headerText="Função"
+						filterStyle="display: none; hidden: true;" headerText="Descrição"
 						sortBy="#{funcao.descricao}">
 						<p:outputLabel value="#{funcao.descricao}" />
 					</p:column>
@@ -68,7 +68,7 @@
 
 		<p:confirmDialog id="dlgRemove" header="Excluir Função"
 			widgetVar="dlgRemove" appendTo="@(body)"
-			message="Deseja realmente excluir a função selecionada?"
+			message="Deseja realmente excluir o registro selecionado?"
 			severity="alert">
 			<h:form>
 

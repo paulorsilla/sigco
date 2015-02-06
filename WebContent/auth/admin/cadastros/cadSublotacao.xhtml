@@ -5,25 +5,27 @@
 	xmlns:p="http://primefaces.org/ui">
 
 <ui:composition template="/comuns/layout.xhtml">
-	<ui:define name="pageTitle">Cadastro de Sublotação</ui:define>
+	<ui:define name="pageTitle">#{}</ui:define>
 
 	<ui:define name="corpo">
-	
-		<f:metadata> 
- 			<f:viewParam converter="#{sublotacaoConverter}" name="sublotacao" value="#{sublotacaoBean.sublotacao}" /> 
- 		</f:metadata>
-	
-	
+
+		<f:metadata>
+			<f:viewParam converter="#{sublotacaoConverter}" name="sublotacao"
+				value="#{sublotacaoBean.sublotacao}" />
+		</f:metadata>
+
+
 		<!-- Janela para inserção de novo sublotacao -->
 
-		<h:form>
+		<h:form id="geral">
 			<p:toolbar styleClass="toolbar">
 				<f:facet name="left">
-					<p:commandButton type="button"
+					<p:commandButton id="salvar"
+						oncomplete="$(function(){PrimeFaces.focus('geral:descricao');});"
 						action="#{sublotacaoBean.salvar(sublotacaoBean.sublotacao)}"
 						value="Salvar" icon="ui-icon-check" update="@form @this" />
 					<p:commandButton value="Salvar e Fechar" icon="ui-icon-close"
-						update="@form @this"
+						update="@form @this" id="salvarfechar"
 						action="#{sublotacaoBean.salvar(sublotacaoBean.sublotacao)}" />
 				</f:facet>
 				<f:facet name="right">

@@ -5,7 +5,7 @@
 	xmlns:p="http://primefaces.org/ui">
 
 <ui:composition template="/comuns/layout.xhtml">
-	<ui:define name="pageTitle">Cadastro de Equipe Técnica</ui:define>
+	<ui:define name="pageTitle">Lista de Equipe Técnica</ui:define>
 
 	<ui:define name="corpo">
 		<h:form>
@@ -43,19 +43,20 @@
 					</f:facet>
 
 					<p:column filterBy="#{equipetecnica.descricao}" resizable="false"
-						filterStyle="display: none; hidden: true;"
-						headerText="Equipe Técnica" sortBy="#{equipetecnica.descricao}">
+						filterStyle="display: none; hidden: true;" headerText="Descrição"
+						sortBy="#{equipetecnica.descricao}">
 						<p:outputLabel value="#{equipetecnica.descricao}" />
 					</p:column>
 
 					<p:column headerText="Opções" exportable="false"
 						style="width:80px; text-align: center">
-						
-						<p:button id="alterarUsuario" icon="ui-icon-pencil" title="Alterar"
-						outcome="/auth/admin/cadastros/cadEquipeTecnica.jsf" > 
+
+						<p:button id="alterarUsuario" icon="ui-icon-pencil"
+							title="Alterar"
+							outcome="/auth/admin/cadastros/cadEquipeTecnica.jsf">
 							<f:param name="equipeTecnica" value="#{equipetecnica.id}" />
-						
-						</p:button>						
+
+						</p:button>
 
 						<p:commandButton oncomplete="PF('dlgRemove').show()"
 							icon="ui-icon-trash" title="Excluir">
@@ -71,7 +72,7 @@
 
 		<p:confirmDialog id="dlgRemove" header="Excluir Equipe Técnica"
 			widgetVar="dlgRemove" appendTo="@(body)"
-			message="Deseja realmente excluir a equipe técnica selecionada?"
+			message="Deseja realmente excluir o registro selecionado?"
 			severity="alert">
 			<h:form>
 

@@ -7,6 +7,7 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.Stateful;
 import javax.faces.application.FacesMessage;
+import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
@@ -33,7 +34,8 @@ public class EscolaridadeBean implements Serializable {
 	@PostConstruct
 	public void init() {
 		this.escolaridade = new Escolaridade();
-		CriteriaQuery<Escolaridade> cQ = em.getCriteriaBuilder().createQuery(Escolaridade.class);
+		CriteriaQuery<Escolaridade> cQ = em.getCriteriaBuilder().createQuery(
+				Escolaridade.class);
 		Root<Escolaridade> from = cQ.from(Escolaridade.class);
 		cQ.orderBy(em.getCriteriaBuilder().asc(from.get("ordem")));
 		listaEscolaridade = em.createQuery(cQ).getResultList();
@@ -65,14 +67,23 @@ public class EscolaridadeBean implements Serializable {
 
 	public void salvar(Escolaridade escolaridade) {
 		try {
+			FacesContext context = FacesContext.getCurrentInstance();
+			String id = UIComponent.getCurrentComponent(context).getId();
+			System.out.println(id);
+
 			if (this.escolaridade.getId() != null) {
 				this.em.merge(escolaridade);
 			} else {
 				this.em.persist(escolaridade);
 			}
 			this.em.flush();
-			FacesContext.getCurrentInstance().getExternalContext()
-					.redirect("/sigco/auth/comum/listas/listaEscolaridade.jsf");
+			if (id.equals("salvarfechar")) {
+				FacesContext
+						.getCurrentInstance()
+						.getExternalContext()
+						.redirect(
+								"/sigco/auth/comum/listas/listaEscolaridade.jsf");
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -100,4 +111,11 @@ public class EscolaridadeBean implements Serializable {
 		FacesContext.getCurrentInstance().addMessage(null, msg);
 	}
 
+	public String Editando() {
+		if (this.escolaridade.getId() != null) {
+			return "Editando Escolaridade";
+		} else {
+			return "Cadastrando Escolaridade";
+		}
+	}
 }

@@ -5,7 +5,7 @@
 	xmlns:p="http://primefaces.org/ui">
 
 <ui:composition template="/comuns/layout.xhtml">
-	<ui:define name="pageTitle">Cadastro de Cargos</ui:define>
+	<ui:define name="pageTitle">Lista de Cargos</ui:define>
 
 	<ui:define name="corpo">
 		<h:form>
@@ -41,16 +41,9 @@
 					</f:facet>
 
 					<p:column filterBy="#{cargos.descricao}" resizable="false"
-						filterStyle="display: none; hidden: true;" headerText="Cargos"
+						filterStyle="display: none; hidden: true;" headerText="Descrição"
 						sortBy="#{cargos.descricao}">
-						<p:cellEditor>
-							<f:facet name="input">
-								<p:inputText value="#{cargos.descricao}" />
-							</f:facet>
-							<f:facet name="output">
-								<p:outputLabel value="#{cargos.descricao}" />
-							</f:facet>
-						</p:cellEditor>
+						<p:outputLabel value="#{cargos.descricao}" />
 					</p:column>
 
 					<p:column headerText="Opções" exportable="false"
@@ -75,7 +68,7 @@
 
 		<p:confirmDialog id="dlgRemove" header="Excluir Cargo"
 			widgetVar="dlgRemove" appendTo="@(body)"
-			message="Deseja realmente excluir o cargo selecionado?"
+			message="Deseja realmente excluir o registro selecionado?"
 			severity="alert">
 			<h:form>
 

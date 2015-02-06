@@ -16,14 +16,15 @@
 
 		<!-- Janela para inserção de interesses  -->
 
-		<h:form>
+		<h:form id="geral">
 			<p:toolbar styleClass="toolbar">
 				<f:facet name="left">
-					<p:commandButton type="button"
+					<p:commandButton id="salvar"
 						action="#{interessesBean.salvar(interessesBean.interesses)}"
-						value="Salvar" icon="ui-icon-check" update="@form @this" />
+						value="Salvar" icon="ui-icon-check" update="@form @this"
+						oncomplete="$(function(){PrimeFaces.focus('geral:descricao');});" />
 					<p:commandButton value="Salvar e Fechar" icon="ui-icon-close"
-						update="@form @this"
+						update="@form @this" id="salvarfechar"
 						action="#{interessesBean.salvar(interessesBean.interesses)}" />
 				</f:facet>
 				<f:facet name="right">

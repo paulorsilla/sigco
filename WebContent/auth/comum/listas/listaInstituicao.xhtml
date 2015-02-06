@@ -5,7 +5,7 @@
 	xmlns:p="http://primefaces.org/ui">
 
 <ui:composition template="/comuns/layout.xhtml">
-	<ui:define name="pageTitle">Cadastro de Instituições</ui:define>
+	<ui:define name="pageTitle">Lista de Instituições</ui:define>
 
 	<ui:define name="corpo">
 		<h:form>
@@ -41,12 +41,6 @@
 								placeholder="pesquisar" />
 						</p:outputPanel>
 					</f:facet>
-
-					<p:ajax event="rowEdit" listener="#{instituicaoBean.onRowEdit}"
-						update=":instituicao:msgs" />
-					<p:ajax event="rowEditCancel"
-						listener="#{instituicaoBean.onRowCancel}"
-						update=":instituicao:msgs" />
 
 					<p:column filterBy="#{inst.razaoSocial}"
 						filterStyle="display: none; hidden: true;"
@@ -194,7 +188,7 @@
 
 		<p:confirmDialog id="dlgRemove" header="Excluir Instituição"
 			widgetVar="dlgRemove" appendTo="@(body)"
-			message="Deseja realmente excluir a instituição de atuação selecionada ?"
+			message="Deseja realmente excluir o registro selecionado?"
 			severity="alert">
 			<h:form>
 

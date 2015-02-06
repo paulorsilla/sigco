@@ -7,6 +7,7 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.Stateful;
 import javax.faces.application.FacesMessage;
+import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
@@ -66,10 +67,19 @@ public class FacilitadorBean implements Serializable {
 
 	public void salvar(Facilitador facilitador) {
 		try {
+			FacesContext context = FacesContext.getCurrentInstance();
+			String id = UIComponent.getCurrentComponent(context).getId();
+			System.out.println(id);
+
 			this.em.persist(facilitador);
 			this.em.flush();
-			FacesContext.getCurrentInstance().getExternalContext()
-					.redirect("/sigco/auth/comum/listas/listaFacilitador.jsf");
+			if (id.equals("salvarfechar")) {
+				FacesContext
+						.getCurrentInstance()
+						.getExternalContext()
+						.redirect(
+								"/sigco/auth/comum/listas/listaFacilitador.jsf");
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -94,5 +104,13 @@ public class FacilitadorBean implements Serializable {
 		FacesMessage msg = new FacesMessage("Facilitador Removido",
 				facilitador.getNome());
 		FacesContext.getCurrentInstance().addMessage(null, msg);
+	}
+
+	public String Editando() {
+		if (this.facilitador.getCpf() != null) {
+			return "Editando Facilitador";
+		} else {
+			return "Cadastrando Facilitador";
+		}
 	}
 }

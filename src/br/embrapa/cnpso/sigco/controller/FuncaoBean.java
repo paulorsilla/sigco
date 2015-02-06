@@ -7,6 +7,7 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.Stateful;
 import javax.faces.application.FacesMessage;
+import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
@@ -66,14 +67,20 @@ public class FuncaoBean implements Serializable {
 
 	public void salvar(Funcao funcao) {
 		try {
+			FacesContext context = FacesContext.getCurrentInstance();
+			String id = UIComponent.getCurrentComponent(context).getId();
+			System.out.println(id);
+
 			if (this.funcao.getId() != null) {
 				this.em.merge(funcao);
 			} else {
 				this.em.persist(funcao);
 			}
 			this.em.flush();
-			FacesContext.getCurrentInstance().getExternalContext()
-					.redirect("/sigco/auth/comum/listas/listaFuncao.jsf");
+			if (id.equals("salvarfechar")) {
+				FacesContext.getCurrentInstance().getExternalContext()
+						.redirect("/sigco/auth/comum/listas/listaFuncao.jsf");
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -98,5 +105,13 @@ public class FuncaoBean implements Serializable {
 		FacesMessage msg = new FacesMessage("Função Removido",
 				funcao.getDescricao());
 		FacesContext.getCurrentInstance().addMessage(null, msg);
+	}
+
+	public String Editando() {
+		if (this.funcao.getId() != null) {
+			return "Editando Função";
+		} else {
+			return "Cadastrando Função";
+		}
 	}
 }

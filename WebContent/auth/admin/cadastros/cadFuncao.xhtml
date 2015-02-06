@@ -9,20 +9,22 @@
 
 	<ui:define name="corpo">
 
-		<f:metadata> 
- 			<f:viewParam converter="#{funcaoConverter}" name="funcao" value="#{funcaoBean.funcao}" /> 
- 		</f:metadata>
+		<f:metadata>
+			<f:viewParam converter="#{funcaoConverter}" name="funcao"
+				value="#{funcaoBean.funcao}" />
+		</f:metadata>
 
 		<!-- Janela para inserção de novo função -->
 
-		<h:form>
+		<h:form id="geral">
 			<p:toolbar styleClass="toolbar">
 				<f:facet name="left">
-					<p:commandButton type="button"
+					<p:commandButton id="salvar"
+						oncomplete="$(function(){PrimeFaces.focus('geral:descricao');});"
 						action="#{funcaoBean.salvar(funcaoBean.funcao)}" value="Salvar"
 						icon="ui-icon-check" update="@form @this" />
 					<p:commandButton value="Salvar e Fechar" icon="ui-icon-close"
-						update="@form @this"
+						update="@form @this" id="salvarfechar"
 						action="#{funcaoBean.salvar(funcaoBean.funcao)}" />
 				</f:facet>
 				<f:facet name="right">

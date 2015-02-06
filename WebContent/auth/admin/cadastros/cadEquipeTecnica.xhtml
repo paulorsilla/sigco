@@ -10,20 +10,21 @@
 	<ui:define name="corpo">
 
 		<f:metadata>
-			<f:viewParam converter="#{equipeTecnicaConverter}" name="equipeTecnica"
-				value="#{equipeTecnicaBean.equipetecnica}" />
+			<f:viewParam converter="#{equipeTecnicaConverter}"
+				name="equipeTecnica" value="#{equipeTecnicaBean.equipetecnica}" />
 		</f:metadata>
 
 		<!-- Janela para inserção de novo equipe técnica -->
 
-		<h:form>
+		<h:form id="geral">
 			<p:toolbar styleClass="toolbar">
 				<f:facet name="left">
-					<p:commandButton type="button"
+					<p:commandButton id="salvar"
+						oncomplete="$(function(){PrimeFaces.focus('geral:descricao');});"
 						action="#{equipeTecnicaBean.salvar(equipeTecnicaBean.equipetecnica)}"
 						value="Salvar" icon="ui-icon-check" update="@form @this" />
 					<p:commandButton value="Salvar e Fechar" icon="ui-icon-close"
-						update="@form @this"
+						update="@form @this" id="salvarfechar"
 						action="#{equipeTecnicaBean.salvar(equipeTecnicaBean.equipetecnica)}" />
 				</f:facet>
 				<f:facet name="right">
@@ -35,7 +36,7 @@
 			<p:panel header="Cadastro de Equipe Técnica">
 				<p:panelGrid columns="2" styleClass="semBorda">
 					<p:outputLabel for="descricao" value="Descrição: " />
-					<p:inputText id="descricao" required="true" 
+					<p:inputText id="descricao" required="true"
 						value="#{equipeTecnicaBean.equipetecnica.descricao}" />
 
 				</p:panelGrid>

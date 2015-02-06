@@ -15,14 +15,15 @@
 				value="#{facilitadorBean.facilitador}" />
 		</f:metadata>
 
-		<h:form>
+		<h:form id="geral">
 			<p:toolbar styleClass="toolbar">
 				<f:facet name="left">
-					<p:commandButton type="button"
+					<p:commandButton id="salvar"
+						oncomplete="$(function(){PrimeFaces.focus('geral:descricao');});"
 						action="#{facilitadorBean.salvar(facilitadorBean.facilitador)}"
 						value="Salvar" icon="ui-icon-check" update="@form @this" />
 					<p:commandButton value="Salvar e Fechar" icon="ui-icon-close"
-						update="@form @this"
+						update="@form @this" id="salvarfechar"
 						action="#{facilitadorBean.salvar(facilitadorBean.facilitador)}" />
 				</f:facet>
 				<f:facet name="right">
