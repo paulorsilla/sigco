@@ -5,7 +5,7 @@
 	xmlns:p="http://primefaces.org/ui">
 
 <ui:composition template="/comuns/layout.xhtml">
-	<ui:define name="pageTitle">Cadastro de Cargo</ui:define>
+	<ui:define name="pageTitle">#{cargoBean.Editando()}o</ui:define>
 
 	<ui:define name="corpo">
 
@@ -34,7 +34,7 @@
 				</f:facet>
 			</p:toolbar>
 
-			<p:panel header="Cadastro de Cargo">
+			<p:panel header="#{cargoBean.Editando()}o">
 				<p:panelGrid columns="2" styleClass="semBorda">
 					<p:outputLabel for="descricao" value="Descrição: " />
 					<p:inputText id="descricao" required="true"

@@ -5,7 +5,7 @@
 	xmlns:p="http://primefaces.org/ui">
 
 <ui:composition template="/comuns/layout.xhtml">
-	<ui:define name="pageTitle">Cadastro de Instituição</ui:define>
+	<ui:define name="pageTitle">#{instituicaoBean.Editando()}</ui:define>
 
 	<ui:define name="corpo">
 		<!-- Janela para inserção de novo instituição -->
@@ -27,7 +27,8 @@
 				</f:facet>
 			</p:toolbar>
 
-			<p:panel header="Cadastro de Instituição" style="background: #F5F5F5">
+			<p:panel header="#{instituicaoBean.Editando()}"
+				style="background: #F5F5F5">
 				<p:panelGrid columns="4" styleClass="semBorda">
 					<p:outputLabel for="cnpj" value="CNPJ: " />
 					<p:inputMask mask="99.999.999/9999-99" id="cnpj" required="true"

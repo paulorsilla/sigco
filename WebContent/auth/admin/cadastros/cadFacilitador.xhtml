@@ -5,7 +5,7 @@
 	xmlns:p="http://primefaces.org/ui">
 
 <ui:composition template="/comuns/layout.xhtml">
-	<ui:define name="pageTitle">Cadastro de Facilitador</ui:define>
+	<ui:define name="pageTitle">#{facilitadorBean.Editando()}</ui:define>
 
 	<ui:define name="corpo">
 		<!-- Janela para inserção de novo usuário -->
@@ -32,7 +32,7 @@
 				</f:facet>
 			</p:toolbar>
 
-			<p:panel header="Cadastro de Facilitador">
+			<p:panel header="#{facilitadorBean.Editando()}">
 				<p:panelGrid columns="2" styleClass="semBorda">
 					<p:outputLabel for="cpf" value="CPF: " />
 					<p:inputMask mask="999.999.999-99" id="cpf" required="true"

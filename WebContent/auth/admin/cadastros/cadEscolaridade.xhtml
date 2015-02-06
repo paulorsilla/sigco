@@ -5,7 +5,7 @@
 	xmlns:p="http://primefaces.org/ui">
 
 <ui:composition template="/comuns/layout.xhtml">
-	<ui:define name="pageTitle">Cadastro de Escolaridade</ui:define>
+	<ui:define name="pageTitle">#{escolaridadeBean.Editando()}</ui:define>
 
 	<ui:define name="corpo">
 
@@ -31,7 +31,7 @@
 				</f:facet>
 			</p:toolbar>
 
-			<p:panel header="Cadastro de Escolaridade">
+			<p:panel header="#{escolaridadeBean.Editando()}">
 				<p:panelGrid columns="2" styleClass="semBorda">
 					<p:outputLabel for="descricao" value="Descrição:" />
 					<p:inputText id="descricao" required="true"

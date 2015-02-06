@@ -5,7 +5,7 @@
 	xmlns:p="http://primefaces.org/ui">
 
 <ui:composition template="/comuns/layout.xhtml">
-	<ui:define name="pageTitle">#{}</ui:define>
+	<ui:define name="pageTitle">#{interessesBean.Editando()}</ui:define>
 
 	<ui:define name="corpo">
 
@@ -33,7 +33,7 @@
 				</f:facet>
 			</p:toolbar>
 
-			<p:panel header="Cadastro de Interesses">
+			<p:panel header="#{interessesBean.Editando()}">
 				<p:panelGrid columns="2" styleClass="semBorda">
 					<p:outputLabel for="descricao" value="Descrição " />
 					<p:inputText id="descricao" required="true"
