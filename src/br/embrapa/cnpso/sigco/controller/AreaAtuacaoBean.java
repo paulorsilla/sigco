@@ -14,8 +14,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.criteria.CriteriaQuery;
 
-import org.primefaces.event.RowEditEvent;
-
 import br.embrapa.cnpso.sigco.model.AreaAtuacao;
 import br.embrapa.cnpso.sigco.model.SubareaAtuacao;
 
@@ -58,8 +56,8 @@ public class AreaAtuacaoBean implements Serializable {
 
 	public void setSubarea(SubareaAtuacao subarea) {
 		this.subarea = subarea;
-		
-		if(this.subarea != null) {
+
+		if (this.subarea != null) {
 			this.area = this.subarea.getArea();
 		}
 	}

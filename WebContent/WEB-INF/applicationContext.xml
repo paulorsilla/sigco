@@ -52,6 +52,9 @@
 			login-page="/login.jsf" authentication-failure-url="/login.jsf?erro=true"
 			login-processing-url="/j_spring_security_check" />
 
+		<security:logout invalidate-session="true"
+			logout-url="/j_spring_security_logout" logout-success-url="/index.jsf" />
+
 	</security:http>
 
 	<security:authentication-manager>

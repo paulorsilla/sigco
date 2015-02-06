@@ -14,7 +14,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.criteria.CriteriaQuery;
 
-import org.primefaces.event.RowEditEvent;
 import org.springframework.security.core.context.SecurityContextHolder;
 
 import br.embrapa.cnpso.sigco.model.Autorizacao;
@@ -39,7 +38,7 @@ public class UsuarioBean implements Serializable {
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public void init() {
 		this.usuario = new Usuario();
-	
+
 		CriteriaQuery cQ = em.getCriteriaBuilder().createQuery();
 		cQ.select(cQ.from(Usuario.class));
 
@@ -81,7 +80,7 @@ public class UsuarioBean implements Serializable {
 				.getName();
 		return login;
 	}
-	
+
 	public void salvar(Usuario usr) {
 
 		try {
