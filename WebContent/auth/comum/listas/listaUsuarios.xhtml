@@ -41,6 +41,8 @@
 							<p:inputText id="globalFilter"
 								onkeyup="PF('tabelaUsuarios').filter()" style="width: 250px"
 								placeholder="pesquisar" />
+							<p:commandButton id="filtrar" icon="ui-icon-search"
+								onclick="PF('tabelaArea').filter()" />
 						</p:outputPanel>
 					</f:facet>
 
@@ -65,19 +67,19 @@
 						headerText="Ativo" sortBy="#{usuario.enable}"
 						style="width:60px; 
 						text-align: center">
-						<p:selectBooleanCheckbox value="#{usuario.enable}"
-									disabled="true" style="width: auto" />
-	
+						<p:selectBooleanCheckbox value="#{usuario.enable}" disabled="true"
+							style="width: auto" />
+
 					</p:column>
 
 					<p:column headerText="Opções" exportable="false"
 						style="width:80px; text-align: center">
-						
-						<p:button id="alterarUsuario" icon="ui-icon-pencil" title="Alterar"
-						outcome="/auth/admin/cadastros/cadUsuarios.jsf" > 
+
+						<p:button id="alterarUsuario" icon="ui-icon-pencil"
+							title="Alterar" outcome="/auth/admin/cadastros/cadUsuarios.jsf">
 							<f:param name="usuario" value="#{usuario.login}" />
-						
-						</p:button>						
+
+						</p:button>
 
 						<p:commandButton onclick="PF('dlgRemove').show()"
 							icon="ui-icon-trash" title="Excluir">

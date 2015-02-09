@@ -38,6 +38,8 @@
 							<p:inputText id="globalFilter"
 								onkeyup="PF('tabelaSublotacao').filter()" style="width: 150px"
 								placeholder="pesquisar" />
+							<p:commandButton id="filtrar" icon="ui-icon-search"
+								onclick="PF('tabelaSublotacao').filter()" />
 						</p:outputPanel>
 					</f:facet>
 
@@ -55,11 +57,11 @@
 
 					<p:column headerText="Opções" exportable="false"
 						style="width:80px; text-align: center">
-						
-						<p:button id="alterarSublotacao" icon="ui-icon-pencil" title="Alterar"
-						outcome="/auth/admin/cadastros/cadSublotacao.jsf" > 
+
+						<p:button id="alterarSublotacao" icon="ui-icon-pencil"
+							title="Alterar" outcome="/auth/admin/cadastros/cadSublotacao.jsf">
 							<f:param name="sublotacao" value="#{sublotacao.id}" />
-						</p:button>						
+						</p:button>
 
 						<p:commandButton oncomplete="PF('dlgRemove').show()"
 							icon="ui-icon-trash" title="Excluir">
@@ -67,7 +69,7 @@
 								target="#{sublotacaoBean.sublotacao}" value="#{sublotacao}" />
 						</p:commandButton>
 					</p:column>
-					
+
 				</p:dataTable>
 			</p:panel>
 		</h:form>

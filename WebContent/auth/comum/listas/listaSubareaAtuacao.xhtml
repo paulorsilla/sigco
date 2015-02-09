@@ -39,13 +39,15 @@
 							<p:inputText id="globalFilter"
 								onkeyup="PF('tabelaSubarea').filter()" style="width: 150px"
 								placeholder="pesquisar" />
+							<p:commandButton id="filtrar" icon="ui-icon-search"
+								onclick="PF('tabelaSubarea').filter()" />
 						</p:outputPanel>
 					</f:facet>
 
 					<p:column filterBy="#{subarea.descricao}" resizable="false"
-						filterStyle="display: none; hidden: true;"
-						headerText="Descrição" sortBy="#{subarea.descricao}">
-								<p:outputLabel value="#{subarea.descricao}" />
+						filterStyle="display: none; hidden: true;" headerText="Descrição"
+						sortBy="#{subarea.descricao}">
+						<p:outputLabel value="#{subarea.descricao}" />
 					</p:column>
 
 					<p:column filterBy="#{subarea.area.descricao}" resizable="false"
@@ -56,11 +58,12 @@
 
 					<p:column headerText="Opções" exportable="false"
 						style="width:80px; text-align: center">
-						
-						<p:button id="alterarSubaareaAtuacao" icon="ui-icon-pencil" title="Alterar"
-						outcome="/auth/admin/cadastros/cadSubareaAtuacao.jsf" > 
+
+						<p:button id="alterarSubaareaAtuacao" icon="ui-icon-pencil"
+							title="Alterar"
+							outcome="/auth/admin/cadastros/cadSubareaAtuacao.jsf">
 							<f:param name="subarea" value="#{subarea.id}" />
-						</p:button>						
+						</p:button>
 
 						<p:commandButton oncomplete="PF('dlgRemove').show()"
 							icon="ui-icon-trash" title="Excluir">
