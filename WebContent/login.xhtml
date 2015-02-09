@@ -14,18 +14,20 @@
 			draggable="false" resizable="false" width="320">
 			<center>
 				<h:outputText value="Usuário ou senha incorretos!"
-					rendered="#{param.erro}" />
+					rendered="#{param.erro}" style="color: red;" />
 			</center>
-			<form action="${request.contextPath}/j_spring_security_check"
+			<h:form prependId="false" id="login"
+				onsubmit="document.#{p:component('login')}.action='#{request.contextPath}/j_spring_security_check';"
 				method="post">
 				<p:panelGrid columns="2" cellpadding="5" styleClass="semBorda">
-					<h:outputLabel for="j_username" value="Usuário:" />
-					<h:inputText id="j_username" required="true" />
-					<h:outputLabel for="j_password" value="Password:" />
-					<h:inputSecret id="j_password" required="true" />
-					<h:commandButton value="Login" />
+					<p:outputLabel for="j_username" value="Usuário:" />
+					<p:inputText id="j_username" required="true" />
+					<p:outputLabel for="j_password" value="Password:" />
+					<p:password id="j_password" required="true" />
+					<p:commandButton type="submit" ajax="false" id="botao-login"
+						value="Login" />
 				</p:panelGrid>
-			</form>
+			</h:form>
 		</p:dialog>
 
 	</ui:define>
