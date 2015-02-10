@@ -72,7 +72,6 @@ public class InteressesBean implements Serializable {
 
 			FacesContext context = FacesContext.getCurrentInstance();
 			String id = UIComponent.getCurrentComponent(context).getId();
-			System.out.println(id);
 
 			if (this.interesses.getId() != null) {
 				this.em.merge(interesses);
@@ -85,7 +84,7 @@ public class InteressesBean implements Serializable {
 						.getCurrentInstance()
 						.getExternalContext()
 						.redirect(
-								"/sigco/auth/comum/listas/listaInteresses.jsf");
+								"/auth/comum/listas/listaInteresses.jsf");
 			}
 			MessagesAlert alert = new MessagesAlert();
 			alert.save();

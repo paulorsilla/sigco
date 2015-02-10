@@ -106,7 +106,7 @@ public class SubareaAtuacaoBean implements Serializable {
 						.getCurrentInstance()
 						.getExternalContext()
 						.redirect(
-								"/sigco/auth/comum/listas/listaSubareaAtuacao.jsf");
+								"/auth/comum/listas/listaSubareaAtuacao.jsf");
 			}
 			MessagesAlert alert = new MessagesAlert();
 			alert.save();

@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -30,7 +31,7 @@ public class SubareaAtuacao implements Serializable {
 	private String descricao;
 
 	@NotNull
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.EAGER)
 	private AreaAtuacao area;
 
 	public Long getId() {
@@ -64,7 +65,6 @@ public class SubareaAtuacao implements Serializable {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((area == null) ? 0 : area.hashCode());
 		result = prime * result
 				+ ((descricao == null) ? 0 : descricao.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
@@ -83,11 +83,6 @@ public class SubareaAtuacao implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		SubareaAtuacao other = (SubareaAtuacao) obj;
-		if (area == null) {
-			if (other.area != null)
-				return false;
-		} else if (!area.equals(other.area))
-			return false;
 		if (descricao == null) {
 			if (other.descricao != null)
 				return false;
@@ -100,4 +95,5 @@ public class SubareaAtuacao implements Serializable {
 			return false;
 		return true;
 	}
+
 }

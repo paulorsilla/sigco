@@ -82,7 +82,7 @@ public class CargoBean implements Serializable {
 			this.em.flush();
 			if (id.equals("salvarfechar")) {
 				FacesContext.getCurrentInstance().getExternalContext()
-						.redirect("/sigco/auth/comum/listas/listaCargo.jsf");
+						.redirect("/auth/comum/listas/listaCargo.jsf");
 			}
 			MessagesAlert alert = new MessagesAlert();
 			alert.save();

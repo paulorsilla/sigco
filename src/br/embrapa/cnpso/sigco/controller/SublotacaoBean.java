@@ -71,7 +71,6 @@ public class SublotacaoBean implements Serializable {
 		try {
 			FacesContext context = FacesContext.getCurrentInstance();
 			String id = UIComponent.getCurrentComponent(context).getId();
-			System.out.println(id);
 
 			if (this.sublotacao.getId() != null) {
 				this.em.merge(sublotacao);
@@ -84,7 +83,7 @@ public class SublotacaoBean implements Serializable {
 						.getCurrentInstance()
 						.getExternalContext()
 						.redirect(
-								"/sigco/auth/comum/listas/listaSublotacao.jsf");
+								"/auth/comum/listas/listaSublotacao.jsf");
 			}
 			MessagesAlert alert = new MessagesAlert();
 			alert.save();

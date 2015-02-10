@@ -33,6 +33,7 @@ public class SubareaConverter implements Converter {
 			return null;
 		Long id = new Long(string);
 		SubareaAtuacao subarea = em.find(SubareaAtuacao.class, id);
+		System.out.println(subarea.getArea().getDescricao());
 		return subarea;
 	}
 }

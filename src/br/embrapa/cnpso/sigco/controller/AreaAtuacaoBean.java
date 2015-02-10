@@ -97,7 +97,7 @@ public class AreaAtuacaoBean implements Serializable {
 						.getCurrentInstance()
 						.getExternalContext()
 						.redirect(
-								"/sigco/auth/comum/listas/listaAreaAtuacao.jsf");
+								"/auth/comum/listas/listaAreaAtuacao.jsf");
 			}
 			MessagesAlert alert = new MessagesAlert();
 			alert.save();

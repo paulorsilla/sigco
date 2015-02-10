@@ -84,7 +84,7 @@ public class LocalizacaoBean implements Serializable {
 						.getCurrentInstance()
 						.getExternalContext()
 						.redirect(
-								"/sigco/auth/comum/listas/listaLocalizacao.jsf");
+								"/auth/comum/listas/listaLocalizacao.jsf");
 			}
 			MessagesAlert alert = new MessagesAlert();
 			alert.save();

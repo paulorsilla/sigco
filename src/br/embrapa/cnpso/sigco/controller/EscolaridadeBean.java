@@ -83,7 +83,7 @@ public class EscolaridadeBean implements Serializable {
 						.getCurrentInstance()
 						.getExternalContext()
 						.redirect(
-								"/sigco/auth/comum/listas/listaEscolaridade.jsf");
+								"/auth/comum/listas/listaEscolaridade.jsf");
 			}
 			MessagesAlert alert = new MessagesAlert();
 			alert.save();

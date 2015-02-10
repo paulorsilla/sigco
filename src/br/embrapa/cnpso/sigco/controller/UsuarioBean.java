@@ -61,7 +61,6 @@ public class UsuarioBean implements Serializable {
 	}
 
 	public void setUsuario(Usuario usuario) {
-		System.out.println("Passei por aqui.");
 		this.usuario = usuario;
 	}
 
@@ -88,7 +87,6 @@ public class UsuarioBean implements Serializable {
 		try {
 			FacesContext context = FacesContext.getCurrentInstance();
 			String id = UIComponent.getCurrentComponent(context).getId();
-			System.out.println(id);
 
 			if (this.usuario.getLogin() != null) {
 				this.em.merge(usr);
@@ -98,7 +96,7 @@ public class UsuarioBean implements Serializable {
 			this.em.flush();
 			if (id.equals("salvarfechar")) {
 				FacesContext.getCurrentInstance().getExternalContext()
-						.redirect("/sigco/auth/comum/listas/listaUsuarios.jsf");
+						.redirect("/auth/comum/listas/listaUsuarios.jsf");
 			}
 			MessagesAlert alert = new MessagesAlert();
 			alert.save();
