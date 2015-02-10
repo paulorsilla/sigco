@@ -44,8 +44,8 @@
 						value="#{subareaAtuacaoBean.subarea.area}"
 						converter="entityConverter" required="true" id="area">
 						<f:selectItem itemLabel="--Selecione--" noSelectionOption="true" />
-						<f:selectItems value="#{areaAtuacaoBean.listaArea}" var="area"
-							itemLabel="#{area.descricao}" />
+						<f:selectItems value="#{subareaAtuacaoBean.listaArea()}"
+							var="area" itemLabel="#{area.descricao}" />
 					</p:selectOneMenu>
 				</p:panelGrid>
 			</p:panel>

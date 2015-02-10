@@ -17,11 +17,18 @@
 		<url-pattern>*.jsf</url-pattern>
 	</servlet-mapping>
 	<session-config>
-		<session-timeout>30</session-timeout>
+		<session-timeout>-1</session-timeout>
 	</session-config>
+
+	<!-- Primefaces -->
+
 	<context-param>
 		<param-name>primefaces.THEME</param-name>
 		<param-value>delta</param-value>
+	</context-param>
+	<context-param>
+		<param-name>primefaces.FONT_AWESOME</param-name>
+		<param-value>true</param-value>
 	</context-param>
 
 	<!-- Security -->
