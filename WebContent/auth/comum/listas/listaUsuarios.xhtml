@@ -12,7 +12,9 @@
 	<ui:define name="corpo">
 
 		<h:form>
-			<p:toolbar styleClass="toolbar">
+			<p:toolbar
+				rendered="#{facesContext.externalContext.isUserInRole('Administrador')}"
+				styleClass="toolbar">
 				<f:facet name="left">
 					<p:commandButton id="novoUsuario" value="Novo Usuário"
 						action="/auth/admin/cadastros/cadUsuarios.jsf?faces-redirect=true"
@@ -72,8 +74,9 @@
 
 					</p:column>
 
-					<p:column headerText="Opções" exportable="false"
-						style="width:80px; text-align: center">
+					<p:column headerText="Opções"
+						rendered="#{facesContext.externalContext.isUserInRole('Administrador')}"
+						exportable="false" style="width:80px; text-align: center">
 
 						<p:button id="alterarUsuario" icon="ui-icon-pencil"
 							title="Alterar" outcome="/auth/admin/cadastros/cadUsuarios.jsf">

@@ -9,7 +9,9 @@
 
 	<ui:define name="corpo">
 		<h:form>
-			<p:toolbar styleClass="toolbar">
+			<p:toolbar
+				rendered="#{facesContext.externalContext.isUserInRole('Administrador')}"
+				styleClass="toolbar">
 				<f:facet name="left">
 					<p:commandButton id="novaInstituicao" value="Adicionar Instituição"
 						action="/auth/admin/cadastros/cadInstituicao.jsf?faces-redirect=true"
@@ -172,8 +174,9 @@
 						</p:cellEditor>
 					</p:column>
 
-					<p:column headerText="Alterar"
-						style="width:42px; text-align: center">
+					<p:column
+						rendered="#{facesContext.externalContext.isUserInRole('Administrador')}"
+						headerText="Alterar" style="width:42px; text-align: center">
 						<p:rowEditor />
 					</p:column>
 					<p:column headerText="Excluir"

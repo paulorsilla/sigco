@@ -9,7 +9,9 @@
 
 	<ui:define name="corpo">
 		<h:form>
-			<p:toolbar styleClass="toolbar">
+			<p:toolbar
+				rendered="#{facesContext.externalContext.isUserInRole('Administrador')}"
+				styleClass="toolbar">
 				<f:facet name="left">
 					<p:commandButton value="Adicionar Facilitador"
 						action="/auth/admin/cadastros/cadFacilitador.jsf?faces-redirect=true"
@@ -74,7 +76,9 @@
 						<p:outputLabel value="#{facilitador.uf}" />
 					</p:column>
 
-					<p:column headerText="Opções" exportable="false"
+					<p:column
+						rendered="#{facesContext.externalContext.isUserInRole('Administrador')}"
+						headerText="Opções" exportable="false"
 						style="width:80px; text-align: center">
 
 						<p:button id="alterarFacilitador" icon="ui-icon-pencil"

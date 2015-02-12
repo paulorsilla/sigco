@@ -9,7 +9,9 @@
 
 	<ui:define name="corpo">
 		<h:form>
-			<p:toolbar styleClass="toolbar">
+			<p:toolbar
+				rendered="#{facesContext.externalContext.isUserInRole('Administrador')}"
+				styleClass="toolbar">
 				<f:facet name="left">
 					<p:commandButton value="Adicionar Subárea de Atuação"
 						action="/auth/admin/cadastros/cadSubareaAtuacao.jsf?faces-redirect=true"
@@ -56,7 +58,9 @@
 						<p:outputLabel value="#{subarea.area.descricao}" />
 					</p:column>
 
-					<p:column headerText="Opções" exportable="false"
+					<p:column
+						rendered="#{facesContext.externalContext.isUserInRole('Administrador')}"
+						headerText="Opções" exportable="false"
 						style="width:80px; text-align: center">
 
 						<p:button id="alterarSubaareaAtuacao" icon="ui-icon-pencil"

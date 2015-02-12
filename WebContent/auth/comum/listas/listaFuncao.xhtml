@@ -9,7 +9,9 @@
 
 	<ui:define name="corpo">
 		<h:form>
-			<p:toolbar styleClass="toolbar">
+			<p:toolbar
+				rendered="#{facesContext.externalContext.isUserInRole('Administrador')}"
+				styleClass="toolbar">
 				<f:facet name="left">
 					<p:commandButton value="Adicionar Função"
 						action="/auth/admin/cadastros/cadFuncao.jsf?faces-redirect=true"
@@ -49,7 +51,9 @@
 					</p:column>
 
 
-					<p:column headerText="Opções" exportable="false"
+					<p:column
+						rendered="#{facesContext.externalContext.isUserInRole('Administrador')}"
+						headerText="Opções" exportable="false"
 						style="width:80px; text-align: center">
 
 						<p:button id="alterarFuncao" icon="ui-icon-pencil" title="Alterar"

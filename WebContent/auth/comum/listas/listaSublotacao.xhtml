@@ -9,7 +9,9 @@
 
 	<ui:define name="corpo">
 		<h:form>
-			<p:toolbar styleClass="toolbar">
+			<p:toolbar
+				rendered="#{facesContext.externalContext.isUserInRole('Administrador')}"
+				styleClass="toolbar">
 				<f:facet name="left">
 					<p:commandButton value="Adicionar Sublotação"
 						action="/auth/admin/cadastros/cadSublotacao.jsf?faces-redirect=true"
@@ -55,7 +57,9 @@
 						<p:outputLabel value="#{sublotacao.sigla}" />
 					</p:column>
 
-					<p:column headerText="Opções" exportable="false"
+					<p:column
+						rendered="#{facesContext.externalContext.isUserInRole('Administrador')}"
+						headerText="Opções" exportable="false"
 						style="width:80px; text-align: center">
 
 						<p:button id="alterarSublotacao" icon="ui-icon-pencil"

@@ -9,7 +9,9 @@
 
 	<ui:define name="corpo">
 		<h:form>
-			<p:toolbar styleClass="toolbar">
+			<p:toolbar
+				rendered="#{facesContext.externalContext.isUserInRole('Administrador')}"
+				styleClass="toolbar">
 				<f:facet name="left">
 					<p:commandButton value="Adicionar Área de Atuação"
 						action="/auth/admin/cadastros/cadAreaAtuacao.jsf?faces-redirect=true"
@@ -37,8 +39,8 @@
 							<p:inputText id="globalFilter"
 								onkeyup="PF('tabelaArea').filter()" style="width: 150px"
 								placeholder="pesquisar" />
-							<p:commandButton id="filtrar" 
-								icon="ui-icon-search" onclick="PF('tabelaArea').filter()" />
+							<p:commandButton id="filtrar" icon="ui-icon-search"
+								onclick="PF('tabelaArea').filter()" />
 						</p:outputPanel>
 					</f:facet>
 
@@ -48,8 +50,9 @@
 						<p:outputLabel value="#{area.descricao}" />
 					</p:column>
 
-					<p:column headerText="Opções" exportable="false"
-						style="width:80px; text-align: center">
+					<p:column headerText="Opções"
+						rendered="#{facesContext.externalContext.isUserInRole('Administrador')}"
+						exportable="false" style="width:80px; text-align: center">
 						<p:button id="alterarAreaAtuacao" icon="ui-icon-pencil"
 							title="Alterar"
 							outcome="/auth/admin/cadastros/cadAreaAtuacao.jsf">
