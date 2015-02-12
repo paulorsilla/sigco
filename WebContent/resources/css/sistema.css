@@ -219,6 +219,10 @@ no-repeat
 
 
 
+
+
+
+
 ;
 }
 /* Menu sistema fim */
@@ -251,4 +255,8 @@ a.button {
 
 a.button:active {
 	border-style: inset;
+}
+
+.ui-datatable tr.ui-datatable-even:hover, .ui-datatable tr.ui-datatable-odd:hover {
+	background: #78BCFF;
 }
