@@ -74,41 +74,15 @@
 			Obs.: Isto irá causar a exclusão de todas as subáreas de atuação vinculadas a esta área."
 			severity="alert">
 			<h:form>
-
+			
+				<p:commandButton value="Cancelar" onclick="@dlgRemove"
+					update="@form :area" />
+				
 				<p:commandButton value="Sim"
 					action="#{areaAtuacaoBean.excluir(areaAtuacaoBean.area)}"
 					onclick="@dlgRemove.hide()" update="@form :area" />
-
-				<p:commandButton value="Cancelar" onclick="@dlgRemove"
-					update="@form :area" />
-
 			</h:form>
 		</p:confirmDialog>
-
-		<!-- Janela para inserção de nova área -->
-
-		<p:dialog id="dlgNewArea" header="Adicionando Área de Atuação"
-			widgetVar="dlgNewArea" modal="true" resizable="false"
-			appendTo="@(body)" draggable="false" styleClass="semBorda">
-			<h:form>
-				<p:panelGrid columns="2">
-					<p:outputLabel for="area" value="Área de Atuação: " />
-					<p:inputText id="area" required="true"
-						value="#{areaAtuacaoBean.area.descricao}" />
-				</p:panelGrid>
-
-				<p:commandButton
-					action="#{areaAtuacaoBean.salvar(areaAtuacaoBean.area)}"
-					value="Salvar" icon="ui-icon-check"
-					oncomplete="PF('dlgNewArea').show()" update="@form :area @this" />
-				<p:spacer width="5px" />
-				<p:commandButton value="Salvar e Fechar" icon="ui-icon-close"
-					onclick="@dlgNewArea"
-					action="#{areaAtuacaoBean.salvar(areaAtuacaoBean.area)}"
-					update="@form :area @this" />
-			</h:form>
-
-		</p:dialog>
 
 	</ui:define>
 </ui:composition>
