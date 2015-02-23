@@ -7,56 +7,8 @@
 <ui:composition template="/comuns/layout.xhtml">
 	<ui:define name="corpo">
 		<h:form>
-
-			<p:growl id="messages" showDetail="true" />
-
-			<h:panelGrid columnClasses="value" columns="2">
-				<p:schedule id="schedule" value="#{scheduleView.eventModel}"
-					widgetVar="myschedule">
-
-					<p:ajax event="dateSelect" listener="#{scheduleView.onDateSelect}"
-						update="eventDetails" oncomplete="PF('eventDialog').show();" />
-					<p:ajax event="eventSelect"
-						listener="#{scheduleView.onEventSelect}" update="eventDetails"
-						oncomplete="PF('eventDialog').show();" />
-					<p:ajax event="eventMove" listener="#{scheduleView.onEventMove}"
-						update="messages" />
-					<p:ajax event="eventResize"
-						listener="#{scheduleView.onEventResize}" update="messages" />
-
-				</p:schedule>
-				<p:clock />
-			</h:panelGrid>
-
-			<p:dialog widgetVar="eventDialog" header="Event Details"
-				showEffect="clip" hideEffect="clip">
-				<p:panelGrid id="eventDetails" columns="2">
-					<p:outputLabel for="title" value="Title:" />
-					<p:inputText id="title" value="#{scheduleView.event.title}"
-						required="true" />
-
-					<p:outputLabel for="from" value="From:" />
-					<p:inputMask id="from" value="#{scheduleView.event.startDate}"
-						mask="99/99/9999">
-						<f:convertDateTime pattern="dd/MM/yyyy" />
-					</p:inputMask>
-
-					<p:outputLabel for="to" value="To:" />
-					<p:inputMask id="to" value="#{scheduleView.event.endDate}"
-						mask="99/99/9999">
-						<f:convertDateTime pattern="dd/MM/yyyy" />
-					</p:inputMask>
-
-					<p:outputLabel for="allDay" value="All Day:" />
-					<p:selectBooleanCheckbox id="allDay"
-						value="#{scheduleView.event.allDay}" />
-
-					<p:commandButton type="reset" value="Reset" />
-					<p:commandButton id="addButton" value="Save"
-						actionListener="#{scheduleView.addEvent}"
-						oncomplete="PF('myschedule').update();PF('eventDialog').hide();" />
-				</p:panelGrid>
-			</p:dialog>
+			<p:graphicImage url="/resources/img/capa.jpg" height="700px"
+				width="100%" />
 		</h:form>
 
 		<style type="text/css">
